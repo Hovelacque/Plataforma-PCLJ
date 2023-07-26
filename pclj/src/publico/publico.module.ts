@@ -9,12 +9,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { CarrosselComponent } from './carrossel/carrossel.component';
 import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
-    PublicoComponent
+    PublicoComponent,
+    CarrosselComponent,
     HomeComponent
   ],
   imports: [
