@@ -8,8 +8,9 @@ A plataforma PCLJ nasceu como uma forma de me ajudar a gerenciar os projetos dos
 ## Projeto e Estruturas
 - [X] Criar projeto Angular
 - [X] Adicionar Angular Material
-- [ ] Configurar Módulo Root/Shared
-- [ ] Criar módulos interno/externo
+- [X] Configurar Módulo Root/Shared
+- [X] Criar módulos interno/externo
+- [ ] Controlar acesso
 - [ ] Criar banco
 
 ## Externo
