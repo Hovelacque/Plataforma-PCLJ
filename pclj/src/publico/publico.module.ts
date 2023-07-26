@@ -9,11 +9,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     PublicoComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
