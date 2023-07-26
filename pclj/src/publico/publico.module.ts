@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PublicoRoutingModule } from './publico-routing.module';
 
 import { PublicoComponent } from './publico.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -11,9 +12,10 @@ import { PublicoComponent } from './publico.component';
     PublicoComponent
   ],
   imports: [
-    CommonModule,
-    
+    CommonModule,    
     PublicoRoutingModule,
+
+    MatButtonModule,
   ]
 })
 export class PublicoModule { }

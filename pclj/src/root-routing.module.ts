@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/publico', pathMatch: 'full' },
+    // { path: '', redirectTo: '/publico', pathMatch: 'full' },
     {
         path: 'publico',
         loadChildren: () => import('./publico/publico.module').then(m => m.PublicoModule),
