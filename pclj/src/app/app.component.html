@@ -1,13 +1,20 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+  <mat-sidenav #drawer class="sidenav" fixedInViewport 
+  [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" 
+    [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Avatar</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item href="app/home">Home</a>
+      <a mat-list-item href="app/dashboard">Alterar Avatar</a>
+      <a mat-list-item href="app/dashboard">Projetos</a>
+      <a mat-list-item href="app/dashboard">Trabalhos</a>
+
       <a mat-list-item href="app/dashboard">Dashboard</a>
       <a mat-list-item href="app/table">Table</a>
       <a mat-list-item href="app/drag-drop">Drag and Drop</a>
       <a mat-list-item href="app/address-form">Address form</a>
+
       <a mat-list-item href="/">Sair</a>
     </mat-nav-list>
   </mat-sidenav>
