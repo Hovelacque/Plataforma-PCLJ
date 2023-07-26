@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { MatSliderModule } from '@angular/material/slider';
-import { NaviagationComponent } from './naviagation/naviagation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,14 +31,13 @@ import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
-    NaviagationComponent,
     TableComponent,
     DashboardComponent,
     DragDropComponent,
     AddressFormComponent,
     HomeComponent
   ],
-  imports: [    
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -47,23 +45,23 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
 
     MatSliderModule,
-     LayoutModule,
-     MatToolbarModule,
-     MatButtonModule,
-     MatSidenavModule,
-     MatIconModule,
-     MatListModule,
-     MatTableModule,
-     MatPaginatorModule,
-     MatSortModule,
-     MatGridListModule,
-     MatCardModule,
-     MatMenuModule,
-     DragDropModule,
-     MatInputModule,
-     MatSelectModule,
-     MatRadioModule,
-     ReactiveFormsModule
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    DragDropModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    ReactiveFormsModule
   ],
   providers: [],
 })
