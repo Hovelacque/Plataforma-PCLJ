@@ -1,0 +1,165 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Avatar</mat-card-title>
+        <mat-card-subtitle>
+            Altere seu avatar de apresentação
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+        <div class="center">
+            <avatar [options]="options"></avatar>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Olhos</mat-label>
+                    <mat-select [(ngModel)]="options.eyes">
+                        <mat-option *ngFor="let item of eyes" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Sobrancelha</mat-label>
+                    <mat-select [(ngModel)]="options.eyebrow">
+                        <mat-option *ngFor="let item of eyebrow" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Boca</mat-label>
+                    <mat-select [(ngModel)]="options.mouth">
+                        <mat-option *ngFor="let item of mouth" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Pele</mat-label>
+                    <mat-select [(ngModel)]="options.skin">
+                        <mat-option *ngFor="let item of skin" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Chapéu</mat-label>
+                    <mat-select [(ngModel)]="options.top">
+                        <mat-option *ngFor="let item of tops" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col" *ngIf="options.top !== (topsEnum.EYEPATCH)">
+                <mat-form-field class="full-width">
+                    <mat-label>Acessório</mat-label>
+                    <mat-select [(ngModel)]="options.accessories">
+                        <mat-option *ngFor="let item of accessories" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col" *ngIf="showHairColour">
+                <mat-form-field class="full-width">
+                    <mat-label>Cor do cabelo</mat-label>
+                    <mat-select [(ngModel)]="options.hairColor">
+                        <mat-option *ngFor="let item of hairColor" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" *ngIf="showHatColour">
+                <mat-form-field class="full-width">
+                    <mat-label>Cor do chapéu</mat-label>
+                    <mat-select [(ngModel)]="options.hatColor">
+                        <mat-option *ngFor="let item of hatColor" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col" *ngIf="options.top !== (topsEnum.HIJAB)">
+                <mat-form-field class="full-width">
+                    <mat-label>Barba</mat-label>
+                    <mat-select [(ngModel)]="options.facialHair">
+                        <mat-option *ngFor="let item of facialHair" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col" *ngIf="options.top !== (topsEnum.HIJAB)">
+                <mat-form-field class="full-width">
+                    <mat-label>Cor da barba</mat-label>
+                    <mat-select [(ngModel)]="options.facialHairColor">
+                        <mat-option *ngFor="let item of facialHairColor" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Roupa</mat-label>
+                    <mat-select [(ngModel)]="options.clothes">
+                        <mat-option *ngFor="let item of clothe" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col" *ngIf="showColourFabric">
+                <mat-form-field class="full-width">
+                    <mat-label>Cor da roupa</mat-label>
+                    <mat-select [(ngModel)]="options.clothColor">
+                        <mat-option *ngFor="let item of clothColor" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col" *ngIf="options.clothes === (clothesEnum.GRAPHIC_SHIRT)">
+                <mat-form-field class="full-width">
+                    <mat-label>Estampa</mat-label>
+                    <mat-select [(ngModel)]="options.graphic">
+                        <mat-option *ngFor="let item of graphic" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+
+        <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions class="footer">
+        <button mat-raised-button color="accent" type="submit" (click)="generateRandom()">
+            Gerar Avatar Aleatório
+        </button>
+        <div>
+            <button mat-button>Cancelar</button>
+            <button mat-raised-button color="primary">Salvar</button>
+        </div>
+    </mat-card-actions>
+</mat-card>

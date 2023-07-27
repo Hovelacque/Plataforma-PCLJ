@@ -27,6 +27,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
+import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
+import { AvatarModule } from 'avatar-angular-kapibara';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { CommonModule } from '@angular/common';
     DashboardComponent,
     DragDropComponent,
     AddressFormComponent,
-    HomeComponent
+    HomeComponent,
+    ChangeAvatarComponent
   ],
   imports: [
     CommonModule,
@@ -43,9 +46,10 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     MatInputModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    LayoutModule,
 
     MatSliderModule,
-    LayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -61,7 +65,8 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
-    ReactiveFormsModule
+    
+    AvatarModule,
   ],
   providers: [],
 })

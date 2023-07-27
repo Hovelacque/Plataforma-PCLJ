@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TableComponent } from './table/table.component';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { AddressFormComponent } from './address-form/address-form.component';
+import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,8 @@ import { AddressFormComponent } from './address-form/address-form.component';
         component: AppComponent,
         children: [
           { path: 'home', component: HomeComponent },
+          { path: 'change-avatar', component: ChangeAvatarComponent },
+
           { path: 'dashboard', component: DashboardComponent },
           { path: 'table', component: TableComponent },
           { path: 'drag-drop', component: DragDropComponent },
