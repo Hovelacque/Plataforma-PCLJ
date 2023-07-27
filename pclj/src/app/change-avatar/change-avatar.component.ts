@@ -76,23 +76,23 @@ export class ChangeAvatarComponent implements OnInit {
     this.options.style = AvatarStyle.TRANSPARENT;
   }
 
-  get showColourFabric():boolean {
+  get disabledColourFabric():boolean {
     if ((this.options.clothes === this.clothesEnum.BLAZER_SHIRT) || (this.options.clothes === this.clothesEnum.BLAZER_SWEATER)) {
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 
-  get showHatColour():boolean {
+  get disabledHatColour():boolean {
     if ((this.options.top === this.topsEnum.HIJAB) || (this.options.top === this.topsEnum.TURBAN) ||
       (this.options.top === this.topsEnum.WINTER_HAT1) || (this.options.top === this.topsEnum.WINTER_HAT2) ||
       (this.options.top === this.topsEnum.WINTER_HAT3) || (this.options.top === this.topsEnum.WINTER_HAT4)) {
-      return true;
+      return false;
     }
-    else return false;
+    else return true;
   }
 
-  get showHairColour():boolean {
+  get disabledHairColour():boolean {
     if ((this.options.top === this.topsEnum.LONGHAIR_BIGHAIR) || (this.options.top === this.topsEnum.LONGHAIR_BOB) ||
       (this.options.top === this.topsEnum.LONGHAIR_BUN) || (this.options.top === this.topsEnum.LONGHAIR_CURLY) ||
       (this.options.top === this.topsEnum.LONGHAIR_CURVY) || (this.options.top === this.topsEnum.LONGHAIR_DREADS) ||
@@ -105,9 +105,9 @@ export class ChangeAvatarComponent implements OnInit {
       (this.options.top === this.topsEnum.SHORTHAIR_SHORTFLAT) || (this.options.top === this.topsEnum.SHORTHAIR_SHORTROUND) ||
       (this.options.top === this.topsEnum.SHORTHAIR_SHORTWAVED) || (this.options.top === this.topsEnum.SHORTHAIR_SIDES) ||
       (this.options.top === this.topsEnum.SHORTHAIR_THECAESAR) || (this.options.top === this.topsEnum.SHORTHAIR_THECAESARSIDEPART)) {
-      return true;
+      return false;
     }
-    else return false;
+    else return true;
   }
 
 }
