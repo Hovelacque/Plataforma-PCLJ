@@ -16,3 +16,7 @@ mat-nav-list.list-horizontal {
         color: white;
     }
 }
+
+mat-grid-tile {
+    background: lightblue;
+  }
