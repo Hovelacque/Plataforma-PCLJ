@@ -29,6 +29,8 @@ import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
 import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
 import { AvatarModule } from 'avatar-angular-kapibara';
+import { ProjetosComponent } from './projetos/projetos.component';
+import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projetos/create-or-edit-projetos.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { AvatarModule } from 'avatar-angular-kapibara';
     DragDropComponent,
     AddressFormComponent,
     HomeComponent,
-    ChangeAvatarComponent
+    ChangeAvatarComponent,
+    ProjetosComponent,
+    CreateOrEditProjetosComponent
   ],
   imports: [
     CommonModule,

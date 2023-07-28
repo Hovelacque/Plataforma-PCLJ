@@ -7,6 +7,7 @@ import { TableComponent } from './table/table.component';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { AddressFormComponent } from './address-form/address-form.component';
 import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
+import { ProjetosComponent } from './projetos/projetos.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
         children: [
           { path: 'home', component: HomeComponent },
           { path: 'change-avatar', component: ChangeAvatarComponent },
+          { path: 'projetos', component: ProjetosComponent },
 
           { path: 'dashboard', component: DashboardComponent },
           { path: 'table', component: TableComponent },
