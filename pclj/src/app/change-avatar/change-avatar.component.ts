@@ -4,6 +4,7 @@ import {
   Clothes, FacialHair, Top, Eyes, Mouth, Skin, Accessories, Eyebrow,
   Graphic, FacialHairColor, ClothesColor, HatColor, HairColor, Face,
 } from 'avatar-angular-kapibara';
+import { AvatarTranslateService } from './avatar-translate.service';
 
 class AvatarEnums {
   value: string = '';
@@ -18,11 +19,14 @@ class AvatarEnums {
 @Component({
   selector: 'app-change-avatar',
   templateUrl: './change-avatar.component.html',
-  styleUrls: ['./change-avatar.component.css']
+  styleUrls: ['./change-avatar.component.css'],
+  providers: [
+    AvatarTranslateService
+  ]
 })
 export class ChangeAvatarComponent implements OnInit {
 
-  options: AvatarOptions =  new AvatarOptions();
+  options: AvatarOptions = new AvatarOptions();
 
   topsEnum = Top;
   facialHairEnum = FacialHair;
@@ -41,32 +45,35 @@ export class ChangeAvatarComponent implements OnInit {
   mouth: AvatarEnums[] = [];
   skin: AvatarEnums[] = [];
   tops: AvatarEnums[] = [];
-  constructor() { }
+
+  constructor(
+    private _avatarTranslateService: AvatarTranslateService
+  ) { }
 
   ngOnInit(): void {
     this.load();
   }
 
   load(): void {
-    this.tops = this.getEnumList('tops',Top);
+    this.tops = this.getEnumList('tops', Top);
     this.facialHair = this.getEnumList('facialHair', FacialHair);
-    this.clothe = this.getEnumList('clothe',Clothes);
+    this.clothe = this.getEnumList('clothe', Clothes);
     this.eyes = this.getEnumList('eyes', Eyes);
     this.eyebrow = this.getEnumList('eyebrow', Eyebrow);
-    this.mouth = this.getEnumList('mouth',Mouth);
-    this.skin = this.getEnumList('skin',Skin);
+    this.mouth = this.getEnumList('mouth', Mouth);
+    this.skin = this.getEnumList('skin', Skin);
     this.accessories = this.getEnumList('accessories', Accessories);
     this.clothColor = this.getEnumList('clothColor', ClothesColor);
-    this.facialHairColor = this.getEnumList('facialHairColor',FacialHairColor);
-    this.graphic = this.getEnumList('graphic',Graphic);
-    this.hatColor = this.getEnumList('hatColor',HatColor);
+    this.facialHairColor = this.getEnumList('facialHairColor', FacialHairColor);
+    this.graphic = this.getEnumList('graphic', Graphic);
+    this.hatColor = this.getEnumList('hatColor', HatColor);
     this.hairColor = this.getEnumList('hairColor', HairColor);
   }
 
   getEnumList(campo: string, enumRef: any): AvatarEnums[] {
     return Object.keys(enumRef).map(key => {
       let label = enumRef[key].trim();
-      return new AvatarEnums(label, `${campo}_${label}`);
+      return new AvatarEnums(label, this._avatarTranslateService.translate(`${campo}_${label}`));
     });
   }
 
@@ -76,14 +83,14 @@ export class ChangeAvatarComponent implements OnInit {
     this.options.style = AvatarStyle.TRANSPARENT;
   }
 
-  get disabledColourFabric():boolean {
+  get disabledColourFabric(): boolean {
     if ((this.options.clothes === this.clothesEnum.BLAZER_SHIRT) || (this.options.clothes === this.clothesEnum.BLAZER_SWEATER)) {
       return true;
     }
     return false;
   }
 
-  get disabledHatColour():boolean {
+  get disabledHatColour(): boolean {
     if ((this.options.top === this.topsEnum.HIJAB) || (this.options.top === this.topsEnum.TURBAN) ||
       (this.options.top === this.topsEnum.WINTER_HAT1) || (this.options.top === this.topsEnum.WINTER_HAT2) ||
       (this.options.top === this.topsEnum.WINTER_HAT3) || (this.options.top === this.topsEnum.WINTER_HAT4)) {
@@ -92,7 +99,7 @@ export class ChangeAvatarComponent implements OnInit {
     else return true;
   }
 
-  get disabledHairColour():boolean {
+  get disabledHairColour(): boolean {
     if ((this.options.top === this.topsEnum.LONGHAIR_BIGHAIR) || (this.options.top === this.topsEnum.LONGHAIR_BOB) ||
       (this.options.top === this.topsEnum.LONGHAIR_BUN) || (this.options.top === this.topsEnum.LONGHAIR_CURLY) ||
       (this.options.top === this.topsEnum.LONGHAIR_CURVY) || (this.options.top === this.topsEnum.LONGHAIR_DREADS) ||
@@ -136,15 +143,15 @@ export class ChangeAvatarComponent implements OnInit {
       a.click();
 
       // canvas.toBlob(imageBlob => {
-        // this._uploadService.uploadBlobFotoPerfil(imageBlob)
-        //   .then((fileName) => {
-        //     this.loading = false;
-        //     this.setFotoDePerfil(fileName);
-        //   })
-        //   .catch((error) => {
-        //     this.loading = false;
-        //     abp.message.error("Erro no upload");
-        //   });
+      // this._uploadService.uploadBlobFotoPerfil(imageBlob)
+      //   .then((fileName) => {
+      //     this.loading = false;
+      //     this.setFotoDePerfil(fileName);
+      //   })
+      //   .catch((error) => {
+      //     this.loading = false;
+      //     abp.message.error("Erro no upload");
+      //   });
       // });
     };
     img.src = url;
