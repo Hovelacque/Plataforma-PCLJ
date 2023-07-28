@@ -145,7 +145,6 @@
             </div>
         </div>
 
-
         <mat-divider></mat-divider>
     </mat-card-content>
     <mat-card-actions class="footer">
@@ -153,8 +152,8 @@
             Gerar Avatar Aleatório
         </button>
         <div>
-            <button mat-button>Cancelar</button>
-            <button mat-raised-button color="primary">Salvar</button>
+            <button mat-raised-button (click)="onDownloadPNG()">Baixar como imagem</button>
+            <button mat-raised-button color="primary" (click)="onDownloadPNG()">Salvar</button>
         </div>
     </mat-card-actions>
 </mat-card>

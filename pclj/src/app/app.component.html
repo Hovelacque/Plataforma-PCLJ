@@ -1,8 +1,17 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Avatar</mat-toolbar>
+
+    <div class="center">
+      <img src="assets/images/avatar.png" height="150px" />
+    </div>
+    <b class="center">
+      Gustavo Geissler Hovelacque
+    </b>
+    
     <mat-nav-list>
+      <mat-divider></mat-divider>
+      
       <a mat-list-item routerLink="home">Home</a>
       <a mat-list-item routerLink="change-avatar">Alterar Avatar</a>
       <a mat-list-item routerLink="dashboard">Projetos</a>
