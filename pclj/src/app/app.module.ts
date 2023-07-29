@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { SharedModule } from '@shared/shared.module';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -12,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { TableComponent } from './table/table.component';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -52,6 +53,7 @@ import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projeto
     AppRoutingModule,
     ReactiveFormsModule,
     LayoutModule,
+    SharedModule,
 
     MatSliderModule,
     MatToolbarModule,
@@ -60,7 +62,6 @@ import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projeto
     MatIconModule,
     MatListModule,
     MatTableModule,
-    MatPaginatorModule,
     MatSortModule,
     MatGridListModule,
     MatCardModule,
@@ -69,7 +70,7 @@ import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projeto
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
-    
+
     AvatarModule,
   ],
   providers: [],

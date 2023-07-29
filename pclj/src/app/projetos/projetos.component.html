@@ -1,13 +1,17 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Projetos</mat-card-title>
+        <mat-card-title>
+            Projetos
+        </mat-card-title>
         <mat-card-subtitle>
             Crie ou altere seus próprios projetos, eles ficarão disponíveis em seu perfil público
         </mat-card-subtitle>
     </mat-card-header>
+    <mat-divider></mat-divider>
     <mat-card-content>
 
-        <div class="mat-elevation-z8">
+        <!-- class="mat-elevation-z8" -->
+        <div style="margin-top: 30px;">
             <table mat-table class="full-width-table" matSort aria-label="Elements">
                 <!-- Id Column -->
                 <ng-container matColumnDef="id">
@@ -29,9 +33,22 @@
                             <mat-icon>menu</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu">
-                            <button mat-menu-item>Editar</button>
-                            <button mat-menu-item>Visualizar</button>
-                            <button mat-menu-item>Excluir</button>
+                            <button mat-menu-item>
+                                <mat-icon>edit</mat-icon>
+                                Editar
+                            </button>
+                            <button mat-menu-item>
+                                <mat-icon>visibility</mat-icon>
+                                Ver no perfil
+                            </button>
+                            <button mat-menu-item>
+                                <mat-icon>share</mat-icon>
+                                Compartilhar
+                            </button>
+                            <button mat-menu-item>
+                                <mat-icon>delete</mat-icon>
+                                Excluir
+                            </button>
                         </mat-menu>
                     </td>
                 </ng-container>
@@ -41,19 +58,16 @@
             </table>
 
             <mat-paginator #paginator [length]="dataSource?.data?.length" [pageIndex]="0" [pageSize]="5"
-                [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
+                [pageSizeOptions]="[5, 10, 20]" aria-label="Selecione a página">
             </mat-paginator>
         </div>
 
 
-
-        <mat-divider></mat-divider>
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-fab color="primary">
+    <mat-card-actions align="end">
+        <button mat-raised-button color="primary" style="margin-right: 20px; margin-bottom: 20px;">
             <mat-icon>add</mat-icon>
+            Criar um novo projeto
         </button>
-        <!-- <button mat-raised-button (click)="onDownloadPNG()">Baixar como imagem</button> -->
-        <!-- <button mat-raised-button color="primary" (click)="onDownloadPNG()">Salvar</button> -->
     </mat-card-actions>
 </mat-card>

@@ -22,7 +22,12 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app/*": [ "./src/app/*" ],
+      "@shared/*": [ "./src/shared/*" ],
+      "@node_modules/*": [ "./node_modules/*" ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
