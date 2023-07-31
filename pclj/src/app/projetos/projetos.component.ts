@@ -1,31 +1,45 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableDataSource, TableItem } from '../table/table-datasource';
+import { ProjetoService } from './projetos.service';
+import { Router } from '@angular/router';
+import { ProjetoServiceProxyService } from '@shared/service-proxies/projeto/projeto-service-proxy.service';
+import { ProjetoListOutput } from '@shared/service-proxies/projeto/projeto-list-output';
 
 @Component({
   selector: 'app-projetos',
   templateUrl: './projetos.component.html',
   styleUrls: ['./projetos.component.css']
 })
-export class ProjetosComponent implements AfterViewInit {
+export class ProjetosComponent {
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<TableItem>;
-  dataSource: TableDataSource;
+  projetos: ProjetoListOutput[];
+  displayedColumns = ['nome', 'descricao', 'actions'];
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name', 'actions'];
-
-  constructor() {
-    this.dataSource = new TableDataSource();
+  constructor(
+    private _router: Router,
+    private _service: ProjetoServiceProxyService,
+    private _projetoServico: ProjetoService
+  ) {
+    this.refresh()
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+  refresh(): void {
+    this._service.getAll()
+      .subscribe((result) => {
+        this.projetos = result;
+      })
+  }
+
+  create(): void {
+    this._projetoServico.id = 0;
+    this._router.navigate(['app/create-or-edit-projeto']);
+  }
+
+  edit(item: ProjetoListOutput): void {
+    this._projetoServico.id = item.id;
+    this._router.navigate(['app/create-or-edit-projeto']);
   }
 }
