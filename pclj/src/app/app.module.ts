@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '@shared/shared.module';
 
@@ -25,13 +26,15 @@ import { AddressFormComponent } from './address-form/address-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
 import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
 import { AvatarModule } from 'avatar-angular-kapibara';
 import { ProjetosComponent } from './projetos/projetos.component';
 import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projetos/create-or-edit-projetos.component';
+import { ProjetoService } from './projetos/projetos.service';
 
 @NgModule({
   declarations: [
@@ -70,9 +73,12 @@ import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projeto
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
+    MatProgressSpinnerModule,
 
     AvatarModule,
   ],
-  providers: [],
+  providers: [
+    ProjetoService
+  ],
 })
 export class AppModule { }

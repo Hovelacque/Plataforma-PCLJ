@@ -1,1 +1,30 @@
-<p>create-or-edit-projetos works!</p>
+<form [formGroup]="projetoForm" novalidate (ngSubmit)="save()">
+    <mat-card class="form-card">
+        <mat-card-header>
+            <mat-card-title>
+                <span *ngIf="id==0">Novo projeto</span>
+                <span *ngIf="id>0">Editando projeto (código: {{id}})</span>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <mat-form-field>
+                        <input matInput placeholder="Nome" formControlName="nome" required>
+                        <mat-error>Campo Obrigatório</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <mat-form-field>
+                        <input matInput placeholder="Descrição" formControlName="descricao" required>
+                        <mat-error>Campo Obrigatório</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary" type="button" (click)="close()">Cancelar</button>
+            <button mat-raised-button color="primary" type="submit">Salvar</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
