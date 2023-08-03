@@ -9,6 +9,7 @@ import { AddressFormComponent } from './address-form/address-form.component';
 import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
 import { ProjetosComponent } from './projetos/projetos.component';
 import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projetos/create-or-edit-projetos.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projeto
           { path: 'change-avatar', component: ChangeAvatarComponent },
           { path: 'projetos', component: ProjetosComponent },
           { path: 'create-or-edit-projeto', component: CreateOrEditProjetosComponent },
+          { path: 'usuarios', component: UsuariosComponent },
           
           { path: 'dashboard', component: DashboardComponent },
           { path: 'table', component: TableComponent },

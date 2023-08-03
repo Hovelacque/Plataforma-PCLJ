@@ -37,6 +37,8 @@ import { AvatarModule } from 'avatar-angular-kapibara';
 import { ProjetosComponent } from './projetos/projetos.component';
 import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projetos/create-or-edit-projetos.component';
 import { ProjetoService } from './projetos/projetos.service';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { CreateOrEditUsuarioComponent } from './usuarios/create-or-edit-usuario/create-or-edit-usuario.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ProjetoService } from './projetos/projetos.service';
     HomeComponent,
     ChangeAvatarComponent,
     ProjetosComponent,
-    CreateOrEditProjetosComponent
+    CreateOrEditProjetosComponent,
+    UsuariosComponent,
+    CreateOrEditUsuarioComponent
   ],
   imports: [
     CommonModule,

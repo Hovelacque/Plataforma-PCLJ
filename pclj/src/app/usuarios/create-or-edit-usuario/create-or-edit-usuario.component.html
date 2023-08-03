@@ -1,0 +1,55 @@
+<form [formGroup]="usuarioForm" novalidate (ngSubmit)="save()">
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Criando usuário</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="center">
+            <avatar [options]="options"></avatar>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                <mat-form-field>
+                    <input matInput placeholder="Nome" formControlName="nome" required>
+                    <mat-error>Campo Obrigatório</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                <mat-form-field>
+                    <input matInput placeholder="Senha" formControlName="senha" required>
+                    <mat-error>Campo Obrigatório</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                <mat-form-field appearance="fill">
+                    <mat-label>Select an option</mat-label>
+                    <mat-select panelClass="example-panel-red">
+                      <mat-option>None</mat-option>
+                      <mat-option value="option1">Option 1</mat-option>
+                      <mat-option value="option2">Option 2</mat-option>
+                      <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                <!-- <mat-form-field>
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="tipo">
+                        <mat-option [value]="1">Administrador</mat-option>
+                        <mat-option [value]="2">Professor</mat-option>
+                        <mat-option [value]="3">Aluno</mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button mat-raised-button color="accent" type="submit" (click)="generateRandom()">
+            Gerar Avatar Aleatório
+        </button>
+        <button mat-raised-button (click)="bsModalRef.hide()">Cancelar</button>
+        <button mat-raised-button color="primary" type="submit">Salvar</button>
+    </div>
+</form>
