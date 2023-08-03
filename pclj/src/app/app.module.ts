@@ -28,6 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
 import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
@@ -74,6 +76,8 @@ import { ProjetoService } from './projetos/projetos.service';
     MatSelectModule,
     MatRadioModule,
     MatProgressSpinnerModule,
+
+    ModalModule.forRoot(),
 
     AvatarModule,
   ],
