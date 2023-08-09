@@ -1,37 +1,31 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "pclj";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+require '../connect.php';
+
+$postdata = file_get_contents("php://input");
+
+if (isset($postdata) && !empty($postdata)) {
+  // Extract the data.
+  $request = json_decode($postdata);
+
+  // Validate.
+  if (trim($request->nome) === '' || (int)$request->senha === '' || (int)$request->tipo  <= 0) {
+    return http_response_code(400);
+  }
+
+  // Sanitize.
+  $nome = mysqli_real_escape_string($conn, trim($request->nome));
+  $senha = mysqli_real_escape_string($conn, $request->senha);
+  $tipo = mysqli_real_escape_string($conn, (int)$request->tipo);
+
+  // Store.
+  $sql = " INSERT INTO `usuarios` (`nome`, `senha`, `tipo`) VALUES ('{$nome}','{$senha}','{$tipo}')";
+
+  if (mysqli_query($conn, $sql)) {
+    http_response_code(201);
+    $request->id = mysqli_insert_id($conn);
+    echo json_encode($request);
+  } else {
+    http_response_code(422);
+  }
 }
-
-// // Get the posted data.
-// $postdata = file_get_contents("php://input");
-
-// if(isset($postdata) && !empty($postdata))
-// {
-
-//   $request = json_decode($postdata);
-
-$nome = $_POST['nome'];//$request->data->nome;//$_POST['nome'];
-$senha = "sa"; //$_POST['senha']
-$tipo = 1; //$_POST['tipo']
-
-$sql = "INSERT INTO usuarios (nome, senha, tipo) 
-VALUES ('" . $nome . "', '" . $senha . "', " . $tipo . ")";
-
-if ($conn->query($sql) === TRUE) {
-  echo "New record created successfully";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
-// }
-
-$conn->close();
-?>
