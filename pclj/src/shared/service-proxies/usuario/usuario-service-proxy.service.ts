@@ -26,10 +26,7 @@ export class UsuarioServiceProxyService {
     //       .pipe(first()); //fecha a conexão com o servidor
     //   }
 
-    create(item: Partial<UsuarioDto>): Observable<UsuarioDto> {
-        return this.httpClient.post<UsuarioDto>(`${this.API}create.php`,
-            { data: item },
-            { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) }
-        );
+    create(item: Partial<UsuarioDto>): Observable<any> {
+        return this.httpClient.post(`${this.API}create.php`, item);
     }
 }

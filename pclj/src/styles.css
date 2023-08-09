@@ -14,10 +14,25 @@ mat-form-field {
     width: 100%;
 }
 
+/* SELECT PARA FRENTE DO MODAL */
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 1100;
+}
+
+.modal-title {
+    margin: 0 !important;
+    line-height: 1.42857143 !important;
+    font-size: 18px !important;
+}
+
+.modal-footer>button {
+    margin-right: 8px;
+}
+
 table {
     width: 100%;
 }
-
 
 .center {
     display: flex;

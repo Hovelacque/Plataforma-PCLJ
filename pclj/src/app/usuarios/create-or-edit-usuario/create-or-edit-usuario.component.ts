@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioServiceProxyService } from '@shared/service-proxies/usuario/usuario-service-proxy.service';
 import { AvatarOptions } from 'avatar-angular-kapibara';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -16,7 +16,7 @@ export class CreateOrEditUsuarioComponent implements OnInit {
   usuarioForm: FormGroup = this.formBuilder.group({
     id: [''],
     nome: ['', Validators.required],
-    senha: ['', Validators.required],
+    senha: [this.generatePassword(), Validators.required],
     tipo: [1]
   });
 
@@ -30,13 +30,17 @@ export class CreateOrEditUsuarioComponent implements OnInit {
     this.generateRandom();
   }
 
+  generatePassword(): string {
+    return Math.random().toString(36).substr(2, 10);
+  }
+
   generateRandom() {
     this.options.getRandom();
   }
 
   save(): void {
     this._service.create(this.usuarioForm.value)
-      .subscribe(() => console.log('Salvo'));
+      .subscribe(() => alert('Salvo'));
   }
 
 }

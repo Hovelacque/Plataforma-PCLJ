@@ -1,6 +1,7 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { CreateOrEditUsuarioComponent } from './create-or-edit-usuario/create-or-edit-usuario.component';
+import { UsuarioDto } from '@shared/service-proxies/usuario/usuario-dto';
 
 @Component({
   selector: 'app-usuarios',
@@ -8,6 +9,8 @@ import { CreateOrEditUsuarioComponent } from './create-or-edit-usuario/create-or
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
+
+  usuarios: UsuarioDto[] = [];
 
   modalRef?: BsModalRef;
 
@@ -19,18 +22,16 @@ export class UsuariosComponent implements OnInit {
   }
 
   create(): void {
-    const initialState: ModalOptions = {
+    this.modalService.show(CreateOrEditUsuarioComponent);
+  }
+
+  edit(item: UsuarioDto): void {
+    let params: ModalOptions = {
       initialState: {
-        list: [
-          'Open a modal with component',
-          'Pass your data',
-          'Do something else',
-          '...'
-        ],
-        title: 'Modal with component'
+        id: item.id
       }
     };
-    this.modalService.show(CreateOrEditUsuarioComponent, initialState);
+    this.modalService.show(CreateOrEditUsuarioComponent, params);
   }
 
 }
