@@ -20,6 +20,7 @@ mat-form-field {
     z-index: 1100;
 }
 
+/* MODAL */
 .modal-title {
     margin: 0 !important;
     line-height: 1.42857143 !important;
@@ -30,8 +31,22 @@ mat-form-field {
     margin-right: 8px;
 }
 
+/* TABLE */
 table {
     width: 100%;
+}
+
+.mat-column-actions {
+    width: 32px;
+    text-align: center;
+}
+
+/* LOADING TABLE */
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
 }
 
 .center {

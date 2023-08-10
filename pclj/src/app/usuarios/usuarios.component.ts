@@ -1,31 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { CreateOrEditUsuarioComponent } from './create-or-edit-usuario/create-or-edit-usuario.component';
-import { UsuarioDto } from '@shared/service-proxies/usuario/usuario-dto';
+import { UsuarioListOutput } from '@shared/service-proxies/usuario/usuario-list-output';
+import { UsuarioServiceProxyService } from '@shared/service-proxies/usuario/usuario-service-proxy.service';
 
 @Component({
-  selector: 'app-usuarios',
+  selector: 'usuarios',
   templateUrl: './usuarios.component.html',
   styleUrls: ['./usuarios.component.css']
 })
-export class UsuariosComponent implements OnInit {
+export class UsuariosComponent {
 
-  usuarios: UsuarioDto[] = [];
+  usuarios: UsuarioListOutput[] = [];
+  displayedColumns = ['id', 'nome', 'tipo', 'actions'];
 
   modalRef?: BsModalRef;
 
   constructor(
-    private modalService: BsModalService
-  ) { }
+    private modalService: BsModalService,
+    private _service: UsuarioServiceProxyService,
+  ) {
+    this.refresh();
+  }
 
-  ngOnInit(): void {
+  refresh(): void {
+    this._service.getAll()
+      .subscribe((result) => {
+        this.usuarios = result;
+      })
   }
 
   create(): void {
     this.modalService.show(CreateOrEditUsuarioComponent);
   }
 
-  edit(item: UsuarioDto): void {
+  edit(item: UsuarioListOutput): void {
     let params: ModalOptions = {
       initialState: {
         id: item.id

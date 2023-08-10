@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, delay, first } from 'rxjs';
 import { UsuarioDto } from './usuario-dto';
+import { UsuarioListOutput } from './usuario-list-output';
 
 @Injectable({
     providedIn: 'root'
@@ -14,11 +15,11 @@ export class UsuarioServiceProxyService {
         private httpClient: HttpClient
     ) { }
 
-    //   getAll(): Observable<ProjetoListOutput[]> {
-    //     return this.httpClient
-    //       .get<ProjetoListOutput[]>(this.API)
-    //       .pipe(first(), delay(500)); //fecha a conexão com o servidor
-    //   }
+    getAll(): Observable<UsuarioListOutput[]> {
+        return this.httpClient
+            .get<UsuarioListOutput[]>(`${this.API}list.php`)
+            .pipe(first()); //fecha a conexão com o servidor
+    }
 
     //   get(id: number): Observable<ProjetoDto[]> {
     //     return this.httpClient
