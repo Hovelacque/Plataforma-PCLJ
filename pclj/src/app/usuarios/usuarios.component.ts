@@ -3,11 +3,15 @@ import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { CreateOrEditUsuarioComponent } from './create-or-edit-usuario/create-or-edit-usuario.component';
 import { UsuarioListOutput } from '@shared/service-proxies/usuario/usuario-list-output';
 import { UsuarioServiceProxyService } from '@shared/service-proxies/usuario/usuario-service-proxy.service';
+import { TipoUsuario } from '@shared/enums/tipo-usuario.enum';
 
 @Component({
   selector: 'usuarios',
   templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  styleUrls: ['./usuarios.component.css'],
+  providers: [
+    TipoUsuario
+  ]
 })
 export class UsuariosComponent {
 
@@ -17,8 +21,9 @@ export class UsuariosComponent {
   modalRef?: BsModalRef;
 
   constructor(
-    private modalService: BsModalService,
+    private _modalService: BsModalService,
     private _service: UsuarioServiceProxyService,
+    public tipoUsuario: TipoUsuario
   ) {
     this.refresh();
   }
@@ -31,16 +36,22 @@ export class UsuariosComponent {
   }
 
   create(): void {
-    this.modalService.show(CreateOrEditUsuarioComponent);
+    this.openModal();
   }
 
   edit(item: UsuarioListOutput): void {
-    let params: ModalOptions = {
+    this.openModal({
       initialState: {
         id: item.id
       }
-    };
-    this.modalService.show(CreateOrEditUsuarioComponent, params);
+    });
+  }
+
+  openModal(params: ModalOptions = null): void {
+    let modal = this._modalService.show(CreateOrEditUsuarioComponent, params);
+    modal.content.onSave.subscribe(() => {
+      this.refresh();
+    });
   }
 
 }

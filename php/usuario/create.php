@@ -17,9 +17,13 @@ if (isset($postdata) && !empty($postdata)) {
   $nome = mysqli_real_escape_string($conn, trim($request->nome));
   $senha = mysqli_real_escape_string($conn, $request->senha);
   $tipo = mysqli_real_escape_string($conn, (int)$request->tipo);
+  
+  $olho = mysqli_real_escape_string($conn, $request->olho);
+  $roupa = mysqli_real_escape_string($conn, $request->roupa);
 
   // Store.
-  $sql = " INSERT INTO `usuarios` (`nome`, `senha`, `tipo`) VALUES ('{$nome}','{$senha}','{$tipo}')";
+  $sql = " INSERT INTO `usuarios` (`nome`, `senha`, `tipo`, `olho`, `roupa`) 
+  VALUES ('{$nome}','{$senha}','{$tipo}','{$olho}','{$roupa}')";
 
   if (mysqli_query($conn, $sql)) {
     http_response_code(201);

@@ -1,13 +1,16 @@
-<form [formGroup]="usuarioForm" novalidate (ngSubmit)="save()">
+<form *ngIf="active" [formGroup]="usuarioForm" novalidate (ngSubmit)="save()">
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Criando usuário</h4>
+        <h4 class="modal-title pull-left">
+            <span *ngIf="!editing">Criando usuário</span>
+            <span *ngIf="editing">Editando usuário</span>
+        </h4>
         <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
             <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
     </div>
     <div class="modal-body">
         <div class="center">
-            <avatar [options]="options"></avatar>
+            <avatar [options]="avatar"></avatar>
         </div>
 
         <div class="row">
@@ -17,13 +20,13 @@
                     <mat-error>Campo Obrigatório</mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="col-sm-12" *ngIf="!editing">
                 <mat-form-field>
                     <input matInput placeholder="Senha" formControlName="senha" required>
                     <mat-error>Campo Obrigatório</mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="col-sm-12">
                 <mat-form-field>
                     <mat-label>Tipo</mat-label>
                     <mat-select formControlName="tipo">
@@ -37,10 +40,10 @@
 
     </div>
     <div class="modal-footer">
-        <button mat-raised-button color="accent" type="submit" (click)="generateRandom()">
+        <button mat-raised-button color="accent" type="button" (click)="generateRandom()">
             Gerar Avatar Aleatório
         </button>
-        <button mat-raised-button (click)="bsModalRef.hide()">Cancelar</button>
+        <button mat-raised-button type="button" (click)="bsModalRef.hide()">Cancelar</button>
         <button mat-raised-button color="primary" type="submit">Salvar</button>
     </div>
 </form>

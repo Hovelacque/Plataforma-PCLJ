@@ -2,30 +2,24 @@
 
 require '../connect.php';
 
-// Get the posted data.
-$postdata = file_get_contents("php://input");
+$id = $_GET['id'];
+if (isset($id) && !empty($id) && trim($id) != '') {
 
-if(isset($postdata) && !empty($postdata))
-{
-  // Extract the data.
-  $request = json_decode($postdata);
-	
-  // Validate.
-  if(trim($request->id) == '')
-  {
-    return;
-  }
-    
   // Sanitize.
-  $id   = mysqli_real_escape_string($conn, trim($request->unique_id));
+  $id = mysqli_real_escape_string($conn, trim($id));
 
   // Get by id.
   $sql = "SELECT * FROM `usuarios` WHERE `id` ='{$id}' LIMIT 1";
 
-  $result = mysqli_query($con,$sql);
+  $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
-  
-  $json = json_encode($row);
-  echo $json;
+
+  echo json_encode($row, JSON_NUMERIC_CHECK);
+  exit();
 }
-exit;
+
+echo json_encode(array(
+  "error" => true,
+  "message" => "Id não informado!"
+));
+die();

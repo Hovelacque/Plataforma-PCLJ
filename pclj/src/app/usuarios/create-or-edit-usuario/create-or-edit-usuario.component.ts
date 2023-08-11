@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioServiceProxyService } from '@shared/service-proxies/usuario/usuario-service-proxy.service';
 import { AvatarOptions } from 'avatar-angular-kapibara';
@@ -11,14 +11,14 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class CreateOrEditUsuarioComponent implements OnInit {
 
-  options: AvatarOptions = new AvatarOptions();
+  @Output() onSave = new EventEmitter<any>();
 
-  usuarioForm: FormGroup = this.formBuilder.group({
-    id: [''],
-    nome: ['', Validators.required],
-    senha: [this.generatePassword(), Validators.required],
-    tipo: [1]
-  });
+  id: number = null;
+  avatar: AvatarOptions = new AvatarOptions();
+  editing: boolean = false;
+  active: boolean = false;
+
+  usuarioForm: FormGroup = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +27,38 @@ export class CreateOrEditUsuarioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.generateRandom();
+    if (this.id > 0) {
+      this.editing = true;
+      this._service.get(this.id)
+        // .pipe(finalize(() => {
+        //   abp.ui.clearBusy();
+        // }))
+        .subscribe((result) => {
+          this.usuarioForm = this.formBuilder.group({
+            id: [result.id],
+            nome: [result.nome, Validators.required],
+            tipo: [result.tipo],
+
+            olho: [result.olho],
+            roupa: [result.roupa]
+          });
+          this.active = true;
+        });
+    }
+    else {
+      this.editing = false;
+      this.generateRandom();
+      this.usuarioForm = this.formBuilder.group({
+        id: [''],
+        nome: ['', Validators.required],
+        senha: [this.generatePassword(), Validators.required],
+        tipo: [1],
+
+        olho: [this.avatar.eyes],
+        roupa: [this.avatar.clothes]
+      });
+      this.active = true;
+    }
   }
 
   generatePassword(): string {
@@ -35,12 +66,21 @@ export class CreateOrEditUsuarioComponent implements OnInit {
   }
 
   generateRandom() {
-    this.options.getRandom();
+    this.avatar.getRandom();
+    if (this.usuarioForm)
+      this.usuarioForm.setValue({
+        olho: this.avatar.eyes,
+        roupa: this.avatar.clothes
+      });
   }
 
   save(): void {
     this._service.create(this.usuarioForm.value)
-      .subscribe(() => alert('Salvo'));
+      .subscribe(() => {
+        alert('Salvo');
+        this.onSave.emit();
+        this.bsModalRef.hide();
+      });
   }
 
 }

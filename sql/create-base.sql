@@ -10,7 +10,7 @@ CREATE TABLE usuarios (
     tipo INT NOT NULL,
     /*Dados Avatar*/
     foto VARCHAR(36) ,
-    olho INT ,
+    olho VARCHAR(36) ,
     sobrancelha INT ,
     boca INT ,
     pele INT ,
@@ -20,7 +20,7 @@ CREATE TABLE usuarios (
     cor_chapeu INT ,
     barba INT ,
     cor_barba INT ,
-    roupa INT ,
+    roupa VARCHAR(36) ,
     cor_roupa INT ,
     estampa INT ,
     

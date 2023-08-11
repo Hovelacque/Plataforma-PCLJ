@@ -15,4 +15,4 @@ while ($row = $result->fetch_assoc()) {
   );
 }
 
-echo json_encode($dtos);
+echo json_encode($dtos, JSON_NUMERIC_CHECK);
