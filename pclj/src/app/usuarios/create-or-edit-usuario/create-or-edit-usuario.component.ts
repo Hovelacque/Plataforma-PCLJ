@@ -1,7 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioServiceProxyService } from '@shared/service-proxies/usuario/usuario-service-proxy.service';
-import { AvatarOptions } from 'avatar-angular-kapibara';
+import { UsuarioDto } from '@shared/service-proxies/usuario/usuario-dto'
+import {
+  AvatarOptions, AvatarStyle,
+  Clothes, FacialHair, Top, Eyes, Mouth, Skin, Accessories, Eyebrow,
+  Graphic, FacialHairColor, ClothesColor, HatColor, HairColor
+} from 'avatar-angular-kapibara';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -33,15 +38,27 @@ export class CreateOrEditUsuarioComponent implements OnInit {
         // .pipe(finalize(() => {
         //   abp.ui.clearBusy();
         // }))
-        .subscribe((result) => {
+        .subscribe((result: UsuarioDto) => {
           this.usuarioForm = this.formBuilder.group({
             id: [result.id],
             nome: [result.nome, Validators.required],
             tipo: [result.tipo],
 
             olho: [result.olho],
-            roupa: [result.roupa]
+            sobrancelha: [result.sobrancelha],
+            boca: [result.boca],
+            pele: [result.pele],
+            chapeu_cabelo: [result.chapeu_cabelo],
+            acessorio: [result.acessorio],
+            cor_cabelo: [result.cor_cabelo],
+            cor_chapeu: [result.cor_chapeu],
+            barba: [result.barba],
+            cor_barba: [result.cor_barba],
+            roupa: [result.roupa],
+            cor_roupa: [result.cor_roupa],
+            estampa: [result.estampa],
           });
+          this.setConfigAvatar(result);
           this.active = true;
         });
     }
@@ -55,7 +72,18 @@ export class CreateOrEditUsuarioComponent implements OnInit {
         tipo: [1],
 
         olho: [this.avatar.eyes],
-        roupa: [this.avatar.clothes]
+        sobrancelha: [this.avatar.eyebrow],
+        boca: [this.avatar.mouth],
+        pele: [this.avatar.skin],
+        chapeu_cabelo: [this.avatar.top],
+        acessorio: [this.avatar.accessories],
+        cor_cabelo: [this.avatar.hairColor],
+        cor_chapeu: [this.avatar.hatColor],
+        barba: [this.avatar.facialHair],
+        cor_barba: [this.avatar.facialHairColor],
+        roupa: [this.avatar.clothes],
+        cor_roupa: [this.avatar.clothColor],
+        estampa: [this.avatar.graphic],
       });
       this.active = true;
     }
@@ -67,11 +95,68 @@ export class CreateOrEditUsuarioComponent implements OnInit {
 
   generateRandom() {
     this.avatar.getRandom();
-    if (this.usuarioForm)
-      this.usuarioForm.setValue({
-        olho: this.avatar.eyes,
-        roupa: this.avatar.clothes
-      });
+    // if (this.usuarioForm)
+    //   this.usuarioForm.setValue({
+    //     olho: this.avatar.eyes,
+    //     sobrancelha: this.avatar.eyebrow,
+    //     boca: this.avatar.mouth,
+    //     pele: this.avatar.skin,
+    //     chapeu_cabelo: this.avatar.top,
+    //     acessorio: this.avatar.accessories,
+    //     cor_cabelo: this.avatar.hairColor,
+    //     cor_chapeu: this.avatar.hatColor,
+    //     barba: this.avatar.facialHair,
+    //     cor_barba: this.avatar.facialHairColor,
+    //     roupa: this.avatar.clothes,
+    //     cor_roupa: this.avatar.clothColor,
+    //     estampa: this.avatar.graphic,
+    //   });
+  }
+
+  // setConfigAvatarNoForm(result: UsuarioDto = null): void {
+  //   this.usuarioForm.setValue({
+  //     olho: this.avatar.eyes,
+  //     sobrancelha: this.avatar.eyebrow,
+  //     boca: this.avatar.mouth,
+  //     pele: this.avatar.skin,
+  //     chapeu_cabelo: this.avatar.top,
+  //     acessorio: this.avatar.accessories,
+  //     cor_cabelo: this.avatar.hairColor,
+  //     cor_chapeu: this.avatar.hatColor,
+  //     barba: this.avatar.facialHair,
+  //     cor_barba: this.avatar.facialHairColor,
+  //     roupa: this.avatar.clothes,
+  //     cor_roupa: this.avatar.clothColor,
+  //     estampa: this.avatar.graphic,
+  //   });
+  // }
+
+  getIndexFromString(value: string, enumRef: any): number {
+    return Object.values(enumRef).indexOf(value);
+  }
+
+  getValueFromIndex(index: number, enumRef: any): any {
+    return Object.keys(enumRef)[index];
+  }
+
+  getValueFromString(item: string, enumRef: any): any {
+    return Object.values(enumRef).find(x => x == item);
+  }
+
+  setConfigAvatar(result: UsuarioDto = null): void {
+    this.avatar.eyes = this.getValueFromString(result.olho, Eyes);
+    this.avatar.eyebrow = this.getValueFromString(result.sobrancelha, Eyebrow);
+    this.avatar.mouth = this.getValueFromString(result.boca, Mouth);
+    this.avatar.skin = this.getValueFromString(result.pele, Skin);
+    this.avatar.top = this.getValueFromString(result.chapeu_cabelo, Top);
+    this.avatar.accessories = this.getValueFromString(result.acessorio, Accessories);
+    this.avatar.hairColor = this.getValueFromString(result.cor_cabelo, HairColor);
+    this.avatar.hatColor = this.getValueFromString(result.cor_chapeu, HatColor);
+    this.avatar.facialHair = this.getValueFromString(result.barba, FacialHair);
+    this.avatar.facialHairColor = this.getValueFromString(result.cor_barba, FacialHairColor);
+    this.avatar.clothes = this.getValueFromString(result.roupa, Clothes);
+    this.avatar.clothColor = this.getValueFromString(result.cor_roupa, ClothesColor);
+    this.avatar.graphic = this.getValueFromString(result.estampa, Graphic);
   }
 
   save(): void {

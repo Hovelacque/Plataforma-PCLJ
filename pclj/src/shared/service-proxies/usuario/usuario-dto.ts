@@ -5,5 +5,16 @@ export interface UsuarioDto {
     tipo: number,
 
     olho: string,
-    roupa: string
+    sobrancelha: string,
+    boca: string,
+    pele: string,
+    chapeu_cabelo: string,
+    acessorio: string,
+    cor_cabelo: string,
+    cor_chapeu: string,
+    barba: string,
+    cor_barba: string,
+    roupa: string,
+    cor_roupa: string,
+    estampa: string,
 }
