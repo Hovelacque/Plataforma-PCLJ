@@ -1,7 +1,7 @@
 .item {
     background-size: cover;
     background-repeat: no-repeat;
-    height: 400px;
+    height: 500px;
     transition: all 0.5s ease-in-out;
 }
 
