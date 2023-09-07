@@ -1,2 +1,10 @@
-Habilitar 
+##Habilitar 
+
+extension=curl
+extension=fileinfo
+extension=gettext
+extension=mbstring
+extension=exif      ; Must be after mbstring as it depends on it
 extension=mysqli
+extension=pdo_mysql
+extension=pdo_sqlite
