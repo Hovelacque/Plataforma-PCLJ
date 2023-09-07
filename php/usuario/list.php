@@ -1,6 +1,6 @@
 <?php
 
-require '../connect.php';
+require (__DIR__ . '\..\connect.php');
 
 $sql = "SELECT * FROM `usuarios`";
 $result = $conn->query($sql);

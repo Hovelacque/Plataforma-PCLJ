@@ -1,6 +1,6 @@
 <?php
 
-require '../connect.php';
+require (__DIR__ . '\..\connect.php');
 
 $id = $_GET['id'];
 if (isset($id) && !empty($id) && trim($id) != '') {

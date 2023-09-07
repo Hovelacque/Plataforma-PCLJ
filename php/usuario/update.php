@@ -1,5 +1,6 @@
 <?php
-require 'connect.php';
+
+require (__DIR__ . '\..\connect.php');
 
 // Get the posted data.
 $postdata = file_get_contents("php://input");

@@ -1,7 +1,7 @@
 <?php
 
-require '../config.php';
-require './jwt.php';
+require (__DIR__ . '\session\config.php');
+require (__DIR__ . '\session\jwt.php');
 
 $secret = $_CONFIG["JWT"];
 $payload = [
