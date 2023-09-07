@@ -1,4 +1,4 @@
-##Habilitar 
+##Habilitar php.ini
 
 extension=curl
 extension=fileinfo
@@ -8,3 +8,9 @@ extension=exif      ; Must be after mbstring as it depends on it
 extension=mysqli
 extension=pdo_mysql
 extension=pdo_sqlite
+
+##Adiciona httpd.conf
+
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header set Access-Control-Allow-Headers "X-Requested-With, Content-Type, X-Token-Auth, Authorization"
