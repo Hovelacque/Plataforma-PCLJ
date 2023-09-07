@@ -32,4 +32,43 @@ export class UsuarioServiceProxyService {
     create(item: Partial<UsuarioDto>): Observable<any> {
         return this.httpClient.post(`${this.API}create.php`, item);
     }
+
+    upload(fileToUpload: any) {
+
+        let formData: FormData = new FormData();
+        formData.append('file', fileToUpload);
+        
+        this.httpClient.post(`${this.API}upload.php`, formData).subscribe(
+            data => {
+                console.log(data); 
+            },
+            error => {
+                console.log(error);
+            }
+        );
+
+        // let path = `${environment.celoApiEndpoint}/api/patientFiles`
+        // let data = {
+        //     "patientData": {
+        //         "uid": "",
+        //         "firstName": "",
+        //         "lastName": "",
+        //         "gender": "Not Specified",
+        //         "dateOfBirth": ""
+        //     }
+        // }
+        // // let headers = new HttpHeaders()
+        // //   .set('content-type', 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW')
+        // // let headers = new HttpHeaders().set('content-type', 'multipart/form-data')
+        // const formData: FormData = new FormData();
+
+        // for (let i = 0; i < files.length; i++) {
+        //     formData.append(i.toString(), files[i], files[i].name);
+        // }
+        // formData.append("data", JSON.stringify(data));
+        // this.http.post(path, formData).subscribe(
+        //     (r) => { console.log('got r', r) }
+        // )
+    }
+
 }
