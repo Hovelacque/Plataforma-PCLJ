@@ -1,0 +1,9 @@
+{
+    "DB": {
+        "DB_HOST": "localhost",
+        "DB_USER": "root",
+        "DB_PASS": "",
+        "DB_NAME": "pclj"
+    },
+    "JWT": "558f8bb4-2f24-4b3e-9a29-2a7e99600688"
+}
