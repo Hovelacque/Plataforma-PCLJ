@@ -11,7 +11,9 @@ while ($row = $result->fetch_assoc()) {
   $dtos[] = array(
     "id" => $row['id'],
     "nome" => $row['nome'],
-    "tipo" => $row['tipo']
+    "usuario" => $row['usuario'],
+    "tipo" => $row['tipo'],
+    "ativo" => $row['ativo']
   );
 }
 

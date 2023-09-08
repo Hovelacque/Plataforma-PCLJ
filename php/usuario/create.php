@@ -9,9 +9,14 @@ if (isset($postdata) && !empty($postdata)) {
   $request = json_decode($postdata);
 
   // Validate.
-  if (trim($request->nome) === '' || (int)$request->senha === '' || (int)$request->tipo  <= 0) {
+  if (trim($request->nome) === '' || trim($request->usuario) === '' || (int)$request->senha === '' || (int)$request->tipo  <= 0) {
     return http_response_code(400);
   }
+
+  $usuario = mysqli_real_escape_string($conn, trim($request->usuario));
+  // $usuario_repetido = mysqli_query($conn, "SELECT count(*) as cnt FROM `usuarios` WHERE `usuario` ='{$usuario}'");
+  // $result = mysqli_fetch_assoc($usuario_repetido);
+  // if($result->cnt)
 
   // Sanitize.
   $nome = mysqli_real_escape_string($conn, trim($request->nome));
@@ -33,10 +38,10 @@ if (isset($postdata) && !empty($postdata)) {
   $estampa = mysqli_real_escape_string($conn, $request->estampa);
 
   // Store.
-  $sql = " INSERT INTO `usuarios` (`nome`, `senha`, `tipo`, 
+  $sql = " INSERT INTO `usuarios` (`nome`,`usuario`, `senha`, `tipo`, 
   -- AVATAR
   `olho`, `sobrancelha`, `boca`, `pele`, `chapeu_cabelo`, `acessorio`, `cor_cabelo`, `cor_chapeu`, `barba`, `cor_barba`, `roupa`, `cor_roupa`, `estampa`) 
-  VALUES ('{$nome}','{$senha}','{$tipo}',
+  VALUES ('{$nome}','{$usuario}','{$senha}','{$tipo}',
   '{$olho}', '{$sobrancelha}', '{$boca}', '{$pele}', '{$chapeu_cabelo}', '{$acessorio}', '{$cor_cabelo}', '{$cor_chapeu}', '{$barba}', '{$cor_barba}', '{$roupa}', '{$cor_roupa}', '{$estampa}')";
 
   if (mysqli_query($conn, $sql)) {

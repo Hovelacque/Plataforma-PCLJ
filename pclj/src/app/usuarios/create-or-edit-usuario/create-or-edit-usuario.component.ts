@@ -42,6 +42,7 @@ export class CreateOrEditUsuarioComponent implements OnInit {
           this.usuarioForm = this.formBuilder.group({
             id: [result.id],
             nome: [result.nome, Validators.required],
+            usuario: [result.usuario, Validators.required],
             tipo: [result.tipo],
 
             olho: [result.olho],
@@ -67,7 +68,8 @@ export class CreateOrEditUsuarioComponent implements OnInit {
       this.generateRandom();
       this.usuarioForm = this.formBuilder.group({
         id: [''],
-        nome: ['', Validators.required],
+        nome: ['', Validators.required],        
+        usuario: ['', Validators.required],
         senha: [this.generatePassword(), Validators.required],
         tipo: [1],
 
