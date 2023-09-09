@@ -1,6 +1,7 @@
 export interface UsuarioDto {
     id: number,
     nome: string,
+    usuario: string,
     senha: string,
     tipo: number,
 
