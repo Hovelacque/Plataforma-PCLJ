@@ -58,12 +58,11 @@ import { CreateOrEditUsuarioComponent } from './usuarios/create-or-edit-usuario/
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     LayoutModule,
     SharedModule,
-
+    
+    MatInputModule,
     MatSliderModule,
     MatToolbarModule,
     MatButtonModule,
@@ -76,7 +75,6 @@ import { CreateOrEditUsuarioComponent } from './usuarios/create-or-edit-usuario/
     MatCardModule,
     MatMenuModule,
     DragDropModule,
-    MatInputModule,
     MatSelectModule,
     MatRadioModule,
     MatProgressSpinnerModule,

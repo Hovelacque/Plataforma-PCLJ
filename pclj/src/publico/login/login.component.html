@@ -1,0 +1,58 @@
+<div id="background-wrap">
+    <div class="x1">
+        <div class="cloud"></div>
+    </div>
+    <div class="x2">
+        <div class="cloud"></div>
+    </div>
+    <div class="x3">
+        <div class="cloud"></div>
+    </div>
+    <div class="x4">
+        <div class="cloud"></div>
+    </div>
+    <div class="x5">
+        <div class="cloud"></div>
+    </div>
+
+    <div id="login">
+        <!-- <div class="container-fluid" style="padding-top: 10px; height: 100vh;">
+            <div class="row">
+                <div class="col-sm-4 col-md-offset-4"> -->
+        <form [formGroup]="loginForm" novalidate (ngSubmit)="login()">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        Login
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-divider></mat-divider>
+                <mat-card-content style="padding: 20px;">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Usuário" formControlName="usuario" required>
+                                <mat-error>Campo Obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <mat-form-field>
+                                <input matInput type="password" placeholder="Senha" formControlName="senha" required>
+                                <mat-error>Campo Obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-raised-button color="primary">
+                        Entrar
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+        <!-- </div>
+            </div>
+        </div> -->
+    </div>
+
+</div>

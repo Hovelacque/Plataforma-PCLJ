@@ -13,24 +13,33 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 import { CarrosselComponent } from './carrossel/carrossel.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
   declarations: [
     PublicoComponent,
     CarrosselComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     PublicoRoutingModule,
 
+    MatInputModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
     MatListModule,
     MatSidenavModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule
   ]
 })
 export class PublicoModule { }
