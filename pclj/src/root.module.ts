@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,6 +10,7 @@ import { RootComponent } from './root.component';
 
 import { SharedModule } from '@shared/shared.module';
 import { HttpClientInterceptor } from '@shared/service-proxies/http-client-interceptor';
+import { AppInitializer } from './app-initializer';
 
 @NgModule({
   imports: [
@@ -21,10 +22,16 @@ import { HttpClientInterceptor } from '@shared/service-proxies/http-client-inter
     SharedModule.forRoot()
   ],
   declarations: [RootComponent],
-  providers: [    
-    { provide: HTTP_INTERCEPTORS, useClass: HttpClientInterceptor, multi: true }
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpClientInterceptor, multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (appInitializer: AppInitializer) => appInitializer.init(),
+      deps: [AppInitializer],
+      multi: true,
+    }
   ],
   bootstrap: [RootComponent],
 })
-export class RootModule {}
+export class RootModule { }
 

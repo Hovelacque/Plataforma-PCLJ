@@ -4,6 +4,7 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { HttpClientModule } from '@angular/common/http';
 
 import { CustomPaginatorComponent } from './components/custom-paginator/custom-paginator.component';
+import { AppSessionService } from './session/app-session.service';
 
 @NgModule({
   declarations: [],
@@ -22,6 +23,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
+        AppSessionService,
         { provide: MatPaginatorIntl, useClass: CustomPaginatorComponent }
       ]
     };

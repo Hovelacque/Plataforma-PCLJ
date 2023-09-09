@@ -10,16 +10,17 @@ A plataforma PCLJ nasceu como uma forma de me ajudar a gerenciar os projetos dos
 - [X] Adicionar Angular Material
 - [X] Configurar Módulo Root/Shared
 - [X] Criar módulos interno/externo
+- [X] Carregar dados dos usuário logado
 - [ ] Controlar acesso
 - [ ] Criar banco
 
 ## Externo
 - [ ] Pagina inicial
-- [ ] Área de login
+- [X] Área de login
 - [ ] Visão externa do perfil
 
 ## Usuário
-- [ ] Criar usuário
+- [X] Criar usuário
 - [ ] Desativar usuário
 - [ ] Reset Senha
 

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, first } from 'rxjs';
 import { TokenService } from '../token.service';
 import { TokenOutput } from './token-output';
+import { UsuarioLoginInfoOutput } from './usuario-login-info-output';
 
 @Injectable({
     providedIn: 'root'
@@ -23,8 +24,8 @@ export class SessionServiceProxyService {
                 senha
             }).subscribe((result: TokenOutput) => {
                 if (result.error) {
-                    alert(result.message); 
-                    this._tokenService.delete();                   
+                    alert(result.message);
+                    this._tokenService.delete();
                     observer.complete();
                 }
                 else {
@@ -35,13 +36,10 @@ export class SessionServiceProxyService {
         });
     }
 
-    getCurrentUser(): void {
-        this.httpClient
-            .get<any>(`${this.API}getCurrentUser.php`)
-            .pipe(first())//fecha a conexão com o servidor
-            .subscribe((a) => {
-                debugger;
-            });
+    getCurrentUser(): Observable<UsuarioLoginInfoOutput> {
+        return this.httpClient
+                .get<UsuarioLoginInfoOutput>(`${this.API}getCurrentUser.php`)
+                .pipe(first());//fecha a conexão com o servidor
     }
 
 }
