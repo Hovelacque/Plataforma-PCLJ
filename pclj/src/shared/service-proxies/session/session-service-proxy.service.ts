@@ -22,15 +22,15 @@ export class SessionServiceProxyService {
             this.httpClient.post<TokenOutput>(`${this.API}login.php`, {
                 usuario,
                 senha
-            }).subscribe((result: TokenOutput) => {
-                if (result.error) {
-                    alert(result.message);
-                    this._tokenService.delete();
-                    observer.complete();
-                }
-                else {
+            }).subscribe({
+                next: (result: TokenOutput) => {
                     this._tokenService.set(result.token);
                     observer.next();
+                },
+                error: (result) => {
+                    alert(result.error.message);
+                    this._tokenService.delete();
+                    observer.complete();
                 }
             });
         });
@@ -38,8 +38,8 @@ export class SessionServiceProxyService {
 
     getCurrentUser(): Observable<UsuarioLoginInfoOutput> {
         return this.httpClient
-                .get<UsuarioLoginInfoOutput>(`${this.API}getCurrentUser.php`)
-                .pipe(first());//fecha a conexão com o servidor
+            .get<UsuarioLoginInfoOutput>(`${this.API}getCurrentUser.php`)
+            .pipe(first());//fecha a conexão com o servidor
     }
 
 }

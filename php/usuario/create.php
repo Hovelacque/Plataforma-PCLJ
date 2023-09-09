@@ -1,6 +1,6 @@
 <?php
 
-require (__DIR__ . '\..\connect.php');
+require(__DIR__ . '\..\connect.php');
 
 $postdata = file_get_contents("php://input");
 
@@ -14,9 +14,15 @@ if (isset($postdata) && !empty($postdata)) {
   }
 
   $usuario = mysqli_real_escape_string($conn, trim($request->usuario));
-  // $usuario_repetido = mysqli_query($conn, "SELECT count(*) as cnt FROM `usuarios` WHERE `usuario` ='{$usuario}'");
-  // $result = mysqli_fetch_assoc($usuario_repetido);
-  // if($result->cnt)
+  $usuario_repetido = mysqli_query($conn, "SELECT * FROM `usuarios` WHERE `usuario` ='{$usuario}'");
+  if ($usuario_repetido->num_rows == 0) {
+    echo json_encode(array(
+      "error" => true,
+      "message" => "Já existe um usuário" . $usuario . " no sistema!"
+    ));
+    die();
+  }
+
 
   // Sanitize.
   $nome = mysqli_real_escape_string($conn, trim($request->nome));
