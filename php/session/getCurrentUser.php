@@ -1,6 +1,6 @@
 <?php
 
-require (__DIR__ . '\session\decodeToken.php');
+require (__DIR__ . '\decodeToken.php');
 
 if ($_USUARIO == null) {
     echo json_encode(array(

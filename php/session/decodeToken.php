@@ -1,7 +1,7 @@
 <?php
 
-require (__DIR__ . '\config.php');
-require (__DIR__ . '\session\jwt.php');
+require(__DIR__ . '\..\config.php');
+require(__DIR__ . '\jwt.php');
 
 $token = null;
 $headers = apache_request_headers();
