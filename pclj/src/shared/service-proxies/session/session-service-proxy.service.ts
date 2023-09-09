@@ -28,7 +28,7 @@ export class SessionServiceProxyService {
                     observer.next();
                 },
                 error: (result) => {
-                    alert(result.error.message);
+                    pclj.message.error(result.error.message);
                     this._tokenService.delete();
                     observer.complete();
                 }
