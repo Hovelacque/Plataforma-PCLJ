@@ -1,6 +1,6 @@
 <?php
 
-require (__DIR__ . '\decodeToken.php');
+require (__DIR__ . '/decodeToken.php');
 
 // if ($_USUARIO == null) {
 //     // http_response_code(500);

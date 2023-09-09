@@ -1,6 +1,6 @@
 <?php
 
-require (__DIR__ . '\config.php');
+require (__DIR__ . '/config.php');
 
 define('DB_HOST', $_CONFIG["DB"]["DB_HOST"]);
 define('DB_USER', $_CONFIG["DB"]["DB_USER"]);

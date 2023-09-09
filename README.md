@@ -14,6 +14,7 @@ A plataforma PCLJ nasceu como uma forma de me ajudar a gerenciar os projetos dos
 - [X] Controlar acesso
 - [X] Permissões
 - [ ] Criar banco
+- [ ] Carregar URL do arquivo no assets
 
 ## Externo
 - [ ] Pagina inicial

@@ -1,6 +1,6 @@
 <?php
 
-require(__DIR__ . '\..\connect.php');
+require(__DIR__ . '/../connect.php');
 
 $postdata = file_get_contents("php://input");
 
