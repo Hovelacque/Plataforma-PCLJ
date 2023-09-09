@@ -17,9 +17,11 @@ import { LoginComponent } from './login/login.component';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { CarouselModule } from 'primeng/carousel';
 import { AlunosComponent } from './alunos/alunos.component';
+import { AlunoComponent } from './aluno/aluno.component';
 
 
 @NgModule({
@@ -29,6 +31,7 @@ import { AlunosComponent } from './alunos/alunos.component';
     HomeComponent,
     LoginComponent,
     AlunosComponent,
+    AlunoComponent
   ],
   imports: [
     CommonModule,
@@ -44,6 +47,7 @@ import { AlunosComponent } from './alunos/alunos.component';
     MatSidenavModule,
     MatGridListModule,
     MatCardModule,
+    MatTabsModule,
 
     CarouselModule
   ]

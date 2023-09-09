@@ -4,6 +4,7 @@ import { PublicoComponent } from './publico.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AlunosComponent } from './alunos/alunos.component';
+import { AlunoComponent } from './aluno/aluno.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { AlunosComponent } from './alunos/alunos.component';
           { path: '', component: HomeComponent },
           { path: 'login', component: LoginComponent },
           { path: 'alunos', component: AlunosComponent },
+          { path: 'aluno/:id', component: AlunoComponent }
         ]
       }
     ])

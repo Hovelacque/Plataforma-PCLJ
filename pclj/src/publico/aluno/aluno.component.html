@@ -1,0 +1,25 @@
+<div class="center">
+    <div class="header col-sm-4 col-md-3 col-lg-2">
+        <img src="assets/images/avatar.png" height="250px" />
+        <span class="title">Gustavo Geissler Hovelacque</span>
+    </div>
+</div>
+<mat-tab-group>
+    <mat-tab label="Projeto de vida"> Projeto de vida </mat-tab>
+    <mat-tab label="Trabalhos">
+        <a *ngFor="let item of trabalhos" routerLink="/aluno/1">
+            <div class="card-aluno center col-sm-4 col-md-3 col-lg-2">
+                <img src="assets/images/avatar.png" height="150px" />
+                <span>Trabalho X</span>
+            </div>
+        </a>
+    </mat-tab>
+    <mat-tab label="Projetos pessoais">
+        <a *ngFor="let item of trabalhos" routerLink="/aluno/1">
+            <div class="card-aluno center col-sm-4 col-md-3 col-lg-2">
+                <img src="assets/images/avatar.png" height="150px" />
+                <span>Projeto Y</span>
+            </div>
+        </a>
+    </mat-tab>
+</mat-tab-group>
