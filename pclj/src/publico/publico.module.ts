@@ -18,6 +18,8 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
+import { CarouselModule } from 'primeng/carousel';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { MatInputModule } from '@angular/material/input';
     MatListModule,
     MatSidenavModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+
+    CarouselModule
   ]
 })
 export class PublicoModule { }

@@ -6,111 +6,55 @@
 
 ]"></carrossel>
 
-<!-- <div class="row">
-    <div class="col">0</div>
-    <div class="col">1</div>
-    <div class="col">2</div>
-    <div class="col">3</div>
-    <div class="col">4</div>
-</div> -->
-
-<div style="padding: 30px;">
-<mat-grid-list cols="3" rowHeight="100px">
-    <mat-grid-tile rowspan="2">
-        <img src="https://picsum.photos/id/17/2500/1667" width="100" height="100" />
-    </mat-grid-tile>
-    <mat-grid-tile>1</mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
-    <mat-grid-tile>3</mat-grid-tile>
-    <mat-grid-tile>4</mat-grid-tile>
-</mat-grid-list>
-</div>
-
-
-
-<!-- <div class="grid-container">
-    <h1 class="mat-h1">Dashboard</h1>
-    <mat-grid-list cols="2" rowHeight="350px">
-        <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-            <mat-card class="dashboard-card">
-                <mat-card-header>
-                    <mat-card-title>
-                        {{card.title}}
-                        <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu" xPosition="before">
-                            <button mat-menu-item>Expand</button>
-                            <button mat-menu-item>Remove</button>
-                        </mat-menu>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content class="dashboard-card-content">
-                    <div>Card Content Here</div>
-                </mat-card-content>
-            </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
-</div> -->
-
-
-
-
-<meta charset="UTF-8">
-<title>P.C.L.J</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<style>
-    body {}
-</style>
-
-
-<div class="container">
-    <div class="jumbotron">
-        <h1>Bom dia 1º Ano, Programadores do Cleusa 😄</h1>
-        <br /><br />
-        <h2>Trabalhos</h2>
-        <ol>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/professor.html">Professor</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/breno.html">Breno</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/bruna.html">Bruna</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/evelyn.html">Evelyn</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/helen.html">Helen</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/kananda.html">Kananda</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/nawany.html">Nawany</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/vinicius gabriel.html">Vinicius
-                    Gabriel</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/vitor.html">Vitor</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/camila.html">Camila</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/lavinia.html">Lavinia</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/kyomack.html">Kyomack</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://pclj.com.br/trabalhos-antigo/vinicius carlos.html">Vinicius Carlos</a>
-            </li>
-        </ol>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6">
+            Imagem
+        </div>
+        <div class="col-sm-6">
+            4 Icones
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-10 col-lg-offset-1">
+            <p-carousel [value]="items" [numVisible]="5" [numScroll]="1" [circular]="true"
+                [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
+                <ng-template pTemplate="header">
+                    <h5>Conheça nossos alunos</h5>
+                </ng-template>
+                <ng-template let-product pTemplate="item">
+                    <div class="center">
+                        <img src="assets/images/avatar.png" height="150px" />
+                        <span>Gustavo Geissler Hovelacque</span>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            banner dos jogos
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-10 col-lg-offset-1">
+            <p-carousel [value]="items" [numVisible]="5" [numScroll]="1" [circular]="true"
+                [autoplayInterval]="4000" [responsiveOptions]="responsiveOptions">
+                <ng-template pTemplate="header">
+                    <h5>Conheça nossos trabalhos desenvolvidos</h5>
+                </ng-template>
+                <ng-template let-product pTemplate="item">
+                    <div class="center">
+                        <img src="assets/images/avatar.png" height="150px" />
+                        <span>Trabalho X</span>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            Informações
+        </div>
     </div>
 </div>

@@ -7,12 +7,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { CustomPaginatorComponent } from './components/custom-paginator/custom-paginator.component';
 import { AppSessionService } from './session/app-session.service';
 import { AppRouteGuard } from './auth/auth-route-guard';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     HttpClientModule,
+    BrowserModule,
+    BrowserAnimationsModule,
 
     MatPaginatorModule,
     MatSnackBarModule
