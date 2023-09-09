@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, first } from 'rxjs';
-import { TokenService } from '../token.service';
 import { TokenOutput } from './token-output';
 import { UsuarioLoginInfoOutput } from './usuario-login-info-output';
 import { Router } from '@angular/router';
+import { TokenService } from '@shared/services/token.service';
 
 @Injectable({
     providedIn: 'root'
