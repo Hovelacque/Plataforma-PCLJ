@@ -14,7 +14,7 @@ export class PublicoComponent extends AppComponentBase implements OnInit {
 
   routes: any[] = [
     { name: "Home", route: "/" },
-    { name: "Alunos", route: "#alunos" },
+    { name: "Alunos", route: "alunos" },
     { name: "Jogos", route: "#jogos" },
     { name: "Trabalhos", route: "#trabalhos" },
     { name: "Projetos", route: "#projetos" },

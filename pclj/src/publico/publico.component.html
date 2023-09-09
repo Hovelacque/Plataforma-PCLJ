@@ -2,7 +2,7 @@
     <!-- Menu Mobile -->
     <mat-sidenav #drawer class="sidenav" attr.role="navigation" mode="side" [opened]="opened">
         <mat-nav-list>
-            <a *ngFor="let item of routes" mat-list-item [href]="item.route">{{item.name}}</a>
+            <a *ngFor="let item of routes" mat-list-item [routerLink]="item.route">{{item.name}}</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -19,7 +19,7 @@
             <span class="header-space"></span>
             <!-- Menu Desk -->
             <mat-nav-list class="list-horizontal" *ngIf="!(isHandset$ | async)">
-                <a *ngFor="let item of routes" mat-list-item [href]="item.route">{{item.name}}</a>
+                <a *ngFor="let item of routes" mat-list-item [routerLink]="item.route">{{item.name}}</a>
             </mat-nav-list>
             <button mat-raised-button type="button" (click)="login()">Entrar</button>
         </mat-toolbar>
