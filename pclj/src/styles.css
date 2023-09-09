@@ -54,3 +54,14 @@ table {
     justify-content: center;
     align-items: center;
 }
+
+/* BUSY */
+.freeze-ui:before {
+    width: 200px;
+    height: 200px;
+}
+
+.freeze-ui:after {
+    max-width: 100px;
+    top: 53%;
+}

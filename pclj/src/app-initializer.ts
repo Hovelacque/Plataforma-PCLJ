@@ -11,10 +11,12 @@ export class AppInitializer {
 
     init(): () => Promise<boolean> {
         return () => {
+            pclj.ui.setBusy();
             return new Promise<boolean>((resolve, reject) => {
                 const appSessionService = this._injector.get(AppSessionService);
                 appSessionService.init().then(
                     (result: any) => {
+                        pclj.ui.clearBusy();
                         resolve(result);
                     }
                 );

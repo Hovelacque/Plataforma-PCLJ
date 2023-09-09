@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppComponentBase } from '@shared/app-component-base';
 import { SessionServiceProxyService } from '@shared/service-proxies/session/session-service-proxy.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,9 @@ export class LoginComponent extends AppComponentBase {
   }
 
   login(): void {
+    pclj.ui.setBusy()
     this._service.login(this.loginForm.value.usuario, this.loginForm.value.senha)
+      .pipe(finalize(() => pclj.ui.clearBusy()))
       .subscribe(() => {
         this.appSession.refreshSession();
         this._router.navigate(['app']);

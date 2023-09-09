@@ -26,6 +26,7 @@ export class SessionServiceProxyService {
                 next: (result: TokenOutput) => {
                     this._tokenService.set(result.token);
                     observer.next();
+                    observer.complete();
                 },
                 error: (result) => {
                     pclj.message.error(result.error.message);
