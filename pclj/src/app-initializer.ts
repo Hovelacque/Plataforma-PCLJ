@@ -18,6 +18,10 @@ export class AppInitializer {
                     (result: any) => {
                         pclj.ui.clearBusy();
                         resolve(result);
+                    },
+                    (err) => {
+                        pclj.ui.clearBusy();
+                        reject(err);
                     }
                 );
             });

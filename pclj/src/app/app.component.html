@@ -26,7 +26,7 @@
       <a mat-list-item routerLinkActive="menu-ativo" routerLink="drag-drop">Drag and Drop</a>
       <a mat-list-item routerLinkActive="menu-ativo" routerLink="address-form">Address form</a>
 
-      <a mat-list-item routerLink="/">Sair</a>
+      <a mat-list-item (click)="logout()">Sair</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

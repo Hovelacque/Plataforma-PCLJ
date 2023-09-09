@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { AppComponentBase } from '@shared/app-component-base';
+import { SessionServiceProxyService } from '@shared/service-proxies/session/session-service-proxy.service';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +21,17 @@ export class AppComponent extends AppComponentBase {
 
   constructor(
     public injector: Injector,
+    private _sessionService: SessionServiceProxyService,
     private breakpointObserver: BreakpointObserver
   ) {
     super(injector);
     setTheme('bs3');
+  }
+
+  logout(): void {
+    this._sessionService.logout().subscribe(() => {
+      this.appSession.refreshSession();
+    });
   }
 
 }

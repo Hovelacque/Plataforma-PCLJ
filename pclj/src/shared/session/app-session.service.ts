@@ -30,7 +30,8 @@ export class AppSessionService {
 
     refreshSession(): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
-            this._sessionService.getCurrentUser().subscribe((result: UsuarioLoginInfoOutput) => {
+            this._sessionService.getCurrentUser()
+            .subscribe((result: UsuarioLoginInfoOutput) => {
                 this._usuario = result;
                 resolve(true);
             });

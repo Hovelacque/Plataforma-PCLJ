@@ -4,6 +4,7 @@ import { Observable, first } from 'rxjs';
 import { TokenService } from '../token.service';
 import { TokenOutput } from './token-output';
 import { UsuarioLoginInfoOutput } from './usuario-login-info-output';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,8 @@ export class SessionServiceProxyService {
     private _tokenService: TokenService = new TokenService();
 
     constructor(
-        private httpClient: HttpClient
+        private httpClient: HttpClient,
+        private _router: Router
     ) { }
 
     login(usuario: string, senha: string): Observable<any> {
@@ -35,6 +37,14 @@ export class SessionServiceProxyService {
                 }
             });
         });
+    }
+
+    logout(): Observable<any> {
+        return new Observable<any>((observer: any) => {
+            this._tokenService.delete();
+            this._router.navigate(['/']);
+            observer.next();
+        })
     }
 
     getCurrentUser(): Observable<UsuarioLoginInfoOutput> {

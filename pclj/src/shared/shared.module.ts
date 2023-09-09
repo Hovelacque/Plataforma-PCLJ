@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { CustomPaginatorComponent } from './components/custom-paginator/custom-paginator.component';
 import { AppSessionService } from './session/app-session.service';
+import { AppRouteGuard } from './auth/auth-route-guard';
 
 @NgModule({
   declarations: [],
@@ -27,6 +28,7 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         AppSessionService,
+        AppRouteGuard,
         { provide: MatPaginatorIntl, useClass: CustomPaginatorComponent }
       ]
     };

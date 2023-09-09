@@ -28,18 +28,20 @@ export class TokenService {
   }
 
   set(value: string): void {
-    var cookieValue = encodeURIComponent(this.tokenCookieName) + '=';
+    let cookie = this.get();
+    if (cookie == "") {
+      var cookieValue = encodeURIComponent(this.tokenCookieName) + '=';
+      cookieValue = cookieValue + encodeURIComponent(value) + "; path=/";
 
-    if (value) {
-      cookieValue = cookieValue + encodeURIComponent(value);
+      document.cookie = cookieValue;
     }
-
-    document.cookie = cookieValue;
   }
 
   delete(): void {
-    var cookieValue = encodeURIComponent(this.tokenCookieName) + '=';
-    cookieValue = cookieValue + "; expires=" + (new Date(new Date().getTime() - 86400000)).toUTCString();
-    document.cookie = cookieValue;
+    let cookie = this.get();
+    if (cookie != "") {
+      var cookieValue = encodeURIComponent(this.tokenCookieName) + '=';
+      document.cookie = cookieValue + "; path=/";
+    }
   }
 }

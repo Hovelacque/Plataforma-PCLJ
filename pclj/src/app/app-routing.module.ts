@@ -10,6 +10,7 @@ import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
 import { ProjetosComponent } from './projetos/projetos.component';
 import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projetos/create-or-edit-projetos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { AppRouteGuard } from '@shared/auth/auth-route-guard';
 
 @NgModule({
   imports: [
@@ -18,16 +19,18 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
         path: '',
         component: AppComponent,
         children: [
-          { path: 'home', component: HomeComponent },
-          { path: 'change-avatar', component: ChangeAvatarComponent },
-          { path: 'projetos', component: ProjetosComponent },
-          { path: 'create-or-edit-projeto', component: CreateOrEditProjetosComponent },
-          { path: 'usuarios', component: UsuariosComponent },
-          
-          { path: 'dashboard', component: DashboardComponent },
-          { path: 'table', component: TableComponent },
-          { path: 'drag-drop', component: DragDropComponent },
-          { path: 'address-form', component: AddressFormComponent },
+          { path: 'home', component: HomeComponent, canActivate: [AppRouteGuard] },
+          { path: 'change-avatar', component: ChangeAvatarComponent, canActivate: [AppRouteGuard] },
+          { path: 'projetos', component: ProjetosComponent, canActivate: [AppRouteGuard] },
+          { path: 'create-or-edit-projeto', component: CreateOrEditProjetosComponent, canActivate: [AppRouteGuard] },
+          { path: 'usuarios', component: UsuariosComponent, canActivate: [AppRouteGuard] },
+
+          { path: 'dashboard', component: DashboardComponent, canActivate: [AppRouteGuard] },
+          { path: 'table', component: TableComponent, canActivate: [AppRouteGuard] },
+          { path: 'drag-drop', component: DragDropComponent, canActivate: [AppRouteGuard] },
+          { path: 'address-form', component: AddressFormComponent, canActivate: [AppRouteGuard] },
+
+          { path: '',   redirectTo: 'home', pathMatch: 'full' }, // redirect to `home`
         ]
       }
     ])

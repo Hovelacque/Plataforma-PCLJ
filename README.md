@@ -11,7 +11,7 @@ A plataforma PCLJ nasceu como uma forma de me ajudar a gerenciar os projetos dos
 - [X] Configurar Módulo Root/Shared
 - [X] Criar módulos interno/externo
 - [X] Carregar dados dos usuário logado
-- [ ] Controlar acesso
+- [X] Controlar acesso
 - [ ] Criar banco
 
 ## Externo

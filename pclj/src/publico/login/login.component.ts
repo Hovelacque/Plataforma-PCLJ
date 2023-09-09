@@ -32,8 +32,9 @@ export class LoginComponent extends AppComponentBase {
     this._service.login(this.loginForm.value.usuario, this.loginForm.value.senha)
       .pipe(finalize(() => pclj.ui.clearBusy()))
       .subscribe(() => {
-        this.appSession.refreshSession();
-        this._router.navigate(['app']);
+        this.appSession.refreshSession().then(() => {
+          this._router.navigate(['app']);
+        });
       });
   }
 }
