@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
 import { CarouselModule } from 'primeng/carousel';
+import { AlunosComponent } from './alunos/alunos.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CarouselModule } from 'primeng/carousel';
     PublicoComponent,
     CarrosselComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    AlunosComponent,
   ],
   imports: [
     CommonModule,
