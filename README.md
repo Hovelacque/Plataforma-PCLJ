@@ -12,12 +12,16 @@ A plataforma PCLJ nasceu como uma forma de me ajudar a gerenciar os projetos dos
 - [X] Criar módulos interno/externo
 - [X] Carregar dados dos usuário logado
 - [X] Controlar acesso
+- [X] Permissões
 - [ ] Criar banco
 
 ## Externo
 - [ ] Pagina inicial
 - [X] Área de login
 - [ ] Visão externa do perfil
+
+## Interno
+- [ ] Componentizar Menu
 
 ## Usuário
 - [X] Criar usuário
@@ -27,10 +31,12 @@ A plataforma PCLJ nasceu como uma forma de me ajudar a gerenciar os projetos dos
 ## Prova
 - [ ] Cadastro de questões
 - [ ] Área de prova
+- [ ] Controle via permissões
 
 ## Trabalhos
 - [ ] Cadastro de trabalho
 - [ ] Enviar trabalho
+- [ ] Controle via permissões
 
 ## Perfil
 - [ ] Montar Avatar

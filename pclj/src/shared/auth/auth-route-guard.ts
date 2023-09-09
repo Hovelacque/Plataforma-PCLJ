@@ -21,18 +21,16 @@ export class AppRouteGuard implements CanActivate, CanActivateChild {
             return false;
         }
 
-        // if (!route.data || !route.data['permission']) {
-        //     return true;
-        // }
+        if (!route.data || !route.data['permission']) {
+            return true;
+        }
 
-        // if (this._sessionService.isGranted(route.data['permission'])) {
-        //     return true;
-        // }
+        if (this._sessionService.isGranted(route.data['permission'])) {
+            return true;
+        }
 
-        // this._router.navigate(['/']);
-        // return false;
-
-        return true;
+        this._router.navigate(['/']);
+        return false;
     }
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {

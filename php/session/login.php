@@ -32,7 +32,8 @@ if (isset($postdata) && !empty($postdata)) {
     $payload = [
         "id" => $row["id"],
         "nome" => $row["nome"],
-        "usuario" => $row["usuario"]
+        "usuario" => $row["usuario"],
+        "tipo" => $row["tipo"]
     ];
     $secret = $_CONFIG["JWT"];
     $token = JWT::encode($payload, $secret);

@@ -9,6 +9,7 @@ import {
 } from 'avatar-angular-kapibara';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/app-component-base';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-create-or-edit-usuario',
@@ -221,11 +222,18 @@ export class CreateOrEditUsuarioComponent extends AppComponentBase implements On
   }
 
   save2(): void {
+    pclj.ui.setBusy();
     this._service.create(this.usuarioForm.value)
-      .subscribe(() => {
-        this.notify("Salvo com sucesso!");
-        this.onSave.emit();
-        this.bsModalRef.hide();
+      .pipe(finalize(() => pclj.ui.clearBusy()))
+      .subscribe({
+        next: () => {
+          this.notify("Salvo com sucesso!");
+          this.onSave.emit();
+          this.bsModalRef.hide();
+        },
+        error: (result) => {
+          pclj.message.error(result.error.message);
+        }
       });
   }
 

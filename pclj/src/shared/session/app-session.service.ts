@@ -20,6 +20,18 @@ export class AppSessionService {
         return this.usuario ? this.usuario.id : null;
     }
 
+    get administrador(): boolean {
+        return this.usuario.tipo == 1;
+    }
+
+    get professor(): boolean {
+        return this.usuario.tipo == 2;
+    }
+
+    get aluno(): boolean {
+        return this.usuario.tipo == 3;
+    }
+
     getShownLoginName(): string {
         return this.usuario ? this.usuario.nome : "";
     }
@@ -31,10 +43,16 @@ export class AppSessionService {
     refreshSession(): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             this._sessionService.getCurrentUser()
-            .subscribe((result: UsuarioLoginInfoOutput) => {
-                this._usuario = result;
-                resolve(true);
-            });
+                .subscribe((result: UsuarioLoginInfoOutput) => {
+                    this._usuario = result;
+                    resolve(true);
+                });
         });
+    }
+
+    isGranted(permissionName: string): boolean {
+        if (permissionName == "Usuarios" && !this.administrador)
+            return false;
+        return true;
     }
 }

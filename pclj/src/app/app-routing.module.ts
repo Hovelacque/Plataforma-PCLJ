@@ -23,7 +23,7 @@ import { AppRouteGuard } from '@shared/auth/auth-route-guard';
           { path: 'change-avatar', component: ChangeAvatarComponent, canActivate: [AppRouteGuard] },
           { path: 'projetos', component: ProjetosComponent, canActivate: [AppRouteGuard] },
           { path: 'create-or-edit-projeto', component: CreateOrEditProjetosComponent, canActivate: [AppRouteGuard] },
-          { path: 'usuarios', component: UsuariosComponent, canActivate: [AppRouteGuard] },
+          { path: 'usuarios', component: UsuariosComponent, data: { permission: 'Usuarios' }, canActivate: [AppRouteGuard] },
 
           { path: 'dashboard', component: DashboardComponent, canActivate: [AppRouteGuard] },
           { path: 'table', component: TableComponent, canActivate: [AppRouteGuard] },

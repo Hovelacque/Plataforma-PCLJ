@@ -15,10 +15,11 @@ if (isset($postdata) && !empty($postdata)) {
 
   $usuario = mysqli_real_escape_string($conn, trim($request->usuario));
   $usuario_repetido = mysqli_query($conn, "SELECT * FROM `usuarios` WHERE `usuario` ='{$usuario}'");
-  if ($usuario_repetido->num_rows == 0) {
+  if ($usuario_repetido->num_rows > 0) {
+    http_response_code(500);
     echo json_encode(array(
       "error" => true,
-      "message" => "Já existe um usuário" . $usuario . " no sistema!"
+      "message" => "Já existe um usuário " . $usuario . " no sistema!"
     ));
     die();
   }

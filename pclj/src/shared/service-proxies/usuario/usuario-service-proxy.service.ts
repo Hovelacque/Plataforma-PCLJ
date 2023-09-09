@@ -30,7 +30,7 @@ export class UsuarioServiceProxyService {
     }
 
     create(item: Partial<UsuarioDto>): Observable<any> {
-        return this.httpClient.post(`${this.API}create.php`, item);
+        return this.httpClient.post(`${this.API}create.php`, item)
     }
 
     upload(fileToUpload: any) {
