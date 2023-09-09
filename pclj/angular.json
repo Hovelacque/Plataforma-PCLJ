@@ -35,7 +35,6 @@
               "src/assets/freeze-ui/freeze-ui.min.js",
               "src/assets/resources/functions.js",
               "src/assets/resources/busy.js",
-              "src/assets/resources/notify.js",
               "src/assets/resources/message.js"
             ]
           },

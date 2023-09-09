@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioServiceProxyService } from '@shared/service-proxies/usuario/usuario-service-proxy.service';
 import { UsuarioDto } from '@shared/service-proxies/usuario/usuario-dto'
@@ -8,13 +8,14 @@ import {
   Graphic, FacialHairColor, ClothesColor, HatColor, HairColor
 } from 'avatar-angular-kapibara';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { AppComponentBase } from '@shared/app-component-base';
 
 @Component({
   selector: 'app-create-or-edit-usuario',
   templateUrl: './create-or-edit-usuario.component.html',
   styleUrls: ['./create-or-edit-usuario.component.css']
 })
-export class CreateOrEditUsuarioComponent implements OnInit {
+export class CreateOrEditUsuarioComponent extends AppComponentBase implements OnInit {
 
   @Output() onSave = new EventEmitter<any>();
 
@@ -26,10 +27,13 @@ export class CreateOrEditUsuarioComponent implements OnInit {
   usuarioForm: FormGroup = null;
 
   constructor(
+    public injector: Injector,
     private formBuilder: FormBuilder,
     private _service: UsuarioServiceProxyService,
     public bsModalRef: BsModalRef
-  ) { }
+  ) {
+    super(injector);
+  }
 
   ngOnInit(): void {
     if (this.id > 0) {
@@ -68,7 +72,7 @@ export class CreateOrEditUsuarioComponent implements OnInit {
       this.generateRandom();
       this.usuarioForm = this.formBuilder.group({
         id: [''],
-        nome: ['', Validators.required],        
+        nome: ['', Validators.required],
         usuario: ['', Validators.required],
         senha: [this.generatePassword(), Validators.required],
         tipo: [1],
@@ -212,14 +216,14 @@ export class CreateOrEditUsuarioComponent implements OnInit {
       let file = new File([blob], "fileName.jpg", { type: "image/jpeg" })
       this._service.upload(file);
     }, 'image/jpeg');
-    
+
 
   }
 
   save2(): void {
     this._service.create(this.usuarioForm.value)
       .subscribe(() => {
-        alert('Salvo');
+        this.notify("Salvo com sucesso!");
         this.onSave.emit();
         this.bsModalRef.hide();
       });
