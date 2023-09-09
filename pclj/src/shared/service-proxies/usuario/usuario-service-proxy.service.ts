@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, delay, first } from 'rxjs';
 import { UsuarioDto } from './usuario-dto';
 import { UsuarioListOutput } from './usuario-list-output';
+import { AppConsts } from '@shared/AppConsts';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UsuarioServiceProxyService {
 
-    private readonly API = 'http://localhost/usuario/';
+    private readonly API = AppConsts.remoteServiceBaseUrl + '/usuario/';
 
     constructor(
         private httpClient: HttpClient
@@ -37,10 +38,10 @@ export class UsuarioServiceProxyService {
 
         let formData: FormData = new FormData();
         formData.append('file', fileToUpload);
-        
+
         this.httpClient.post(`${this.API}upload.php`, formData).subscribe(
             data => {
-                console.log(data); 
+                console.log(data);
             },
             error => {
                 console.log(error);

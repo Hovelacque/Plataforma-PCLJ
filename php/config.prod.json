@@ -1,0 +1,9 @@
+{
+    "DB": {
+        "DB_HOST": "mysql.pclj.com.br",
+        "DB_USER": "pclj",
+        "DB_PASS": "369P8oRr7CGE",
+        "DB_NAME": "pclj"
+    },
+    "JWT": "558f8bb4-2f24-4b3e-9a29-2a7e99600688"
+}

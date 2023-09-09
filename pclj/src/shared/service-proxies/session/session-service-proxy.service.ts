@@ -5,13 +5,15 @@ import { TokenOutput } from './token-output';
 import { UsuarioLoginInfoOutput } from './usuario-login-info-output';
 import { Router } from '@angular/router';
 import { TokenService } from '@shared/services/token.service';
+import { AppConsts } from '@shared/AppConsts';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SessionServiceProxyService {
 
-    private readonly API = 'http://localhost/session/';
+    private readonly API = AppConsts.remoteServiceBaseUrl + '/session/';
+
     private _tokenService: TokenService = new TokenService();
 
     constructor(
