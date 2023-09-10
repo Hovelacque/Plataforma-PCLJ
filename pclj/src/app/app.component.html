@@ -3,10 +3,10 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
 
     <div class="center">
-      <img src="assets/images/avatar.png" height="150px" />
+      <img [src]="appSession.avatar" height="150px" />
     </div>
     <b class="center">
-      {{appSession.getShownLoginName()}}
+      {{appSession.nome}}
     </b>
     <!-- <span class="center" style="font-size: 12px;">
       Professor

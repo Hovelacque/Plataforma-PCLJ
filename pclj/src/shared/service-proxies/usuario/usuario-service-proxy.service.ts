@@ -31,8 +31,8 @@ export class UsuarioServiceProxyService {
             .pipe(first()); //fecha a conexão com o servidor
     }
 
-    create(item: Partial<UsuarioDto>): Observable<any> {
-        return this.httpClient.post(`${this.API}create.php`, item)
+    create(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
+        return this.httpClient.post(`${this.API}create.php`, { ...item, image: imageBase64 })
     }
 
     upload(fileToUpload: any) {
@@ -76,41 +76,52 @@ export class UsuarioServiceProxyService {
     uploadBlobFotoPerfil(blob: any): Promise<string> {
         return new Promise<string>((resolve, reject) => {
 
-            let file = new File([blob], "blobConvertido.jpeg", { type: blob.type });
-            let tokenService = new TokenService();
-            let token = tokenService.get();
-            // let token = abp.auth.getToken();
+            this.httpClient.post(`${this.API}upload.php`, {
+                'image': blob
+            }).subscribe({
+                next: (result) => {
+                    pclj.message.success("foi");
+                },
+                error: (result) => {
+                    pclj.message.error(result.error.message);
+                }
+            });
 
-            var data = new FormData();
-            //por algum motivo se tirar esse append a img não chega no back
-            data.append("folder", 'tes');
-            data.append('image', file)
+            // let file = new File([blob], "blobConvertido.jpeg", { type: blob.type });
+            // let tokenService = new TokenService();
+            // let token = tokenService.get();
+            // // let token = abp.auth.getToken();
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', `${this.API}upload.php`, true);
-            xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+            // var data = new FormData();
+            // //por algum motivo se tirar esse append a img não chega no back
+            // data.append("folder", 'tes');
+            // data.append('image', file)
 
-            xhr.setRequestHeader("Content-Type", 'multipart/form-data');
+            // var xhr = new XMLHttpRequest();
+            // xhr.open('POST', `${this.API}upload.php`, true);
+            // xhr.setRequestHeader("Authorization", `Bearer ${token}`);
 
-            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-            xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-            xhr.setRequestHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-        
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState == 4)
-                    if (xhr.status == 200) {
-                        var response = JSON.parse(xhr.response);
+            // xhr.setRequestHeader("Content-Type", 'multipart/form-data');
 
-                        if (response && response.result && response.result.message && response.result.message == 'Success!') {
-                            resolve(response.result.fileName);
-                        }
-                        else {
-                            reject(response.result.errorMessage);
-                        }
+            // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+            // xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+            // xhr.setRequestHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
 
-                    }
-            };
-            xhr.send(data);
+            // xhr.onreadystatechange = () => {
+            //     if (xhr.readyState == 4)
+            //         if (xhr.status == 200) {
+            //             var response = JSON.parse(xhr.response);
+
+            //             if (response && response.result && response.result.message && response.result.message == 'Success!') {
+            //                 resolve(response.result.fileName);
+            //             }
+            //             else {
+            //                 reject(response.result.errorMessage);
+            //             }
+
+            //         }
+            // };
+            // xhr.send(data);
 
         });
     }

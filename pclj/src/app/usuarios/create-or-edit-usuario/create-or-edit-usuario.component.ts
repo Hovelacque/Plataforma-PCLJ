@@ -206,24 +206,24 @@ export class CreateOrEditUsuarioComponent extends AppComponentBase implements On
     img.src = url;
   }
 
-  save(): void {
-    let canvas = document.createElement("canvas");
-    canvas.width = 400;
-    canvas.height = 408;
+  // save(): void {
+  //   let canvas = document.createElement("canvas");
+  //   canvas.width = 400;
+  //   canvas.height = 408;
 
-    // var dataURL = canvas.toDataURL();
-    // this._service.upload(dataURL);
-    canvas.toBlob((blob) => {
-      let file = new File([blob], "fileName.jpg", { type: "image/jpeg" })
-      this._service.upload(file);
-    }, 'image/jpeg');
+  //   // var dataURL = canvas.toDataURL();
+  //   // this._service.upload(dataURL);
+  //   canvas.toBlob((blob) => {
+  //     let file = new File([blob], "fileName.jpg", { type: "image/jpeg" })
+  //     this._service.upload(file);
+  //   }, 'image/jpeg');
 
 
-  }
+  // }
 
-  save2(): void {
+  save2(imageBase64: string): void {
     pclj.ui.setBusy();
-    this._service.create(this.usuarioForm.value)
+    this._service.create(this.usuarioForm.value, imageBase64)
       .pipe(finalize(() => pclj.ui.clearBusy()))
       .subscribe({
         next: () => {
@@ -256,16 +256,29 @@ export class CreateOrEditUsuarioComponent extends AppComponentBase implements On
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       ctx.restore();
       DOMURL.revokeObjectURL(url);
-      canvas.toBlob(imageBlob => {
 
-        this._service.uploadBlobFotoPerfil(imageBlob)
-          .then((fileName) => {
-            pclj.message.success(fileName);
-          })
-          .catch((error) => {
-            pclj.message.error("Erro no upload");
-          });
-      });
+
+      let result = canvas.toDataURL()
+      this.save2(result);
+      // let result = canvas.toDataURL()
+      // this._service.uploadBlobFotoPerfil(result)
+      //   .then((fileName) => {
+      //     pclj.message.success(fileName);
+      //   })
+      //   .catch((error) => {
+      //     pclj.message.error("Erro no upload");
+      //   });
+
+      // canvas.toBlob(imageBlob => {
+
+      //   this._service.uploadBlobFotoPerfil(imageBlob)
+      //     .then((fileName) => {
+      //       pclj.message.success(fileName);
+      //     })
+      //     .catch((error) => {
+      //       pclj.message.error("Erro no upload");
+      //     });
+      // });
     };
     img.src = url;
   }

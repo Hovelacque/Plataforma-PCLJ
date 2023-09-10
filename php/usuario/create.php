@@ -2,6 +2,15 @@
 
 require(__DIR__ . '/../connect.php');
 
+
+function uploadFoto($image, $id)
+{
+  $image_parts = explode(";base64,", $image);
+  $image_base64 = base64_decode($image_parts[1]);
+  $file = "../uploads/" . $id . '.png';
+  file_put_contents($file, $image_base64);
+}
+
 $postdata = file_get_contents("php://input");
 
 if (isset($postdata) && !empty($postdata)) {
@@ -23,7 +32,6 @@ if (isset($postdata) && !empty($postdata)) {
     ));
     die();
   }
-
 
   // Sanitize.
   $nome = mysqli_real_escape_string($conn, trim($request->nome));
@@ -54,6 +62,7 @@ if (isset($postdata) && !empty($postdata)) {
   if (mysqli_query($conn, $sql)) {
     http_response_code(201);
     $request->id = mysqli_insert_id($conn);
+    uploadFoto($request->image, $request->id);
     echo json_encode($request);
   } else {
     http_response_code(422);

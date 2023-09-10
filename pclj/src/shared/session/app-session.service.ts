@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AppConsts } from '@shared/AppConsts';
 import { SessionServiceProxyService } from '@shared/service-proxies/session/session-service-proxy.service';
 import { UsuarioLoginInfoOutput } from '@shared/service-proxies/session/usuario-login-info-output';
 
@@ -32,8 +33,12 @@ export class AppSessionService {
         return this.usuario.tipo == 3;
     }
 
-    getShownLoginName(): string {
+    get nome(): string {
         return this.usuario ? this.usuario.nome : "";
+    }
+
+    get avatar(): string {
+        return this.usuario ? `${AppConsts.remoteServiceBaseUrl}/uploads/${this.usuario.id}.png` : "assets/images/avatar.png";
     }
 
     init(): Promise<boolean> {
