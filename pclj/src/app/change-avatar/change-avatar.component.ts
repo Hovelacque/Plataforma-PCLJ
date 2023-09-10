@@ -1,30 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
-  AvatarOptions, AvatarStyle,
+  AvatarOptions, AvatarAngularKapibaraComponent,
   Clothes, FacialHair, Top, Eyes, Mouth, Skin, Accessories, Eyebrow,
-  Graphic, FacialHairColor, ClothesColor, HatColor, HairColor, Face,
+  Graphic, FacialHairColor, ClothesColor, HatColor, HairColor, AvatarEnums,
 } from 'avatar-angular-kapibara';
-import { AvatarTranslateService } from './avatar-translate.service';
-
-class AvatarEnums {
-  value: string = '';
-  label: string = '';
-
-  constructor(value: string, label: string) {
-    this.value = value;
-    this.label = label;
-  }
-}
 
 @Component({
   selector: 'app-change-avatar',
   templateUrl: './change-avatar.component.html',
   styleUrls: ['./change-avatar.component.css'],
   providers: [
-    AvatarTranslateService
   ]
 })
 export class ChangeAvatarComponent implements OnInit {
+
+  @ViewChild('avatar') avatar: AvatarAngularKapibaraComponent;
 
   options: AvatarOptions = new AvatarOptions();
 
@@ -47,7 +37,6 @@ export class ChangeAvatarComponent implements OnInit {
   tops: AvatarEnums[] = [];
 
   constructor(
-    private _avatarTranslateService: AvatarTranslateService
   ) { }
 
   ngOnInit(): void {
@@ -55,32 +44,23 @@ export class ChangeAvatarComponent implements OnInit {
   }
 
   load(): void {
-    this.tops = this.getEnumList('tops', Top);
-    this.facialHair = this.getEnumList('facialHair', FacialHair);
-    this.clothe = this.getEnumList('clothe', Clothes);
-    this.eyes = this.getEnumList('eyes', Eyes);
-    this.eyebrow = this.getEnumList('eyebrow', Eyebrow);
-    this.mouth = this.getEnumList('mouth', Mouth);
-    this.skin = this.getEnumList('skin', Skin);
-    this.accessories = this.getEnumList('accessories', Accessories);
-    this.clothColor = this.getEnumList('clothColor', ClothesColor);
-    this.facialHairColor = this.getEnumList('facialHairColor', FacialHairColor);
-    this.graphic = this.getEnumList('graphic', Graphic);
-    this.hatColor = this.getEnumList('hatColor', HatColor);
-    this.hairColor = this.getEnumList('hairColor', HairColor);
-  }
-
-  getEnumList(campo: string, enumRef: any): AvatarEnums[] {
-    return Object.keys(enumRef).map(key => {
-      let label = enumRef[key].trim();
-      return new AvatarEnums(label, this._avatarTranslateService.translate(`${campo}_${label}`));
-    });
+    this.tops = this.options.getAvatarEnumList('tops', Top);
+    this.facialHair = this.options.getAvatarEnumList('facialHair', FacialHair);
+    this.clothe = this.options.getAvatarEnumList('clothe', Clothes);
+    this.eyes = this.options.getAvatarEnumList('eyes', Eyes);
+    this.eyebrow = this.options.getAvatarEnumList('eyebrow', Eyebrow);
+    this.mouth = this.options.getAvatarEnumList('mouth', Mouth);
+    this.skin = this.options.getAvatarEnumList('skin', Skin);
+    this.accessories = this.options.getAvatarEnumList('accessories', Accessories);
+    this.clothColor = this.options.getAvatarEnumList('clothColor', ClothesColor);
+    this.facialHairColor = this.options.getAvatarEnumList('facialHairColor', FacialHairColor);
+    this.graphic = this.options.getAvatarEnumList('graphic', Graphic);
+    this.hatColor = this.options.getAvatarEnumList('hatColor', HatColor);
+    this.hairColor = this.options.getAvatarEnumList('hairColor', HairColor);
   }
 
   generateRandom() {
-    this.options = new AvatarOptions();
     this.options.getRandom();
-    this.options.style = AvatarStyle.TRANSPARENT;
   }
 
   get disabledColourFabric(): boolean {
@@ -117,44 +97,8 @@ export class ChangeAvatarComponent implements OnInit {
     else return true;
   }
 
-  onDownloadPNG = () => {
-    let svgNode = document.getElementById('svgid');
-    let canvas = document.createElement("canvas");
-    canvas.width = 400;
-    canvas.height = 408;
-    let ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    let anyWindow = window as any;
-    let DOMURL = anyWindow.URL || anyWindow.webkitURL || window;
-    let data = svgNode.innerHTML;
-    let svg = new Blob([data], { type: 'image/svg+xml' });
-    let img = new Image(canvas.width, canvas.height);
-    let url = DOMURL.createObjectURL(svg);
-    img.onload = () => {
-      ctx.save();
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      ctx.restore();
-      DOMURL.revokeObjectURL(url);
-
-      let a = document.createElement('a');
-      a.href = canvas.toDataURL('image/png');
-      a.download = 'avatar-PCLJ.png';
-      a.click();
-
-      // canvas.toBlob(imageBlob => {
-      // this._uploadService.uploadBlobFotoPerfil(imageBlob)
-      //   .then((fileName) => {
-      //     this.loading = false;
-      //     this.setFotoDePerfil(fileName);
-      //   })
-      //   .catch((error) => {
-      //     this.loading = false;
-      //     abp.message.error("Erro no upload");
-      //   });
-      // });
-    };
-    img.src = url;
+  download(): void {
+    this.avatar.onDownloadPNG('avatar-PCLJ.png');
   };
 
 }

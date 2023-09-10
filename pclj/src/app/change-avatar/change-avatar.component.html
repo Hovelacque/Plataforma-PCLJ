@@ -17,7 +17,7 @@
                     <mat-label>Olhos</mat-label>
                     <mat-select [(ngModel)]="options.eyes">
                         <mat-option *ngFor="let item of eyes" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -27,7 +27,7 @@
                     <mat-label>Sobrancelha</mat-label>
                     <mat-select [(ngModel)]="options.eyebrow">
                         <mat-option *ngFor="let item of eyebrow" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -37,7 +37,7 @@
                     <mat-label>Boca</mat-label>
                     <mat-select [(ngModel)]="options.mouth">
                         <mat-option *ngFor="let item of mouth" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -47,7 +47,7 @@
                     <mat-label>Pele</mat-label>
                     <mat-select [(ngModel)]="options.skin">
                         <mat-option *ngFor="let item of skin" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -57,7 +57,7 @@
                     <mat-label>Chapéu / Cabelo</mat-label>
                     <mat-select [(ngModel)]="options.top">
                         <mat-option *ngFor="let item of tops" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -67,7 +67,7 @@
                     <mat-label>Acessório</mat-label>
                     <mat-select [(ngModel)]="options.accessories" [disabled]="options.top === (topsEnum.EYEPATCH)">
                         <mat-option *ngFor="let item of accessories" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -77,7 +77,7 @@
                     <mat-label>Cor do cabelo</mat-label>
                     <mat-select [(ngModel)]="options.hairColor" [disabled]="disabledHairColour">
                         <mat-option *ngFor="let item of hairColor" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -87,7 +87,7 @@
                     <mat-label>Cor do chapéu</mat-label>
                     <mat-select [(ngModel)]="options.hatColor">
                         <mat-option *ngFor="let item of hatColor" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -97,7 +97,7 @@
                     <mat-label>Barba</mat-label>
                     <mat-select [(ngModel)]="options.facialHair" [disabled]="options.top === (topsEnum.HIJAB)">
                         <mat-option *ngFor="let item of facialHair" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -107,7 +107,7 @@
                     <mat-label>Cor da barba</mat-label>
                     <mat-select [(ngModel)]="options.facialHairColor" [disabled]="options.top === (topsEnum.HIJAB)">
                         <mat-option *ngFor="let item of facialHairColor" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -117,7 +117,7 @@
                     <mat-label>Roupa</mat-label>
                     <mat-select [(ngModel)]="options.clothes">
                         <mat-option *ngFor="let item of clothe" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -127,7 +127,7 @@
                     <mat-label>Cor da roupa</mat-label>
                     <mat-select [(ngModel)]="options.clothColor" [disabled]="disabledColourFabric">
                         <mat-option *ngFor="let item of clothColor" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -138,7 +138,7 @@
                     <mat-select [(ngModel)]="options.graphic"
                         [disabled]="options.clothes !== (clothesEnum.GRAPHIC_SHIRT)">
                         <mat-option *ngFor="let item of graphic" [value]="item.value">
-                            {{item.label}}
+                            {{item.translation}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -152,8 +152,8 @@
             Gerar Avatar Aleatório
         </button>
         <div>
-            <button mat-raised-button (click)="onDownloadPNG()">Baixar como imagem</button>
-            <button mat-raised-button color="primary" (click)="onDownloadPNG()">Salvar</button>
+            <button mat-raised-button (click)="download()">Baixar como imagem</button>
+            <button mat-raised-button color="primary" (click)="download()">Salvar</button>
         </div>
     </mat-card-actions>
 </mat-card>
