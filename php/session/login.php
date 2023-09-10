@@ -12,13 +12,13 @@ if (isset($postdata) && !empty($postdata)) {
     $sql = "SELECT * FROM `usuarios` WHERE `usuario` = '{$request->usuario}' and `ativo` = 1 LIMIT 1";;
     $result = mysqli_query($conn, $sql);
 
-    if ($result->num_rows == 0) {
-        http_response_code(500);
-        echo json_encode(array(
-            "message" => "Usuário não encontrado!"
-        ));
-        die();
-    }
+    // if ($result->num_rows > 0) {
+    //     http_response_code(500);
+    //     echo json_encode(array(
+    //         "message" => "Usuário não encontrado!"
+    //     ));
+    //     die();
+    // }
 
     $row = mysqli_fetch_assoc($result);
     if ($row["senha"] != $request->senha) {
