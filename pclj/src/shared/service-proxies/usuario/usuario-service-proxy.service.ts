@@ -4,6 +4,7 @@ import { Observable, delay, first } from 'rxjs';
 import { UsuarioDto } from './usuario-dto';
 import { UsuarioListOutput } from './usuario-list-output';
 import { AppConsts } from '@shared/AppConsts';
+import { TokenService } from '@shared/services/token.service';
 
 @Injectable({
     providedIn: 'root'
@@ -70,6 +71,48 @@ export class UsuarioServiceProxyService {
         // this.http.post(path, formData).subscribe(
         //     (r) => { console.log('got r', r) }
         // )
+    }
+
+    uploadBlobFotoPerfil(blob: any): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+
+            let file = new File([blob], "blobConvertido.jpeg", { type: blob.type });
+            let tokenService = new TokenService();
+            let token = tokenService.get();
+            // let token = abp.auth.getToken();
+
+            var data = new FormData();
+            //por algum motivo se tirar esse append a img não chega no back
+            data.append("folder", 'tes');
+            data.append('image', file)
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', `${this.API}upload.php`, true);
+            xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+
+            xhr.setRequestHeader("Content-Type", 'multipart/form-data');
+
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+            xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+            xhr.setRequestHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+        
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState == 4)
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.response);
+
+                        if (response && response.result && response.result.message && response.result.message == 'Success!') {
+                            resolve(response.result.fileName);
+                        }
+                        else {
+                            reject(response.result.errorMessage);
+                        }
+
+                    }
+            };
+            xhr.send(data);
+
+        });
     }
 
 }

@@ -237,4 +237,37 @@ export class CreateOrEditUsuarioComponent extends AppComponentBase implements On
       });
   }
 
+  save3(): void {
+    const svgNode = document.getElementById('svgid');
+    const canvas = document.createElement("canvas");
+    canvas.width = 400;
+    canvas.height = 408;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const anyWindow = window as any;
+    const DOMURL = anyWindow.URL || anyWindow.webkitURL || window;
+    const data = svgNode.innerHTML;
+    const svg = new Blob([data], { type: 'image/svg+xml' });
+    const img = new Image(canvas.width, canvas.height);
+    const url = DOMURL.createObjectURL(svg);
+    img.onload = () => {
+      ctx.save();
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      ctx.restore();
+      DOMURL.revokeObjectURL(url);
+      canvas.toBlob(imageBlob => {
+
+        this._service.uploadBlobFotoPerfil(imageBlob)
+          .then((fileName) => {
+            pclj.message.success(fileName);
+          })
+          .catch((error) => {
+            pclj.message.error("Erro no upload");
+          });
+      });
+    };
+    img.src = url;
+  }
+
 }
