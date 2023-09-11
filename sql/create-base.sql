@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS pclj;
 /*
 Tipo = Administrador/Professor/Aluno
 */
-CREATE TABLE usuarios (
+CREATE TABLE pclj.usuarios (
     id INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
     usuario VARCHAR(255) NOT NULL,
@@ -28,3 +28,12 @@ CREATE TABLE usuarios (
     
     PRIMARY KEY (id)
 );
+
+
+/*
+'SEEDs' 
+*/
+INSERT INTO pclj.usuarios (`nome`,`usuario`, `senha`, `tipo`, `olho`, `sobrancelha`, `boca`, `pele`, `chapeu_cabelo`, `acessorio`, `cor_chapeu`, `barba`, `cor_barba`, `roupa`, `cor_roupa`) 
+VALUES ('Gustavo Geissler Hovelacque','admin','123qwe','1', 'dizzy', 'updown', 'smile', 'light', 'longhair_frida', 'round', 'white', 'moustache_fancy', 'brown', 'hoodie', 'blue2');
+
+														
