@@ -102,22 +102,22 @@ export class CreateOrEditUsuarioComponent extends AppComponentBase implements On
 
   generateRandom() {
     this.avatar.getRandom();
-    // if (this.usuarioForm)
-    //   this.usuarioForm.setValue({
-    //     olho: this.avatar.eyes,
-    //     sobrancelha: this.avatar.eyebrow,
-    //     boca: this.avatar.mouth,
-    //     pele: this.avatar.skin,
-    //     chapeu_cabelo: this.avatar.top,
-    //     acessorio: this.avatar.accessories,
-    //     cor_cabelo: this.avatar.hairColor,
-    //     cor_chapeu: this.avatar.hatColor,
-    //     barba: this.avatar.facialHair,
-    //     cor_barba: this.avatar.facialHairColor,
-    //     roupa: this.avatar.clothes,
-    //     cor_roupa: this.avatar.clothColor,
-    //     estampa: this.avatar.graphic,
-    //   });
+    if (this.usuarioForm) // setValue precisa atualizar todos os campos
+      this.usuarioForm.patchValue({
+        olho: this.avatar.eyes,
+        sobrancelha: this.avatar.eyebrow,
+        boca: this.avatar.mouth,
+        pele: this.avatar.skin,
+        chapeu_cabelo: this.avatar.top,
+        acessorio: this.avatar.accessories,
+        cor_cabelo: this.avatar.hairColor,
+        cor_chapeu: this.avatar.hatColor,
+        barba: this.avatar.facialHair,
+        cor_barba: this.avatar.facialHairColor,
+        roupa: this.avatar.clothes,
+        cor_roupa: this.avatar.clothColor,
+        estampa: this.avatar.graphic,
+      });
   }
 
   // setConfigAvatarNoForm(result: UsuarioDto = null): void {

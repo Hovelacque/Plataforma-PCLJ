@@ -7,7 +7,7 @@ function uploadFoto($image, $id)
 {
   $image_parts = explode(";base64,", $image);
   $image_base64 = base64_decode($image_parts[1]);
-  $file = "../uploads/" . $id . '.png';
+  $file = "../uploads/avatares/" . $id . '.png';
   file_put_contents($file, $image_base64);
 }
 

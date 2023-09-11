@@ -13,7 +13,7 @@ if (isset($headers['Authorization'])) {
 if (isset($token) && !empty($token)) {
     $secret = $_CONFIG["JWT"];
     $user = JWT::decode($token, $secret);
-    $_USUARIO =  json_encode($user);
+    $_USUARIO =  json_encode($user, JSON_NUMERIC_CHECK);
 } else {
     $_USUARIO = null;
 }
