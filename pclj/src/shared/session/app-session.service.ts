@@ -38,7 +38,7 @@ export class AppSessionService {
     }
 
     get avatar(): string {
-        return this.usuario ? `${AppConsts.remoteServiceBaseUrl}/uploads/${this.usuario.id}.png` : "assets/images/avatar.png";
+        return this.usuario ? `${AppConsts.remoteServiceBaseUrl}/uploads/avatares/${this.usuario.id}.png` : "assets/images/avatar.png";
     }
 
     init(): Promise<boolean> {

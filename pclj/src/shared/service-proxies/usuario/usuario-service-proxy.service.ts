@@ -35,6 +35,10 @@ export class UsuarioServiceProxyService {
         return this.httpClient.post(`${this.API}create.php`, { ...item, image: imageBase64 })
     }
 
+    updateAvatar(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
+        return this.httpClient.post(`${this.API}updateAvatar.php`, { ...item, image: imageBase64 })
+    }
+
     upload(fileToUpload: any) {
 
         let formData: FormData = new FormData();
