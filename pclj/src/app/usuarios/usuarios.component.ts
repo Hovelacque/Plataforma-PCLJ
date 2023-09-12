@@ -16,7 +16,7 @@ import { TipoUsuario } from '@shared/enums/tipo-usuario.enum';
 export class UsuariosComponent {
 
   usuarios: UsuarioListOutput[] = [];
-  displayedColumns = ['id', 'nome', 'tipo', 'actions'];
+  displayedColumns = ['id', 'nome', 'usuario', 'tipo', 'actions'];
 
   modalRef?: BsModalRef;
 

@@ -48,6 +48,7 @@ export class CreateOrEditUsuarioComponent extends AppComponentBase implements On
             id: [result.id],
             nome: [result.nome, Validators.required],
             usuario: [result.usuario, Validators.required],
+            senha: [this.generatePassword(), Validators.required],
             tipo: [result.tipo],
 
             olho: [result.olho],
@@ -221,9 +222,25 @@ export class CreateOrEditUsuarioComponent extends AppComponentBase implements On
 
   // }
 
-  save2(imageBase64: string): void {
+  create(imageBase64: string): void {
     pclj.ui.setBusy();
     this._service.create(this.usuarioForm.value, imageBase64)
+      .pipe(finalize(() => pclj.ui.clearBusy()))
+      .subscribe({
+        next: () => {
+          this.notify("Salvo com sucesso!");
+          this.onSave.emit();
+          this.bsModalRef.hide();
+        },
+        error: (result) => {
+          pclj.message.error(result.error.message);
+        }
+      });
+  }
+
+  update(imageBase64: string): void {
+    pclj.ui.setBusy();
+    this._service.update(this.usuarioForm.value, imageBase64)
       .pipe(finalize(() => pclj.ui.clearBusy()))
       .subscribe({
         next: () => {
@@ -257,28 +274,13 @@ export class CreateOrEditUsuarioComponent extends AppComponentBase implements On
       ctx.restore();
       DOMURL.revokeObjectURL(url);
 
+      let result = canvas.toDataURL();
 
-      let result = canvas.toDataURL()
-      this.save2(result);
-      // let result = canvas.toDataURL()
-      // this._service.uploadBlobFotoPerfil(result)
-      //   .then((fileName) => {
-      //     pclj.message.success(fileName);
-      //   })
-      //   .catch((error) => {
-      //     pclj.message.error("Erro no upload");
-      //   });
+      if (this.editing)
+        this.update(result);
+      else
+        this.create(result);
 
-      // canvas.toBlob(imageBlob => {
-
-      //   this._service.uploadBlobFotoPerfil(imageBlob)
-      //     .then((fileName) => {
-      //       pclj.message.success(fileName);
-      //     })
-      //     .catch((error) => {
-      //       pclj.message.error("Erro no upload");
-      //     });
-      // });
     };
     img.src = url;
   }

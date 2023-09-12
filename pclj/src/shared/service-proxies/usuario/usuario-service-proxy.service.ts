@@ -34,9 +34,13 @@ export class UsuarioServiceProxyService {
     create(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
         return this.httpClient.post(`${this.API}create.php`, { ...item, image: imageBase64 })
     }
+    
+    update(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
+        return this.httpClient.put(`${this.API}update.php`, { ...item, image: imageBase64 })
+    }
 
     updateAvatar(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
-        return this.httpClient.post(`${this.API}updateAvatar.php`, { ...item, image: imageBase64 })
+        return this.httpClient.put(`${this.API}updateAvatar.php`, { ...item, image: imageBase64 })
     }
 
     upload(fileToUpload: any) {

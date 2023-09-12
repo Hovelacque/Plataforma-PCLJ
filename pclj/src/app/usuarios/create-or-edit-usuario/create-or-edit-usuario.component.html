@@ -14,13 +14,13 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-12 col-md-6" [ngClass]="{'col-lg-12': editing, 'col-lg-6': !editing}">
+            <div class="col-sm-12 col-md-6 col-lg-6">
                 <mat-form-field>
                     <input matInput placeholder="Nome" formControlName="nome" required>
                     <mat-error>Campo Obrigatório</mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-6" *ngIf="!editing">
+            <div class="col-sm-12 col-md-6 col-lg-6">
                 <mat-form-field>
                     <input matInput placeholder="Senha" formControlName="senha" required>
                     <mat-error>Campo Obrigatório</mat-error>
