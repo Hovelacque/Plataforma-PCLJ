@@ -11,4 +11,4 @@ require (__DIR__ . '/decodeToken.php');
 //     die();
 // }
 
-echo $_USUARIO;
+echo json_encode($_USUARIO, JSON_NUMERIC_CHECK);

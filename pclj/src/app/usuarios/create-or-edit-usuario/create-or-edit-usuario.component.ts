@@ -38,12 +38,11 @@ export class CreateOrEditUsuarioComponent extends AppComponentBase implements On
 
   ngOnInit(): void {
     if (this.id > 0) {
-      this.editing = true;
+      pclj.ui.setBusy();
       this._service.get(this.id)
-        // .pipe(finalize(() => {
-        //   abp.ui.clearBusy();
-        // }))
+        .pipe(finalize(() => pclj.ui.clearBusy()))
         .subscribe((result: UsuarioDto) => {
+          this.editing = true;
           this.usuarioForm = this.formBuilder.group({
             id: [result.id],
             nome: [result.nome, Validators.required],

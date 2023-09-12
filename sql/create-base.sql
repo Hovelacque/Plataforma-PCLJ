@@ -11,7 +11,6 @@ CREATE TABLE pclj.usuarios (
     tipo INT NOT NULL,
     ativo BOOLEAN NOT NULL DEFAULT 1,
     /*Dados Avatar*/
-    foto VARCHAR(36) ,
     olho VARCHAR(30) ,
     sobrancelha VARCHAR(30) ,
     boca VARCHAR(30) ,
@@ -27,6 +26,18 @@ CREATE TABLE pclj.usuarios (
     estampa VARCHAR(30) ,
     
     PRIMARY KEY (id)
+);
+
+CREATE TABLE pclj.projetos (
+    id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    descricao LONGTEXT NOT NULL,
+    usuarioId INT NOT NULL,
+    capa VARCHAR(255),
+    pastaDeArquivos VARCHAR(30),
+    
+    PRIMARY KEY (id),    
+    FOREIGN KEY (usuarioId) REFERENCES pclj.usuarios(id)
 );
 
 
