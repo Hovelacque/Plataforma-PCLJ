@@ -33,7 +33,7 @@ CREATE TABLE pclj.usuarios (
 /*
 'SEEDs' 
 */
-INSERT INTO pclj.usuarios (`nome`,`usuario`, `senha`, `tipo`, `olho`, `sobrancelha`, `boca`, `pele`, `chapeu_cabelo`, `acessorio`, `cor_chapeu`, `barba`, `cor_barba`, `roupa`, `cor_roupa`) 
-VALUES ('Gustavo Geissler Hovelacque','admin','123qwe','1', 'dizzy', 'updown', 'smile', 'light', 'longhair_frida', 'round', 'white', 'moustache_fancy', 'brown', 'hoodie', 'blue2');
+INSERT INTO pclj.usuarios (`id`,`nome`,`usuario`, `senha`, `tipo`, `olho`, `sobrancelha`, `boca`, `pele`, `chapeu_cabelo`, `acessorio`, `cor_chapeu`, `barba`, `cor_barba`, `roupa`, `cor_roupa`) 
+VALUES (1,'Gustavo Geissler Hovelacque','admin','123qwe','1', 'dizzy', 'updown', 'smile', 'light', 'longhair_frida', 'round', 'white', 'moustache_fancy', 'brown', 'hoodie', 'blue2');
 
 														
