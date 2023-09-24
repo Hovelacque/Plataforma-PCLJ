@@ -5,6 +5,7 @@ import { UsuarioDto } from './usuario-dto';
 import { UsuarioListOutput } from './usuario-list-output';
 import { AppConsts } from '@shared/AppConsts';
 import { TokenService } from '@shared/services/token.service';
+import { AlunoOutput } from './aluno-output';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,12 @@ export class UsuarioServiceProxyService {
     constructor(
         private httpClient: HttpClient
     ) { }
+
+    getAllAlunos(): Observable<AlunoOutput[]> {
+        return this.httpClient
+            .get<AlunoOutput[]>(`${this.API}getAllAlunos.php`)
+            .pipe(first()); //fecha a conexão com o servidor
+    }
 
     getAll(): Observable<UsuarioListOutput[]> {
         return this.httpClient

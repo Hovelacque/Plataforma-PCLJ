@@ -1,18 +1,25 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { AppComponentBase } from '@shared/app-component-base';
+import { AlunoOutput } from '@shared/service-proxies/usuario/aluno-output';
+import { UsuarioServiceProxyService } from '@shared/service-proxies/usuario/usuario-service-proxy.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends AppComponentBase implements OnInit {
 
-  items: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  alunos: AlunoOutput[] = [];
 
   responsiveOptions;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    public injector: Injector,
+    private _service: UsuarioServiceProxyService
+  ) {
+    super(injector);
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -33,6 +40,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadAlunos();
+  }
+
+  loadAlunos(): void {
+    this._service.getAllAlunos()
+      .subscribe((result) => {
+        this.alunos = result.sort(() => (Math.random() > .5) ? 1 : -1);;
+      })
   }
 
 }

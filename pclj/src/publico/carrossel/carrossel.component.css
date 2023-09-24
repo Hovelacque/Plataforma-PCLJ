@@ -1,7 +1,7 @@
 .item {
     background-size: cover;
     background-repeat: no-repeat;
-    height: 500px;
+    height: 1000px;
     transition: all 0.5s ease-in-out;
 }
 
@@ -9,7 +9,8 @@
     display: flex;
     gap: 10px;
     justify-content: center;
-    margin-top: 8px;
+    padding-top: 8px;
+    background-color: white;
 }
 
 .botoes-controle button {
