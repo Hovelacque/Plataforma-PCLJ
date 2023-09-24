@@ -24,6 +24,14 @@ export class UsuarioServiceProxyService {
             .pipe(first()); //fecha a conexão com o servidor
     }
 
+    getAluno(id: number): Observable<AlunoOutput> {
+        return this.httpClient
+            .get<AlunoOutput>(`${this.API}getAluno.php`, {
+                params: new HttpParams().set('id', id)
+            })
+            .pipe(first()); //fecha a conexão com o servidor
+    }
+
     getAll(): Observable<UsuarioListOutput[]> {
         return this.httpClient
             .get<UsuarioListOutput[]>(`${this.API}list.php`)
@@ -41,7 +49,7 @@ export class UsuarioServiceProxyService {
     create(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
         return this.httpClient.post(`${this.API}create.php`, { ...item, image: imageBase64 })
     }
-    
+
     update(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
         return this.httpClient.put(`${this.API}update.php`, { ...item, image: imageBase64 })
     }
@@ -51,7 +59,6 @@ export class UsuarioServiceProxyService {
     }
 
     upload(fileToUpload: any) {
-
         let formData: FormData = new FormData();
         formData.append('file', fileToUpload);
 
@@ -63,29 +70,6 @@ export class UsuarioServiceProxyService {
                 console.log(error);
             }
         );
-
-        // let path = `${environment.celoApiEndpoint}/api/patientFiles`
-        // let data = {
-        //     "patientData": {
-        //         "uid": "",
-        //         "firstName": "",
-        //         "lastName": "",
-        //         "gender": "Not Specified",
-        //         "dateOfBirth": ""
-        //     }
-        // }
-        // // let headers = new HttpHeaders()
-        // //   .set('content-type', 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW')
-        // // let headers = new HttpHeaders().set('content-type', 'multipart/form-data')
-        // const formData: FormData = new FormData();
-
-        // for (let i = 0; i < files.length; i++) {
-        //     formData.append(i.toString(), files[i], files[i].name);
-        // }
-        // formData.append("data", JSON.stringify(data));
-        // this.http.post(path, formData).subscribe(
-        //     (r) => { console.log('got r', r) }
-        // )
     }
 
     uploadBlobFotoPerfil(blob: any): Promise<string> {
@@ -101,44 +85,6 @@ export class UsuarioServiceProxyService {
                     pclj.message.error(result.error.message);
                 }
             });
-
-            // let file = new File([blob], "blobConvertido.jpeg", { type: blob.type });
-            // let tokenService = new TokenService();
-            // let token = tokenService.get();
-            // // let token = abp.auth.getToken();
-
-            // var data = new FormData();
-            // //por algum motivo se tirar esse append a img não chega no back
-            // data.append("folder", 'tes');
-            // data.append('image', file)
-
-            // var xhr = new XMLHttpRequest();
-            // xhr.open('POST', `${this.API}upload.php`, true);
-            // xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-
-            // xhr.setRequestHeader("Content-Type", 'multipart/form-data');
-
-            // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-            // xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-            // xhr.setRequestHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-
-            // xhr.onreadystatechange = () => {
-            //     if (xhr.readyState == 4)
-            //         if (xhr.status == 200) {
-            //             var response = JSON.parse(xhr.response);
-
-            //             if (response && response.result && response.result.message && response.result.message == 'Success!') {
-            //                 resolve(response.result.fileName);
-            //             }
-            //             else {
-            //                 reject(response.result.errorMessage);
-            //             }
-
-            //         }
-            // };
-            // xhr.send(data);
-
         });
     }
-
 }
