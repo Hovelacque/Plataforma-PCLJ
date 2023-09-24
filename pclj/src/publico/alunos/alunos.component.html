@@ -1,10 +1,11 @@
 <!-- <mat-grid-list cols="6" rowHeight="200px">
     <mat-grid-tile *ngFor="let item of alunos"> 
          <a routerLink="/aluno/1"> -->
-<a *ngFor="let item of alunos" routerLink="/aluno/1">
-    <div class="card-aluno center col-sm-4 col-md-3 col-lg-2">
-        <img src="assets/images/avatar.png" height="150px" />
-        <span>Gustavo Geissler Hovelacque</span>
+<a *ngFor="let item of alunos" [routerLink]="['aluno',item.id]">
+    <!-- card-aluno   -->
+    <div class="col-sm-4 col-md-3 col-lg-2 center">
+        <img [src]="montaUrlAvatar(item.id)" height="150px" />
+        <span>{{item.nome}}</span>
     </div>
 </a>
 <!-- </mat-grid-tile>

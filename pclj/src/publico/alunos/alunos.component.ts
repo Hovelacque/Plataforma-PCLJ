@@ -1,17 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { AppComponentBase } from '@shared/app-component-base';
+import { AlunoOutput } from '@shared/service-proxies/usuario/aluno-output';
+import { UsuarioServiceProxyService } from '@shared/service-proxies/usuario/usuario-service-proxy.service';
 
 @Component({
   selector: 'app-alunos',
   templateUrl: './alunos.component.html',
   styleUrls: ['./alunos.component.css']
 })
-export class AlunosComponent implements OnInit {
+export class AlunosComponent extends AppComponentBase implements OnInit {
 
-  alunos: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  alunos: AlunoOutput[] = [];
 
-  constructor() { }
+  constructor(
+    public injector: Injector,
+    private _service: UsuarioServiceProxyService
+  ) {
+    super(injector);
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.loadAlunos();
+  }
+
+  loadAlunos(): void {
+    this._service.getAllAlunos()
+      .subscribe((result) => {
+        this.alunos = result;
+      })
   }
 
 }
