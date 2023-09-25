@@ -9,7 +9,7 @@ $postdata = file_get_contents("php://input");
 if (isset($postdata) && !empty($postdata)) {
     $request = json_decode($postdata);
 
-    $sql = "SELECT * FROM `usuarios` WHERE `usuario` = '{$request->usuario}' and `ativo` = 1 LIMIT 1";;
+    $sql = "SELECT * FROM `usuarios` WHERE TRIM(LOWER(`usuario`)) = TRIM(LOWER('{$request->usuario}')) and `ativo` = 1 LIMIT 1";
     $result = mysqli_query($conn, $sql);
 
     // if ($result->num_rows > 0) {
