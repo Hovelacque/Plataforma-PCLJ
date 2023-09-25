@@ -10,3 +10,7 @@
 .center {
     flex-direction: column;
 }
+
+.center>span {
+    color: black;
+}

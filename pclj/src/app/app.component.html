@@ -17,15 +17,17 @@
 
       <a mat-list-item routerLinkActive="menu-ativo" routerLink="home">Home</a>
       <a mat-list-item routerLinkActive="menu-ativo" routerLink="change-avatar">Alterar Avatar</a>
-      <a mat-list-item routerLinkActive="menu-ativo" routerLink="projetos">Projetos</a>
-      <a mat-list-item routerLinkActive="menu-ativo" routerLink="dashboard">Trabalhos</a>
-      <a mat-list-item routerLinkActive="menu-ativo" routerLink="usuarios">Usuários</a>
-      
-      <a mat-list-item routerLinkActive="menu-ativo" routerLink="dashboard">Dashboard</a>
+      <!-- <a mat-list-item routerLinkActive="menu-ativo" routerLink="projetos">Projetos</a>
+        <a mat-list-item routerLinkActive="menu-ativo" routerLink="dashboard">Trabalhos</a> -->
+      <a mat-list-item routerLinkActive="menu-ativo" routerLink="usuarios"
+        *ngIf="appSession.usuarioId == 1">Usuários</a>
+      <a mat-list-item (click)="alterarSenha()">Alterar Senha</a>
+
+      <!--<a mat-list-item routerLinkActive="menu-ativo" routerLink="dashboard">Dashboard</a>
       <a mat-list-item routerLinkActive="menu-ativo" routerLink="table">Table</a>
       <a mat-list-item routerLinkActive="menu-ativo" routerLink="drag-drop">Drag and Drop</a>
-      <a mat-list-item routerLinkActive="menu-ativo" routerLink="address-form">Address form</a>
-      
+      <a mat-list-item routerLinkActive="menu-ativo" routerLink="address-form">Address form</a> -->
+
       <a mat-list-item routerLink="">Site</a>
       <a mat-list-item (click)="logout()">Sair</a>
     </mat-nav-list>
