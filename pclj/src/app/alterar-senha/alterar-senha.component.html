@@ -7,17 +7,21 @@
             <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
     </div>
-    <div class="modal-body">       
+    <div class="modal-body">
         <div class="row">
             <div class="col-sm-12">
                 <mat-form-field>
-                    <input matInput placeholder="Senha Atual" formControlName="senhaAtual" required>
+                    <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Senha Atual"
+                        formControlName="senhaAtual" required>
+                    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     <mat-error>Campo Obrigatório</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-sm-12">
                 <mat-form-field>
-                    <input matInput placeholder="Nova Senha" formControlName="novaSenha" required>
+                    <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Nova Senha"
+                        formControlName="novaSenha" required>
+                    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     <mat-error>Campo Obrigatório</mat-error>
                 </mat-form-field>
             </div>

@@ -12,6 +12,7 @@ import { finalize } from 'rxjs';
 })
 export class AlterarSenhaComponent extends AppComponentBase {
 
+  hidePassword: boolean = true;
   active: boolean = false;
   alterarSenhaForm: FormGroup = null;
 

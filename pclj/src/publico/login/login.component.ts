@@ -12,6 +12,7 @@ import { finalize } from 'rxjs';
 })
 export class LoginComponent extends AppComponentBase {
 
+  hidePassword: boolean = true;
   loginForm: FormGroup = null;
 
   constructor(
