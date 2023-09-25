@@ -1,5 +1,12 @@
 RewriteEngine On
- RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
- RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
- RewriteRule ^ - [L]
- RewriteRule ^ /
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^ - [L]
+RewriteRule ^ /
+
+RewriteCond %{HTTP_HOST} !^www\.pclj\.com\.br
+RewriteRule (.*) http://www.pclj.com.br/$1 [R=301,L]
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
