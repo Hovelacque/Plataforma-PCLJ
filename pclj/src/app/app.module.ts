@@ -39,6 +39,7 @@ import { CreateOrEditProjetosComponent } from './projetos/create-or-edit-projeto
 import { ProjetoService } from './projetos/projetos.service';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { CreateOrEditUsuarioComponent } from './usuarios/create-or-edit-usuario/create-or-edit-usuario.component';
+import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { CreateOrEditUsuarioComponent } from './usuarios/create-or-edit-usuario/
     ProjetosComponent,
     CreateOrEditProjetosComponent,
     UsuariosComponent,
-    CreateOrEditUsuarioComponent
+    CreateOrEditUsuarioComponent,
+    AlterarSenhaComponent
   ],
   imports: [
     CommonModule,

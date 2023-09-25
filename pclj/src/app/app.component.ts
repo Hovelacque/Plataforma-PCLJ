@@ -5,6 +5,8 @@ import { map, shareReplay } from 'rxjs/operators';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { AppComponentBase } from '@shared/app-component-base';
 import { SessionServiceProxyService } from '@shared/service-proxies/session/session-service-proxy.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 
 @Component({
   selector: 'app-root',
@@ -22,10 +24,15 @@ export class AppComponent extends AppComponentBase {
   constructor(
     public injector: Injector,
     private _sessionService: SessionServiceProxyService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private _modalService: BsModalService
   ) {
     super(injector);
     setTheme('bs3');
+  }
+
+  alterarSenha(): void {
+    this._modalService.show(AlterarSenhaComponent);
   }
 
   logout(): void {

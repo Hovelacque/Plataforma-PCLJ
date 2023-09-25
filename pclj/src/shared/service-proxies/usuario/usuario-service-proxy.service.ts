@@ -6,6 +6,7 @@ import { UsuarioListOutput } from './usuario-list-output';
 import { AppConsts } from '@shared/AppConsts';
 import { TokenService } from '@shared/services/token.service';
 import { AlunoOutput } from './aluno-output';
+import { AlteraSenhaInput } from './altera-senha-input';
 
 @Injectable({
     providedIn: 'root'
@@ -86,5 +87,9 @@ export class UsuarioServiceProxyService {
                 }
             });
         });
+    }
+
+    alterarSenha(item: Partial<AlteraSenhaInput>): Observable<any> {
+        return this.httpClient.put(`${this.API}alterarSenha.php`, item);
     }
 }
