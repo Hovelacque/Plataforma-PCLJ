@@ -1,0 +1,18 @@
+.background{
+    background-color: #f7f7f7;
+    height: 100vh;
+}
+
+.center {
+    background-color: #f7f7f7;
+    flex-direction: column;
+}
+
+.button-trabalho {
+    margin: 20px;
+    border: none;
+    color: white;
+    border-radius: 50px;
+    font-size: 15px;
+    padding: 15px 20px;
+}

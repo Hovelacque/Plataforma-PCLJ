@@ -40,11 +40,21 @@ CREATE TABLE pclj.projetos (
     FOREIGN KEY (usuarioId) REFERENCES pclj.usuarios(id)
 );
 
+CREATE TABLE pclj.trabalhos (
+    id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    descricao LONGTEXT NOT NULL,
+    cor VARCHAR(7) NOT NULL,
 
-/*
-'SEEDs' 
-*/
-INSERT INTO pclj.usuarios (`id`,`nome`,`usuario`, `senha`, `tipo`, `olho`, `sobrancelha`, `boca`, `pele`, `chapeu_cabelo`, `acessorio`, `cor_chapeu`, `barba`, `cor_barba`, `roupa`, `cor_roupa`) 
-VALUES (1,'Gustavo Geissler Hovelacque','admin','123qwe','1', 'dizzy', 'updown', 'smile', 'light', 'longhair_frida', 'round', 'white', 'moustache_fancy', 'brown', 'hoodie', 'blue2');
+    PRIMARY KEY (id)
+);
 
-														
+CREATE TABLE pclj.trabalho_aluno (
+    trabalhoId INT NOT NULL,
+    usuarioId INT NOT NULL,
+    pastaDeArquivos VARCHAR(30),
+    
+    PRIMARY KEY (trabalhoId, usuarioId),    
+    FOREIGN KEY (trabalhoId) REFERENCES pclj.trabalhos(id),
+    FOREIGN KEY (usuarioId) REFERENCES pclj.usuarios(id)
+);

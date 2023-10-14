@@ -16,7 +16,7 @@ export class PublicoComponent extends AppComponentBase implements OnInit {
     { name: "Home", route: "/" },
     { name: "Alunos", route: "alunos" },
     { name: "Jogos", route: "#jogos" },
-    { name: "Trabalhos", route: "#trabalhos" },
+    { name: "Trabalhos", route: "trabalhos" },
     { name: "Projetos", route: "#projetos" },
     // { name: "Histórico do Projeto", route: "#historico" }
   ];

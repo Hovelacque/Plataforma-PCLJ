@@ -22,6 +22,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { CarouselModule } from 'primeng/carousel';
 import { AlunosComponent } from './alunos/alunos.component';
 import { AlunoComponent } from './aluno/aluno.component';
+import { TrabalhosComponent } from './trabalhos/trabalhos.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { AlunoComponent } from './aluno/aluno.component';
     HomeComponent,
     LoginComponent,
     AlunosComponent,
-    AlunoComponent
+    AlunoComponent,
+    TrabalhosComponent
   ],
   imports: [
     CommonModule,
