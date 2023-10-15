@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, delay, first } from 'rxjs';
 import { AppConsts } from '@shared/AppConsts';
+import { TrabalhoListOutput } from './trabalho-list-output';
 import { TrabalhoOutput } from './trabalho-output';
 
 @Injectable({
@@ -15,9 +16,9 @@ export class TrabalhoServiceProxyService {
         private httpClient: HttpClient
     ) { }
 
-    getAll(): Observable<TrabalhoOutput[]> {
+    getAll(): Observable<TrabalhoListOutput[]> {
         return this.httpClient
-            .get<TrabalhoOutput[]>(`${this.API}list.php`)
+            .get<TrabalhoListOutput[]>(`${this.API}list.php`)
             .pipe(first()); //fecha a conexão com o servidor
     }
 

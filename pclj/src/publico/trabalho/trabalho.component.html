@@ -1,3 +1,6 @@
+<!-- <iframe class="embed-responsive-item" allowfullscreen
+    src="http://localhost/Plataforma-PCLJ/php/uploads/trabalhos/animacao/result/index.html"></iframe> -->
+
 <div class="background" *ngIf="trabalho">
     <div class="titulo">
         <div class="button-trabalho" [ngStyle]="{'background-color': trabalho.cor}">
@@ -8,20 +11,19 @@
     <div class="descricao">{{trabalho.descricao}}</div>
 
     <div class="row" style="margin-top: 10px;">
-        <a *ngFor="let item of alunos" routerLink="/aluno/1">
+        <div *ngFor="let item of trabalho.alunos">
             <div class="center col-sm-12 col-md-6 col-lg-4">
-                <div class="aluno">
-                    <img src="assets/images/avatar.png" height="50px" />
-                    <span>Aluno X</span>
-                </div>
+                <a class="aluno" [routerLink]="['/aluno',item.id]">
+                    <img [src]="montaUrlAvatar(item.id)" height="50px" />
+                    <span>{{item.nome}}</span>
+                </a>
                 <div class="embed-responsive embed-responsive-4by3" style="width: 100%;">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
-                        allowfullscreen></iframe>
-                    <!-- <iframe class="embed-responsive-item" allowfullscreen 
-                            src="http://localhost/Plataforma-PCLJ/php/uploads/trabalhos/animacao/professor.html"></iframe> -->
+                    <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+                        allowfullscreen></iframe> -->
+                    <iframe class="embed-responsive-item" allowfullscreen [src]="item.pastaDeArquivos"></iframe>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 
 </div>

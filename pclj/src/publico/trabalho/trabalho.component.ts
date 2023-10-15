@@ -1,5 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppConsts } from '@shared/AppConsts';
 import { AppComponentBase } from '@shared/app-component-base';
 import { TrabalhoOutput } from '@shared/service-proxies/trabalho/trabalho-output';
 import { TrabalhoServiceProxyService } from '@shared/service-proxies/trabalho/trabalho-service-proxy';
@@ -11,14 +13,14 @@ import { TrabalhoServiceProxyService } from '@shared/service-proxies/trabalho/tr
 })
 export class TrabalhoComponent extends AppComponentBase implements OnInit {
 
-  alunos: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   trabalho: TrabalhoOutput = null;
 
   constructor(
     public injector: Injector,
     private route: ActivatedRoute,
     private _router: Router,
-    private _service: TrabalhoServiceProxyService
+    private _service: TrabalhoServiceProxyService,
+    private domSanitizer: DomSanitizer
   ) {
     super(injector);
   }
@@ -41,6 +43,9 @@ export class TrabalhoComponent extends AppComponentBase implements OnInit {
         next: (result) => {
           pclj.ui.clearBusy();
           this.trabalho = result;
+          this.trabalho.alunos.forEach(item => {
+            item.pastaDeArquivos = this.montaUrlTrabalho(item.id)
+          });
         },
         error: () => {
           pclj.ui.clearBusy();
@@ -49,4 +54,9 @@ export class TrabalhoComponent extends AppComponentBase implements OnInit {
         }
       })
   }
+
+  montaUrlTrabalho(alunoId: number): SafeResourceUrl {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(`${AppConsts.remoteServiceBaseUrl}/uploads/trabalhos/animacao/${alunoId}.html`);
+  }
+
 }

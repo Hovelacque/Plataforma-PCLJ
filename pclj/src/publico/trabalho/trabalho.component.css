@@ -1,12 +1,12 @@
 .background {
     background-color: white;
-    padding: 15px;
+    padding: 65px;
 }
 
 .titulo {
     text-align: center;
     font-size: 30px;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     justify-content: center;
     display: flex;
 }

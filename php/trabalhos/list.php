@@ -11,7 +11,6 @@ while ($row = $result->fetch_assoc()) {
   $dtos[] = array(
     "id" => $row['id'],
     "nome" => $row['nome'],
-    "descricao" => $row['descricao'],
     "cor"=> $row['cor']
   );
 }

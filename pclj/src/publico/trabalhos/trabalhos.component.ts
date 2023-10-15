@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
-import { TrabalhoOutput } from '@shared/service-proxies/trabalho/trabalho-output';
+import { TrabalhoListOutput } from '@shared/service-proxies/trabalho/trabalho-list-output';
 import { TrabalhoServiceProxyService } from '@shared/service-proxies/trabalho/trabalho-service-proxy';
 
 @Component({
@@ -10,7 +10,7 @@ import { TrabalhoServiceProxyService } from '@shared/service-proxies/trabalho/tr
 })
 export class TrabalhosComponent  extends AppComponentBase implements OnInit {
 
-  trabalhos: TrabalhoOutput[] = [];
+  trabalhos: TrabalhoListOutput[] = [];
 
   constructor(
     public injector: Injector,
