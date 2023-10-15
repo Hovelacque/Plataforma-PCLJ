@@ -23,6 +23,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { AlunosComponent } from './alunos/alunos.component';
 import { AlunoComponent } from './aluno/aluno.component';
 import { TrabalhosComponent } from './trabalhos/trabalhos.component';
+import { TrabalhoComponent } from './trabalho/trabalho.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { TrabalhosComponent } from './trabalhos/trabalhos.component';
     LoginComponent,
     AlunosComponent,
     AlunoComponent,
-    TrabalhosComponent
+    TrabalhosComponent,
+    TrabalhoComponent
   ],
   imports: [
     CommonModule,

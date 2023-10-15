@@ -1,56 +1,27 @@
-<!-- <div *ngIf="trabalho">
-    <div class="row center">
-        <div class="col-sm-12 col-md-12 col-lg-12"> -->
-<!-- <img src="assets/images-site/capa-trabalho.png" height="250px" /> -->
-
-<!-- <div class="card">
-                <div class="titulo">{{trabalho.nome}}</div>
-                <div class="descricao">{{trabalho.descricao}}</div>
-
-                <a *ngFor="let item of alunos" routerLink="/aluno/1">
-                    <div class="col-sm-3 col-md-3 col-lg-2"> -->
-<!-- <iframe src="http://localhost/Plataforma-PCLJ/php/uploads/trabalhos/animacao/breno.html"></iframe> -->
-<!-- <img src="assets/images/avatar.png" height="150px" />
-                        <span>Aluno X</span>
-                    </div>
-                </a>
-            </div>
+<div class="background" *ngIf="trabalho">
+    <div class="titulo">
+        <div class="button-trabalho" [ngStyle]="{'background-color': trabalho.cor}">
+            {{trabalho.nome}}
         </div>
     </div>
-    <div class="row">
-       
-    </div>
-</div> -->
 
-<mat-card *ngIf="trabalho">
-    <mat-card-header>
-        <mat-card-title>
-            <div class="titulo">
-                <div class="button-trabalho">
-                    {{trabalho.nome}}
+    <div class="descricao">{{trabalho.descricao}}</div>
+
+    <div class="row" style="margin-top: 10px;">
+        <a *ngFor="let item of alunos" routerLink="/aluno/1">
+            <div class="center col-sm-12 col-md-6 col-lg-4">
+                <div class="aluno">
+                    <img src="assets/images/avatar.png" height="50px" />
+                    <span>Aluno X</span>
                 </div>
-            </div>
-        </mat-card-title>
-        <mat-card-subtitle>
-            <div class="descricao">{{trabalho.descricao}}</div>
-        </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <div class="row" style="margin-top: 10px;">
-            <a *ngFor="let item of alunos" routerLink="/aluno/1">
-                <div class="center col-sm-12 col-md-6 col-lg-4">
-                    <div class="aluno">
-                        <img src="assets/images/avatar.png" height="50px" />
-                        <span>Aluno X</span>
-                    </div>
-                    <div class="embed-responsive embed-responsive-4by3" style="width: 100%;">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+                <div class="embed-responsive embed-responsive-4by3" style="width: 100%;">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
                         allowfullscreen></iframe>
-                        <!-- <iframe class="embed-responsive-item" allowfullscreen 
+                    <!-- <iframe class="embed-responsive-item" allowfullscreen 
                             src="http://localhost/Plataforma-PCLJ/php/uploads/trabalhos/animacao/professor.html"></iframe> -->
-                    </div>
                 </div>
-            </a>
-        </div>
-    </mat-card-content>
-</mat-card>
+            </div>
+        </a>
+    </div>
+
+</div>

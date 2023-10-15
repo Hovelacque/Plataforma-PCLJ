@@ -21,13 +21,13 @@ export class TrabalhoServiceProxyService {
             .pipe(first()); //fecha a conexão com o servidor
     }
 
-    // get(id: number): Observable<UsuarioDto> {
-    //     return this.httpClient
-    //         .get<UsuarioDto>(`${this.API}getById.php`, {
-    //             params: new HttpParams().set('id', id)
-    //         })
-    //         .pipe(first()); //fecha a conexão com o servidor
-    // }
+    get(id: number): Observable<TrabalhoOutput> {
+        return this.httpClient
+            .get<TrabalhoOutput>(`${this.API}getById.php`, {
+                params: new HttpParams().set('id', id)
+            })
+            .pipe(first()); //fecha a conexão com o servidor
+    }
 
     // create(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
     //     return this.httpClient.post(`${this.API}create.php`, { ...item, image: imageBase64 })
