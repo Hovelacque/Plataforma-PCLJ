@@ -1,16 +1,12 @@
-.card-aluno {
-    padding: 5px;
-    margin: 5px;
-    border-radius: 5px;
-    width: 200px;
-    flex-direction: column;
-    background-color: white;
+.background{
+    background-color: #f7f7f7;
 }
 
 .center {
+    background-color: #f7f7f7;
     flex-direction: column;
 }
 
 .center>span {
     color: black;
-}
+} 
