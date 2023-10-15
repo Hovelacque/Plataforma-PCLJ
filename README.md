@@ -19,7 +19,7 @@ A plataforma PCLJ nasceu como uma forma de me ajudar a gerenciar os projetos dos
 ## Externo
 - [ ] Pagina inicial
 - [X] Área de login
-- [ ] Visão externa do perfil
+- [ ] Visão externa do perfil 
 
 ## Interno
 - [ ] Componentizar Menu
