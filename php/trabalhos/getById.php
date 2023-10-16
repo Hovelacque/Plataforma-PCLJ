@@ -14,7 +14,7 @@ function recuperaAlunos($conn, $trabalhoId)
   while ($row = $result->fetch_assoc()) {
     $alunos[] = array(
       "id" => $row['id'],
-      "nome" => $row['nome']
+      "nome" => iconv('ISO-8859-1','UTF-8',$row['nome'])
     );
   }
   return $alunos;
@@ -34,8 +34,8 @@ if (isset($id) && !empty($id) && trim($id) != '') {
 
   $dtos = array(
     "id" => $row['id'],
-    "nome" => $row['nome'],
-    "descricao" => $row['descricao'],
+    "nome" => iconv('ISO-8859-1','UTF-8',$row['nome']),
+    "descricao" => iconv('ISO-8859-1','UTF-8',$row['descricao']),
     "cor" => $row['cor'],
     "pastaDeArquivos" => $row['pastaDeArquivos'],
     "alunos" => recuperaAlunos($conn, $row['id'])

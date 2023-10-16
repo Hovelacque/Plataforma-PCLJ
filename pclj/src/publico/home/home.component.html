@@ -10,10 +10,10 @@
 <div class="container-fluid">
     <div class="row" style="padding: 50px;">
         <div class="col-sm-12 col-md-6 col-lg-3">
-            <img src="assets/images-site/perfis.png" style="width: 100%" />
+            <img src="assets/images-site/perfis.png" style="width: 100%" routerLink="/alunos" />
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
-            <img src="assets/images-site/trabalhos.png" style="width: 100%" />
+            <img src="assets/images-site/trabalhos.png" style="width: 100%" routerLink="/trabalhos" />
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
             <img src="assets/images-site/jogos.png" style="width: 100%" />
@@ -48,7 +48,31 @@
     <div class="row" style="background-color: #f7f7f7;">
         <div class="col-sm-12">
             <h5 class="title">Trabalhos desenvolvidos no curso técnico</h5>
-            <img src="assets/images-site/lista-trabalhos.png" style="width: 100%" />
+            <!-- <img src="assets/images-site/lista-trabalhos.png" style="width: 100%" /> -->
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 center">
+            <img src="assets/images-site/icones-trabalhos/1.png" height="150px" />
+            <button class="button-trabalho" style="background-color: #35aeae" [routerLink]="['/trabalho',1]">
+                Anime seu nome
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 center">
+            <img src="assets/images-site/icones-trabalhos/3.png" height="150px" />
+            <button class="button-trabalho" style="background-color: #90d114" [routerLink]="['/trabalho',3]">
+                Jogo estilo pong
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 center">
+            <img src="assets/images-site/icones-trabalhos/6.png" height="150px" />
+            <button class="button-trabalho" style="background-color: #4c6acc" [routerLink]="['/trabalho',6]">
+                Jogo de digitação
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 center">
+            <img src="assets/images-site/icones-trabalhos/5.png" height="150px" />
+            <button class="button-trabalho" style="background-color: #f97c28" routerLink="/trabalhos">
+                Veja todos trabalhos
+            </button>
         </div>
     </div>
     <div class="row">

@@ -1,5 +1,7 @@
-.background{
+.background {
     background-color: white;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 .title {

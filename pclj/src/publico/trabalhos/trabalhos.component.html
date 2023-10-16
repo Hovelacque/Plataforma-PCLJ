@@ -1,10 +1,10 @@
 
-<h5 class="title">Trabalhos</h5>
+<div class="title">Trabalhos</div>
 
 <div class="row background">
     <a *ngFor="let item of trabalhos" [routerLink]="['/trabalho',item.id]">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 center">
-            <img src="assets/images-site/capa-trabalho.png" height="150px" />
+            <img src="assets/images-site/icones-trabalhos/{{item.id}}.png" height="150px" />
             <button class="button-trabalho" [ngStyle]="{'background-color': item.cor}">
                 {{item.nome}}
             </button>

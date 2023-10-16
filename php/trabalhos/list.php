@@ -10,7 +10,7 @@ $dtos = [];
 while ($row = $result->fetch_assoc()) {
   $dtos[] = array(
     "id" => $row['id'],
-    "nome" => $row['nome'],
+    "nome" => iconv('ISO-8859-1','UTF-8', $row['nome']),
     "cor"=> $row['cor']
   );
 }
