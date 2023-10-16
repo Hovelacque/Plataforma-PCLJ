@@ -2,8 +2,8 @@ import { SafeResourceUrl } from "@angular/platform-browser"
 
 export interface AlunoTrabalhoOutput {
     id: number,
-    nome: string,
-    pastaDeArquivos: SafeResourceUrl
+    nome: string,    
+    url: SafeResourceUrl
 }
 
 export interface TrabalhoOutput {
@@ -11,5 +11,6 @@ export interface TrabalhoOutput {
     nome: string,
     descricao: string,
     cor: string,
+    pastaDeArquivos: string,
     alunos: AlunoTrabalhoOutput[]
 }

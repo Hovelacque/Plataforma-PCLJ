@@ -18,9 +18,7 @@
                     <span>{{item.nome}}</span>
                 </a>
                 <div class="embed-responsive embed-responsive-4by3" style="width: 100%;">
-                    <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
-                        allowfullscreen></iframe> -->
-                    <iframe class="embed-responsive-item" allowfullscreen [src]="item.pastaDeArquivos"></iframe>
+                    <iframe class="embed-responsive-item" allowfullscreen [src]="item.url"></iframe>
                 </div>
             </div>
         </div>

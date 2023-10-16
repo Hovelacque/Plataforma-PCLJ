@@ -4,7 +4,7 @@ require(__DIR__ . '/../connect.php');
 
 function recuperaAlunos($conn, $trabalhoId)
 {
-  $sql = "SELECT u.id, u.nome, t.pastaDeArquivos FROM `trabalho_aluno` as t 
+  $sql = "SELECT u.id, u.nome FROM `trabalho_aluno` as t 
           INNER JOIN `usuarios` as u 
           ON u.id = t.usuarioId 
           WHERE `trabalhoId` ='{$trabalhoId}';";
@@ -14,8 +14,7 @@ function recuperaAlunos($conn, $trabalhoId)
   while ($row = $result->fetch_assoc()) {
     $alunos[] = array(
       "id" => $row['id'],
-      "nome" => $row['nome'],
-      "pastaDeArquivos" => $row['pastaDeArquivos']
+      "nome" => $row['nome']
     );
   }
   return $alunos;
@@ -32,12 +31,13 @@ if (isset($id) && !empty($id) && trim($id) != '') {
 
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
-  
+
   $dtos = array(
     "id" => $row['id'],
     "nome" => $row['nome'],
     "descricao" => $row['descricao'],
     "cor" => $row['cor'],
+    "pastaDeArquivos" => $row['pastaDeArquivos'],
     "alunos" => recuperaAlunos($conn, $row['id'])
   );
 

@@ -43,8 +43,9 @@ export class TrabalhoComponent extends AppComponentBase implements OnInit {
         next: (result) => {
           pclj.ui.clearBusy();
           this.trabalho = result;
+          // this.trabalho.alunos= this.trabalho.alunos.sort(() => (Math.random() > .5) ? 1 : -1);;
           this.trabalho.alunos.forEach(item => {
-            item.pastaDeArquivos = this.montaUrlTrabalho(item.id)
+            item.url = this.montaUrlTrabalho(this.trabalho.pastaDeArquivos, item.id)
           });
         },
         error: () => {
@@ -55,8 +56,7 @@ export class TrabalhoComponent extends AppComponentBase implements OnInit {
       })
   }
 
-  montaUrlTrabalho(alunoId: number): SafeResourceUrl {
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(`${AppConsts.remoteServiceBaseUrl}/uploads/trabalhos/animacao/${alunoId}.html`);
+  montaUrlTrabalho(pastaDeArquivos: string, alunoId: number): SafeResourceUrl {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(`${AppConsts.remoteServiceBaseUrl}/uploads/trabalhos/${pastaDeArquivos}/${alunoId}.html`);
   }
-
 }

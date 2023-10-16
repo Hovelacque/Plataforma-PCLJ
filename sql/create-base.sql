@@ -45,6 +45,7 @@ CREATE TABLE pclj.trabalhos (
     nome VARCHAR(255) NOT NULL,
     descricao LONGTEXT NOT NULL,
     cor VARCHAR(7) NOT NULL,
+    pastaDeArquivos VARCHAR(30),
 
     PRIMARY KEY (id)
 );
@@ -52,7 +53,6 @@ CREATE TABLE pclj.trabalhos (
 CREATE TABLE pclj.trabalho_aluno (
     trabalhoId INT NOT NULL,
     usuarioId INT NOT NULL,
-    pastaDeArquivos VARCHAR(30),
     
     PRIMARY KEY (trabalhoId, usuarioId),    
     FOREIGN KEY (trabalhoId) REFERENCES pclj.trabalhos(id),
