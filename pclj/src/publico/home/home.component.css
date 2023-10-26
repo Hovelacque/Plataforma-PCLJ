@@ -44,3 +44,38 @@ a:visited {
     font-size: 15px;
     padding: 15px 20px;
 }
+
+.footer {
+    position: relative;
+}
+
+.image-footer {
+    display: block;
+}
+
+.container-texto-footer {
+    position: absolute;
+    transform: translate(-50%, -70%);
+    z-index: 1;
+    top: 70%;
+    left: 50%;
+    text-align: center;
+}
+
+.icones-footer {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    margin-bottom: 40px;
+}
+
+.texto-footer {
+    color: white;
+    font-size: 20px;
+}
+
+.links-footer {
+    background-color: transparent !important;
+    padding: 0px !important;
+    font-weight: 550;
+}
