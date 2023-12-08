@@ -1,0 +1,4 @@
+<img *ngIf="!carregar" [src]="image" width="100%" (click)="carregar = true" />
+<div *ngIf="url != null && carregar" class="embed-responsive embed-responsive-4by3" style="width: 100%;">
+    <iframe class="embed-responsive-item" allowfullscreen [src]="url"></iframe>
+</div>

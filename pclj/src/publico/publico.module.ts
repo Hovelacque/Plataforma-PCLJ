@@ -25,6 +25,7 @@ import { AlunoComponent } from './aluno/aluno.component';
 import { TrabalhosComponent } from './trabalhos/trabalhos.component';
 import { TrabalhoComponent } from './trabalho/trabalho.component';
 import { JogosComponent } from './jogos/jogos.component';
+import { LoadScratchComponent } from './load-scratch/load-scratch.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { JogosComponent } from './jogos/jogos.component';
     AlunoComponent,
     TrabalhosComponent,
     TrabalhoComponent,
-    JogosComponent
+    JogosComponent,
+    LoadScratchComponent
   ],
   imports: [
     CommonModule,

@@ -12,16 +12,20 @@ export class JogosComponent implements OnInit {
   jogos: any =
     {
       cores: {
-        url: this.montaUrlTrabalho("cores")
+        img: this.montaUrlTrabalho("cores", "png"),
+        url: this.montaUrlTrabalho("cores", "html")
       },
       memoria: {
-        url: this.montaUrlTrabalho("memoria")
+        img: this.montaUrlTrabalho("memoria", "png"),
+        url: this.montaUrlTrabalho("memoria", "html")
       },
       letras: {
-        url: this.montaUrlTrabalho("letras")
+        img: this.montaUrlTrabalho("letras", "png"),
+        url: this.montaUrlTrabalho("letras", "html")
       },
       matematica: {
-        url: this.montaUrlTrabalho("matematica")
+        img: this.montaUrlTrabalho("matematica", "png"),
+        url: this.montaUrlTrabalho("matematica", "html")
       }
     };
 
@@ -32,8 +36,8 @@ export class JogosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  montaUrlTrabalho(jogo: string): SafeResourceUrl {
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(`${AppConsts.remoteServiceBaseUrl}/uploads/jogos/${jogo}.html`);
+  montaUrlTrabalho(jogo: string, ext: string): SafeResourceUrl {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(`${AppConsts.remoteServiceBaseUrl}/uploads/jogos/${jogo}.${ext}`);
   }
 
 }
