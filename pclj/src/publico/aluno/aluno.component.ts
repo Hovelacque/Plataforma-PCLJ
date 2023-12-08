@@ -66,9 +66,8 @@ export class AlunoComponent extends AppComponentBase implements OnInit {
             this.trabalhos.push(this.montaUrlTrabalho(item, id))
           });
         },
-        error: (error) => {
+        error: () => {
           pclj.ui.clearBusy();
-          pclj.message.info("Trabalhos não encontrado");
         }
       })
   }
