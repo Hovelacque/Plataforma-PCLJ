@@ -1,0 +1,29 @@
+.background {
+    background-color: white;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #7e7a7a;
+    background-color: white;
+    text-align: center;
+    padding: 30px 0px;
+}
+
+.center {
+    background-color: white;
+    flex-direction: column;
+}
+
+.button-trabalho {
+    margin: 20px;
+    border: none;
+    color: white;
+    border-radius: 50px;
+    font-size: 15px;
+    padding: 15px 20px;
+    background-color: rgb(251, 163, 38)
+}

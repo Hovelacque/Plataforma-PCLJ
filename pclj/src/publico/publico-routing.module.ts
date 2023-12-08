@@ -8,6 +8,7 @@ import { AlunoComponent } from './aluno/aluno.component';
 import { TrabalhosComponent } from './trabalhos/trabalhos.component';
 import { TrabalhoComponent } from './trabalho/trabalho.component';
 import { JogosComponent } from './jogos/jogos.component';
+import { HistoricoComponent } from './historico/historico.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { JogosComponent } from './jogos/jogos.component';
           { path: 'trabalhos', component: TrabalhosComponent },
           { path: 'trabalho/:id', component: TrabalhoComponent },
           { path: 'jogos', component: JogosComponent },
+          { path: 'historico', component: HistoricoComponent }
         ]
       }
     ])
