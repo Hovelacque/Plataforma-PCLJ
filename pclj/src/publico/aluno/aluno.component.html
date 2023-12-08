@@ -1,18 +1,18 @@
-<div *ngIf="aluno">
+<div *ngIf="aluno" style="height: 100vh; overflow: hidden;">
     <div class="center">
         <div class="header col-sm-4 col-md-3 col-lg-2">
             <img [src]="montaUrlAvatar(aluno.id)" height="250px" />
             <span>{{aluno.nome}}</span>
         </div>
     </div>
-    <mat-tab-group>
+    <!-- <mat-tab-group> -->
         <!-- <mat-tab label="Projeto de vida">
             <div class="center">
                 <img src="assets/images/vazio.png" class="vazio" />
                 As informações sobre o projeto de vida deste aluno ainda não foram atualizadas...
             </div>
         </mat-tab> -->
-        <mat-tab label="Trabalhos">
+        <!-- <mat-tab label="Trabalhos"> -->
             <div class="center" *ngIf="trabalhos.length == 0">
                 <img src="assets/images/vazio.png" class="vazio" />
                 Os trabalhos deste aluno ainda não foram postados pelo professor...
@@ -27,12 +27,12 @@
                     </div>
                 </div>
             </div>
-        </mat-tab>
+        <!-- </mat-tab> -->
         <!-- <mat-tab label="Projetos pessoais">
             <div class="center">
                 <img src="assets/images/vazio.png" class="vazio" />
                 Este aluno ainda não possui projetos pessoais...
             </div>
         </mat-tab> -->
-    </mat-tab-group>
+    <!-- </mat-tab-group> -->
 </div>
