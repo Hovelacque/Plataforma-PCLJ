@@ -14,6 +14,12 @@ export class HomeComponent extends AppComponentBase implements OnInit {
 
   alunos: AlunoOutput[] = [];
 
+  links: string[] = [
+    '/alunos',
+    '/trabalhos',
+    '/jogos'
+  ];
+
   imagens: string[] = [];
   imagensLarge: string[] = [
     'assets/images-site/Banner-1.png',

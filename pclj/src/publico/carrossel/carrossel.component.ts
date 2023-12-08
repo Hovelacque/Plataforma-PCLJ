@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -10,6 +11,7 @@ export class CarrosselComponent implements OnInit, OnDestroy {
   
   timerSubs!: Subscription;
   @Input() imagens: string[] = [];
+  @Input() links: string[] = [];
   private _indexImagemAtiva: number = 0;
   
   get indexImagemAtiva() {
@@ -20,6 +22,10 @@ export class CarrosselComponent implements OnInit, OnDestroy {
     this._indexImagemAtiva =
       value < this.imagens.length ? value : 0;
   }
+
+  constructor(    
+    private _router: Router
+  ){}
 
   ngOnInit(): void {
     this.iniciarTimer();
@@ -44,5 +50,10 @@ export class CarrosselComponent implements OnInit, OnDestroy {
   ativarImagem(index: number): void {
     this.indexImagemAtiva = index;
     this.iniciarTimer();
+  }
+
+  clickBanner():void{
+    let link = this.links[this._indexImagemAtiva];
+    this._router.navigate([link]);
   }
 }
