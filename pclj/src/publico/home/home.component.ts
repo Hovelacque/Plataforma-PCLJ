@@ -1,3 +1,4 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
 import { Component, Injector, OnInit } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
@@ -13,10 +14,24 @@ export class HomeComponent extends AppComponentBase implements OnInit {
 
   alunos: AlunoOutput[] = [];
 
+  imagens: string[] = [];
+  imagensLarge: string[] = [
+    'assets/images-site/Banner-1.png',
+    'assets/images-site/Banner-2.png',
+    'assets/images-site/Banner-3.png'
+  ];
+  imagensMedium: string[] = [
+    'assets/images-site/Banner-Tablet-01.jpg'
+  ];
+  imagensSmall: string[] = [
+    'assets/images-site/Banner-Mobile-01.jpg'
+  ];
+
   responsiveOptions;
 
   constructor(
     public injector: Injector,
+    private breakpointObserver: BreakpointObserver,
     private _service: UsuarioServiceProxyService
   ) {
     super(injector);
@@ -37,6 +52,17 @@ export class HomeComponent extends AppComponentBase implements OnInit {
         numScroll: 1
       }
     ];
+
+    const isLargeScreen = breakpointObserver.isMatched('(min-width: 1024px)');
+    if (isLargeScreen)
+      this.imagens = this.imagensLarge;
+    else {
+      const isMediumScreen = breakpointObserver.isMatched('(min-width: 768px)');
+      if (isMediumScreen)
+        this.imagens = this.imagensMedium;
+      else
+        this.imagens = this.imagensSmall;
+    }
   }
 
   ngOnInit() {
