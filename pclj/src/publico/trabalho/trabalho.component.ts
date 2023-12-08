@@ -19,8 +19,7 @@ export class TrabalhoComponent extends AppComponentBase implements OnInit {
     public injector: Injector,
     private route: ActivatedRoute,
     private _router: Router,
-    private _service: TrabalhoServiceProxyService,
-    private domSanitizer: DomSanitizer
+    private _service: TrabalhoServiceProxyService
   ) {
     super(injector);
   }
@@ -43,7 +42,6 @@ export class TrabalhoComponent extends AppComponentBase implements OnInit {
         next: (result) => {
           pclj.ui.clearBusy();
           this.trabalho = result;
-          this.trabalho.alunos= this.trabalho.alunos.sort(() => (Math.random() > .5) ? 1 : -1);;
           this.trabalho.alunos.forEach(item => {
             item.url = this.montaUrlTrabalho(this.trabalho.pastaDeArquivos, item.id)
           });
@@ -54,9 +52,5 @@ export class TrabalhoComponent extends AppComponentBase implements OnInit {
           this._router.navigate(['/']);
         }
       })
-  }
-
-  montaUrlTrabalho(pastaDeArquivos: string, alunoId: number): SafeResourceUrl {
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(`${AppConsts.remoteServiceBaseUrl}/uploads/trabalhos/${pastaDeArquivos}/${alunoId}.html`);
   }
 }

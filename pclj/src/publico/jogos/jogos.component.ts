@@ -7,25 +7,25 @@ import { AppConsts } from '@shared/AppConsts';
   templateUrl: './jogos.component.html',
   styleUrls: ['./jogos.component.css']
 })
-export class JogosComponent implements OnInit {
+export class JogosComponent {
 
   jogos: any =
     {
       cores: {
-        img: this.montaUrlTrabalho("cores", "png"),
-        url: this.montaUrlTrabalho("cores", "html")
+        img: this.montaUrlJogo("cores", "png"),
+        url: this.montaUrlJogo("cores", "html")
       },
       memoria: {
-        img: this.montaUrlTrabalho("memoria", "png"),
-        url: this.montaUrlTrabalho("memoria", "html")
+        img: this.montaUrlJogo("memoria", "png"),
+        url: this.montaUrlJogo("memoria", "html")
       },
       letras: {
-        img: this.montaUrlTrabalho("letras", "png"),
-        url: this.montaUrlTrabalho("letras", "html")
+        img: this.montaUrlJogo("letras", "png"),
+        url: this.montaUrlJogo("letras", "html")
       },
       matematica: {
-        img: this.montaUrlTrabalho("matematica", "png"),
-        url: this.montaUrlTrabalho("matematica", "html")
+        img: this.montaUrlJogo("matematica", "png"),
+        url: this.montaUrlJogo("matematica", "html")
       }
     };
 
@@ -33,10 +33,7 @@ export class JogosComponent implements OnInit {
     private domSanitizer: DomSanitizer
   ) { }
 
-  ngOnInit(): void {
-  }
-
-  montaUrlTrabalho(jogo: string, ext: string): SafeResourceUrl {
+  montaUrlJogo(jogo: string, ext: string): SafeResourceUrl {
     return this.domSanitizer.bypassSecurityTrustResourceUrl(`${AppConsts.remoteServiceBaseUrl}/uploads/jogos/${jogo}.${ext}`);
   }
 

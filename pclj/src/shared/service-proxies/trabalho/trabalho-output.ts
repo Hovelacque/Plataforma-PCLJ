@@ -2,7 +2,8 @@ import { SafeResourceUrl } from "@angular/platform-browser"
 
 export interface AlunoTrabalhoOutput {
     id: number,
-    nome: string,    
+    nome: string,  
+    pastaDeArquivos: string,  
     url: SafeResourceUrl
 }
 

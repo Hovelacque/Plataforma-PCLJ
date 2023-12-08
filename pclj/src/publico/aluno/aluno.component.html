@@ -6,35 +6,33 @@
         </div>
     </div>
     <mat-tab-group>
-        <mat-tab label="Projeto de vida">
+        <!-- <mat-tab label="Projeto de vida">
             <div class="center">
                 <img src="assets/images/vazio.png" class="vazio" />
                 As informações sobre o projeto de vida deste aluno ainda não foram atualizadas...
             </div>
-        </mat-tab>
+        </mat-tab> -->
         <mat-tab label="Trabalhos">
-            <div class="center">
+            <div class="center" *ngIf="trabalhos.length == 0">
                 <img src="assets/images/vazio.png" class="vazio" />
                 Os trabalhos deste aluno ainda não foram postados pelo professor...
             </div>
-            <!-- <a *ngFor="let item of trabalhos" routerLink="/aluno/1">
-                <div class="card-aluno center col-sm-4 col-md-3 col-lg-2">
-                    <img src="assets/images/avatar.png" height="150px" />
-                    <span>Trabalho X</span>
+            
+            <div class="row" style="margin-top: 150px;" *ngIf="trabalhos.length > 0">
+                <div *ngFor="let item of trabalhos">
+                    <div class="center col-sm-12 col-md-6 col-lg-4">
+                        <div class="embed-responsive embed-responsive-4by3" style="width: 100%;">
+                            <iframe class="embed-responsive-item" allowfullscreen [src]="item"></iframe>
+                        </div>
+                    </div>
                 </div>
-            </a> -->
+            </div>
         </mat-tab>
-        <mat-tab label="Projetos pessoais">
+        <!-- <mat-tab label="Projetos pessoais">
             <div class="center">
                 <img src="assets/images/vazio.png" class="vazio" />
                 Este aluno ainda não possui projetos pessoais...
             </div>
-            <!-- <a *ngFor="let item of trabalhos" routerLink="/aluno/1">
-                <div class="card-aluno center col-sm-4 col-md-3 col-lg-2">
-                    <img src="assets/images/avatar.png" height="150px" />
-                    <span>Projeto Y</span>
-                </div>
-            </a> -->
-        </mat-tab>
+        </mat-tab> -->
     </mat-tab-group>
 </div>

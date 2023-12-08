@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, delay, first } from 'rxjs';
 import { AppConsts } from '@shared/AppConsts';
 import { TrabalhoListOutput } from './trabalho-list-output';
-import { TrabalhoOutput } from './trabalho-output';
+import { AlunoTrabalhoOutput, TrabalhoOutput } from './trabalho-output';
 
 @Injectable({
     providedIn: 'root'
@@ -30,15 +30,11 @@ export class TrabalhoServiceProxyService {
             .pipe(first()); //fecha a conexão com o servidor
     }
 
-    // create(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
-    //     return this.httpClient.post(`${this.API}create.php`, { ...item, image: imageBase64 })
-    // }
-
-    // update(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
-    //     return this.httpClient.put(`${this.API}update.php`, { ...item, image: imageBase64 })
-    // }
-
-    // updateAvatar(item: Partial<UsuarioDto>, imageBase64: any): Observable<any> {
-    //     return this.httpClient.put(`${this.API}updateAvatar.php`, { ...item, image: imageBase64 })
-    // }
+    getByAlunoId(id: number): Observable<string[]> {
+        return this.httpClient
+            .get<string[]>(`${this.API}getByAlunoId.php`, {
+                params: new HttpParams().set('id', id)
+            })
+            .pipe(first()); //fecha a conexão com o servidor
+    }
 }
