@@ -5,17 +5,17 @@
 
 <div class="container-fluid">
     <div class="row" style="padding: 50px;">
-        <div class="col-sm-12 col-md-6 col-lg-3">
-            <img src="assets/images-site/perfis.png" style="width: 100%" routerLink="/alunos" />
+        <div class="col-sm-6 col-md-6 col-lg-3 colPerfis">
+            <img src="assets/images-site/perfis.png" class="perfis" routerLink="/alunos" />
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3">
-            <img src="assets/images-site/trabalhos.png" style="width: 100%" routerLink="/trabalhos" />
+        <div class="col-sm-6 col-md-6 col-lg-3 colPerfis">
+            <img src="assets/images-site/trabalhos.png" class="perfis" routerLink="/trabalhos" />
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3">
-            <img src="assets/images-site/jogos.png" style="width: 100%" />
+        <div class="col-sm-6 col-md-6 col-lg-3 colPerfis">
+            <img src="assets/images-site/jogos.png" class="perfis" />
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3">
-            <img src="assets/images-site/historico.png" style="width: 100%" />
+        <div class="col-sm-6 col-md-6 col-lg-3 colPerfis">
+            <img src="assets/images-site/historico.png" class="perfis" />
         </div>
     </div>
     <div class="row" style="padding: 50px 0px;">
@@ -37,8 +37,8 @@
         </div>
     </div>
     <div class="row" style="background-color: #f7f7f7; padding-bottom: 30px;">
-        <div class="col-sm-12">
-            <img src="assets/images-site/Banner-4.png" style="width: 100%" />
+        <div class="col-sm-12" style="padding: 0;">
+            <img [src]="getBannerCentral()" style="width: 100%" />
         </div>
     </div>
     <div class="row" style="background-color: #f7f7f7;">
@@ -72,9 +72,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" style="padding: 0;">
             <div class="footer">
-                <img src="assets/images-site/footer.png" style="width: 100%" class="image-footer" />
+                <img [src]="getBannerFooter()" style="width: 100%" class="image-footer" />
                 <div class="container-texto-footer">
                     <div class="texto-footer">
                         Siga a escola nas redes sociais:
@@ -95,6 +95,4 @@
             </div>
         </div>
     </div>
-
-
 </div>

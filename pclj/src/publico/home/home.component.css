@@ -1,5 +1,5 @@
 .container-fluid {
-    padding: 0px;
+    /* padding: 0px; */
     /* margin: 0px; */
 }
 
@@ -57,7 +57,7 @@ a:visited {
     position: absolute;
     transform: translate(-50%, -70%);
     z-index: 1;
-    top: 70%;
+    top: 80%;
     left: 50%;
     text-align: center;
 }
@@ -78,4 +78,56 @@ a:visited {
     background-color: transparent !important;
     padding: 0px !important;
     font-weight: 550;
+}
+
+.colPerfis {
+    text-align: center;
+}
+
+.perfis {
+    width: 100%;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .perfis {
+        width: 70% !important;
+    }
+}
+
+@media (min-width: 550px) and (max-width: 768px) {
+    .perfis {
+        width: 60% !important;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 549px) {
+    .perfis {
+        width: 70% !important;
+    }
+}
+
+@media screen {
+    
+}
+
+@media (max-width: 1023px) {
+    .container-texto-footer{
+        top: 85%;
+    }
+
+    .icones-footer {
+        margin: 10px;
+        margin-bottom: 10px;
+    }
+
+    .texto-footer{
+        font-size: 20px;
+    }
+
+}
+
+@media (max-width: 520px) {
+    .container-texto-footer{
+        top: 90%;
+    }
 }

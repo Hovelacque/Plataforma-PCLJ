@@ -21,10 +21,14 @@ export class HomeComponent extends AppComponentBase implements OnInit {
     'assets/images-site/Banner-3.png'
   ];
   imagensMedium: string[] = [
-    'assets/images-site/Banner-Tablet-01.jpg'
+    'assets/images-site/Banner-Tablet-01.jpg',
+    'assets/images-site/Banner-Tablet-02.jpg',
+    'assets/images-site/Banner-Tablet-03.jpg'
   ];
   imagensSmall: string[] = [
-    'assets/images-site/Banner-Mobile-01.jpg'
+    'assets/images-site/Banner-Mobile-01.jpg',
+    'assets/images-site/Banner-Mobile-02.jpg',
+    'assets/images-site/Banner-Mobile-03.jpg'
   ];
 
   responsiveOptions;
@@ -74,6 +78,32 @@ export class HomeComponent extends AppComponentBase implements OnInit {
       .subscribe((result) => {
         this.alunos = result.sort(() => (Math.random() > .5) ? 1 : -1);;
       })
+  }
+
+  getBannerCentral(): string {
+    const isLargeScreen = this.breakpointObserver.isMatched('(min-width: 1024px)');
+    if (isLargeScreen)
+      return 'assets/images-site/Banner-4.png';
+    else {
+      const isMediumScreen = this.breakpointObserver.isMatched('(min-width: 768px)');
+      if (isMediumScreen)
+        return 'assets/images-site/Banner-Inferior-Tablet.jpg';
+      else
+        return 'assets/images-site/Banner-Inferior-Mobile.jpg';
+    }
+  }
+
+  getBannerFooter(): string {
+    const isLargeScreen = this.breakpointObserver.isMatched('(min-width: 1024px)');
+    if (isLargeScreen)
+      return 'assets/images-site/Banner-Footer-Desktop.png';
+    else {
+      const isMediumScreen = this.breakpointObserver.isMatched('(min-width: 768px)');
+      if (isMediumScreen)
+        return 'assets/images-site/Banner-Footer-Tablet.png';
+      else
+        return 'assets/images-site/Banner-Footer-Mobile.png';
+    }
   }
 
 }
