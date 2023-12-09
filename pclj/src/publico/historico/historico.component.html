@@ -20,10 +20,18 @@
         <br>
         <div class="row background">
             <div class="col-lg-6 center">
-                <img src="assets/images-site/Banner-1.png" width="100%">
+                <img src="assets/fotos-pclj/nomes.jpeg" width="100%">
             </div>
             <div class="col-lg-6 center">
-                <img src="assets/images-site/Banner-1.png" width="100%">
+                <img src="assets/fotos-pclj/logo1.jpeg" width="100%">
+            </div>
+        </div>
+        <div class="row background" style="margin-top: 25px;">
+            <div class="col-lg-6 center">
+                <img src="assets/fotos-pclj/logo2.jpeg" width="100%">
+            </div>
+            <div class="col-lg-6 center">
+                <img src="assets/fotos-pclj/logo3.jpeg" width="100%">
             </div>
         </div>
         <br>
@@ -32,8 +40,8 @@
         </p>
         <br>
         <div class="row background">
-            <div class="col-lg-2 center" *ngFor="let url of logos">
-                <img [src]="url" width="100%">
+            <div class="col-lg-2 center" *ngFor="let item of logos" style="margin-bottom: 25px;">
+                <img [src]="getURL('logos',item,'jpg')" width="100%" height="250px">
             </div>
         </div>
         <br>
@@ -47,7 +55,7 @@
         <br>
         <div class="row background">
             <div class="col-lg-6 center">
-                <img src="assets/images-site/Banner-1.png" width="100%">
+                <img src="assets/fotos-pclj/logos/11.jpg" width="100%">
             </div>
             <div class="col-lg-6 center">
                 <img src="assets/fotos-pclj/logo-calma.png" width="100%">
@@ -60,10 +68,10 @@
         <br>
         <div class="row background">
             <div class="col-lg-6 center">
-                <img src="assets/images-site/Banner-1.png" width="100%">
+                <img src="assets/fotos-pclj/prototipo1.jpeg" width="100%">
             </div>
             <div class="col-lg-6 center">
-                <img src="assets/images-site/Banner-1.png" width="100%">
+                <img src="assets/fotos-pclj/prototipo2.jpeg" width="100%">
             </div>
         </div>
         <br>
@@ -72,8 +80,8 @@
         </p>
         <br>
         <div class="row background">
-            <div class="col-lg-2 center" *ngFor="let url of desenvolvimento">
-                <img [src]="url" width="100%">
+            <div class="col-lg-2 center" *ngFor="let item of desenvolvimento" style="margin-bottom: 25px;">
+                <img [src]="getURL('desenvolvimento',item,'jpeg')" width="100%" height="250px">
             </div>
         </div>
         <br>

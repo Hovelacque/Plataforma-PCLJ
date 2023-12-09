@@ -5,43 +5,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './historico.component.html',
   styleUrls: ['./historico.component.css']
 })
-export class HistoricoComponent implements OnInit {
+export class HistoricoComponent {
 
-  logos:string[]=[
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-  ];
-
-  desenvolvimento:string[]=[
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-    'assets/images-site/Banner-1.png',
-  ]
+  logos: number[] = [...[...Array(16).keys()].map(i => i++)];
+  desenvolvimento: number[] = [...[...Array(20).keys()].map(i => i++)];
 
   constructor() { }
 
-  ngOnInit(): void {
+  getURL(pasta: string, item: number, formato: string): string {
+    return `assets/fotos-pclj/${pasta}/${item}.${formato}`;
   }
-
 }

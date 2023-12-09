@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <script type="text/javascript">
+      window.errors = []
+      if (window.addEventListener) {
+        window.addEventListener(
+          'error',
+          function (e) {
+            if (e.message) {
+              if (e.error && e.error.stack) {
+                if (e.message.indexOf('Uncaught SyntaxError') === 0) {
+                  window.errors.push(
+                    e.message +
+                      ' at ' +
+                      e.filename +
+                      ':' +
+                      e.lineno +
+                      ':' +
+                      e.colno
+                  )
+                } else {
+                  window.errors.push(e.error.stack)
+                }
+                if (window.onNewError) window.onNewError()
+              }
+            } else {
+              window.errors.push(
+                'Problem loading ' + (e.target.src || e.target.href)
+              )
+              if (window.onNewError) window.onNewError()
+            }
+            window.onerror = null
+          },
+          true
+        ) // true so that errors bubble up to window
+        window.addEventListener(
+          'unhandledrejection',
+          function (e) {
+            window.errors.push(
+              e.reason && (e.reason.stack || e.reason.message || e.reason)
+            )
+            if (window.onNewError) window.onNewError()
+          },
+          false
+        )
+      }
+      window.onerror = function (message, source, lineno, colno, error) {
+        if (colno) {
+          lineno += ':' + colno
+        }
+        if (error && error.stack) {
+          window.errors.push(error.stack)
+        } else {
+          window.errors.push(message + ' at ' + source + ':' + lineno)
+        }
+        if (window.onNewError) window.onNewError()
+      }
+    </script>
+     <style>
+html,
+body {
+  height: 100%;
+}
+body,
+::backdrop {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  font-size: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+}
+#wrapper {
+  display: block;
+  position: relative;
+}
+.no-cursor #wrapper {
+  cursor: none;
+}
+.loading #wrapper {
+  visibility: hidden;
+}
+.stretch-stage #wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+/* CSS for proportional wrapper scaling is added dynamically by htmlifier.ts */
+#monitors {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#stage {
+  width: 100%;
+  height: 100%;
+}
+#loading-progress {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  border-radius: 20px;
+  --progress: 0%;
+  z-index: 100;
+}
+.show-loading-progress #loading-progress {
+  display: block;
+}
+#loading-progress::before {
+  content: attr(data-progress);
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+#loading-progress::after {
+  content: '';
+  display: block;
+  height: 16px;
+  border-radius: 20px;
+  width: var(--progress);
+}
+#loading-image {
+  position: fixed;
+  max-width: 100%;
+  max-height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.stretch-loading-image #loading-image {
+  width: 100%;
+  height: 100%;
+}
+.buttons {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom-left-radius: 12px;
+}
+.buttons .button,
+.buttons button {
+  display: none;
+  -webkit-appearance: none;
+  border: none;
+  background: none;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px;
+}
+.buttons button:disabled,
+#add-sprite-file:disabled + #add-sprite-btn {
+  cursor: auto;
+  opacity: 0.5;
+}
+#start-btn {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"%3E%3Cpath d="M8 5v14l11-7z" fill="%23fff"/%3E%3C/svg%3E%0A');
+}
+.running #start-btn {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"%3E%3Cpath d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="%23fff"/%3E%3C/svg%3E');
+}
+#stop-btn {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"%3E%3Cpath d="M6 6h12v12H6z" fill="%23fff"/%3E%3C/svg%3E%0A');
+}
+#fullscreen-btn {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"%3E%3Cpath d="M14 28h-4v10h10v-4h-6v-6zm-4-8h4v-6h6v-4H10v10zm24 14h-6v4h10V28h-4v6zm-6-24v4h6v6h4V10H28z" fill="%23fff"/%3E%3C/svg%3E');
+}
+.fullscreen #fullscreen-btn {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"%3E%3Cpath d="M10 32h6v6h4V28H10v4zm6-16h-6v4h10V10h-4v6zm12 22h4v-6h6v-4H28v10zm4-22v-6h-4v10h10v-4h-6z" fill="%23fff"/%3E%3C/svg%3E');
+}
+#download-btn {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M5,20h14v-2H5V20z M19,9h-4V3H9v6H5l7,7L19,9z'/%3E%3C/svg%3E");
+}
+#add-sprite-btn {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z'/%3E%3C/svg%3E");
+}
+#add-sprite-file {
+  display: none;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.show-start-stop-btns #start-btn,
+.show-start-stop-btns #stop-btn,
+.show-fullscreen-btn #fullscreen-btn,
+.show-download-btn #download-btn,
+.show-add-sprite-btn #add-sprite-btn,
+.show-add-sprite-btn #add-sprite-file {
+  display: inline-block;
+}
+.monitor {
+  position: absolute;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  overflow: hidden;
+  padding: 3px;
+  white-space: pre;
+}
+.show-monitor-box .monitor {
+  border-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.monitor-label {
+  margin: 0 5px;
+  font-weight: bold;
+}
+.monitor-value {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 34px;
+  text-align: center;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: text;
+  transform: translateZ(0);
+}
+.default .monitor-value,
+.slider .monitor-value {
+  margin: 0 5px;
+  padding: 1px 3px;
+}
+.show-monitor-box .default .monitor-value,
+.show-monitor-box .slider .monitor-value {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.large {
+  padding: 0.1rem 0.25rem;
+  min-width: 3rem;
+}
+.show-monitor-box .large {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.large .monitor-label {
+  display: none;
+}
+.large .monitor-value {
+  font-size: 1rem;
+  width: 100%;
+}
+.list {
+  padding: 0;
+  overflow: auto;
+  overflow-x: hidden;
+}
+.list .monitor-label {
+  text-align: center;
+  padding: 3px;
+  width: 100%;
+  display: block;
+  margin: 0;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+}
+.list .monitor-value {
+  display: block;
+}
+.row {
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  height: 24px;
+  box-sizing: border-box;
+  transform: translateZ(0);
+}
+.index {
+  font-weight: bold;
+  margin: 0 3px;
+  flex: none;
+}
+.row-value {
+  flex: auto;
+  margin: 0 3px;
+  text-align: left;
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
+  height: 22px;
+  padding: 3px 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.show-monitor-box .row-value {
+  border-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.slider input {
+  display: block;
+  width: 100%;
+  transform: translateZ(0);
+}
+#asking-box {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(33, 33, 33, 0.7);
+}
+.asking #asking-box {
+  display: block;
+}
+#question {
+  display: block;
+  margin: 0 10px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: white;
+}
+#answer {
+  border: none;
+  background: none;
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+}
+#answer:focus {
+  outline: none;
+}
+#errors {
+  -webkit-appearance: none;
+  border: none;
+  background: rgba(255, 0, 0, 0.7);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: none;
+}
+
+</style> <style>
+#wrapper { width: 100vw; height: 75vw; }
+@media (min-aspect-ratio: 480/360) {
+#wrapper { height: 100vh; width: 133.33333333333331vh; }
+}
+#loading-progress {
+border: 1px solid #00ffff;
+}
+#loading-progress::before {
+color: #00ffff;
+}
+#loading-progress::after {
+background-color: #00ffff;
+}
+.monitor {
+color: white;
+}
+</style>
+  </head>
+  <body class="loading show-loading-progress show-fullscreen-btn show-monitor-box">
+    <div id="wrapper">
+      <canvas id="stage"></canvas>
+      <div id="monitors"></div>
+      <div id="asking-box">
+        <label id="question" for="answer">Question</label>
+        <input type="text" id="answer" />
+      </div>
+    </div>
+    <div id="loading-progress" data-progress="0%"></div>
+     
+    <div class="buttons">
+      <!--
+        Only support sprite files (no images) for now. See
+        https://github.com/SheepTester/htmlifier/issues/67#issuecomment-894746718
+      -->
+      <input
+        type="file"
+        id="add-sprite-file"
+        accept=".sprite2, .sprite3"
+        aria-label="Select a Scratch sprite to add"
+        multiple
+      />
+      <label
+        class="button"
+        id="add-sprite-btn"
+        for="add-sprite-file"
+        title="Add Scratch sprite to project"
+      ></label>
+      <button id="download-btn" aria-label="Download Scratch project"></button>
+      <button id="start-btn" aria-label="Start"></button>
+      <button id="stop-btn" aria-label="Stop" disabled></button>
+      <button id="fullscreen-btn" aria-label="Enter/exit fullscreen"></button>
+    </div>
+    <textarea id="errors" readonly></textarea>
+    <script src="../vm.min.js"></script> <script>
+const noop = () => null
+
+window.Scratch = {
+  get vm () {
+    return window.vm
+  },
+  get renderer () {
+    return window.vm.runtime.renderer
+  },
+  get audioEngine () {
+    return window.vm.runtime.audioEngine
+  },
+  get bitmapAdapter () {
+    return window.vm.runtime.v2BitmapAdapter
+  },
+  get videoProvider () {
+    return window.vm.runtime.ioDevices.video.provider
+  }
+}
+
+const CLOUD_PREFIX = '\u2601 '
+window.setCloud = (name, value) => {
+  vm.postIOData('cloud', {
+    varUpdate: {
+      name: CLOUD_PREFIX + name,
+      value
+    }
+  })
+}
+function postError (err) {
+  setCloud('eval error', err.toString())
+}
+
+class CloudProvider {
+  constructor (options) {
+    this._serverUrl = options.cloud.serverUrl
+    this._specialBehaviours = options.cloud.specialBehaviours
+    this._options = options
+
+    this._ws = null
+
+    this.createVariable = noop
+    this.renameVariable = noop
+    this.deleteVariable = noop
+
+    this._handleMessage = event => {
+      event.data.split('\n').forEach(message => {
+        if (message) {
+          const { name, value } = JSON.parse(message)
+          vm.postIOData('cloud', {
+            varUpdate: { name, value }
+          })
+        }
+      })
+    }
+    this._handleOpen = () => {
+      this._sendData({ method: 'handshake' })
+    }
+    this._handleClose = () => {
+      setTimeout(() => this._openConnection(), 500)
+    }
+
+    this.handleUrlChange = () => {
+      setCloud('url', window.location.href)
+    }
+    if (this._specialBehaviours) {
+      window.addEventListener('hashchange', this.handleUrlChange)
+      window.addEventListener('popstate', this.handleUrlChange)
+      // Paste output
+      window.addEventListener('paste', event => {
+        setCloud(
+          'pasted',
+          (event.clipboardData || window.clipboardData).getData('text')
+        )
+      })
+    }
+
+    if (this._serverUrl) {
+      this._openConnection()
+    }
+  }
+
+  _openConnection () {
+    try {
+      this._ws = new WebSocket(this._serverUrl)
+    } catch (error) {
+      console.warn(error)
+      return
+    }
+    this._ws.onmessage = this._handleMessage
+    this._ws.onopen = this._handleOpen
+    this._ws.onclose = this._handleClose
+  }
+
+  _sendData (data) {
+    data.user = this._options.username
+    data.project_id = this._options.cloud.projectId
+    this._ws.send(JSON.stringify(data) + '\n')
+  }
+
+  updateVariable (name, value) {
+    if (this._specialBehaviours) {
+      let matched = true
+      if (name === CLOUD_PREFIX + 'eval') {
+        try {
+          Promise.resolve(eval(value))
+            .then(output => {
+              setCloud('eval output', output)
+            })
+            .catch(postError)
+        } catch (error) {
+          postError(error)
+        }
+      } else if (name === CLOUD_PREFIX + 'open link') {
+        try {
+          window.open(value, '_blank')
+        } catch (error) {
+          postError(error)
+        }
+      } else if (name === CLOUD_PREFIX + 'redirect') {
+        window.location = value
+      } else if (name === CLOUD_PREFIX + 'set clipboard') {
+        try {
+          navigator.clipboard.writeText(value).catch(postError)
+        } catch (error) {
+          postError(error)
+        }
+      } else if (name === CLOUD_PREFIX + 'set server ip') {
+        this._cloudHost = value
+        if (this._ws) {
+          this._ws.onclose = noop
+          this._ws.close()
+        }
+        this._openConnection()
+      } else if (name === CLOUD_PREFIX + 'username') {
+        this._options.username = value
+        vm.postIOData('userData', { username: value })
+      } else {
+        matched = false
+      }
+      if (matched) {
+        return
+      }
+    }
+    if (
+      !this._serverUrl ||
+      (this._specialBehaviours &&
+        name.startsWith(CLOUD_PREFIX + 'local storage'))
+    ) {
+      try {
+        localStorage.setItem('[s3] ' + name, value)
+      } catch (error) {
+        postError(error)
+      }
+    } else {
+      this._sendData({ method: 'set', name, value })
+    }
+  }
+
+  requestCloseConnection () {
+    if (
+      this._ws &&
+      this._ws.readyState !== WebSocket.CLOSING &&
+      this._ws.readyState !== WebSocket.CLOSED
+    ) {
+      this._ws.onclose = noop
+      this._ws.close()
+    }
+  }
+}
+
+// Based on
+// https://github.com/LLK/scratch-gui/blob/7b658c60c7c04055e575601a861195fe6c9933f3/src/lib/video/camera.js
+// https://github.com/LLK/scratch-gui/blob/7b658c60c7c04055e575601a861195fe6c9933f3/src/lib/video/video-provider.js
+class VideoProvider {
+  constructor (width, height) {
+    this._dimensions = [width, height]
+    this.mirror = true
+    this._frameCacheTimeout = 16
+    this._video = null
+    this._track = null
+    this._workspace = []
+  }
+
+  get video () {
+    return this._video
+  }
+
+  enableVideo () {
+    this.enabled = true
+    return this._setupVideo()
+  }
+
+  disableVideo () {
+    this.enabled = false
+    if (this._singleSetup) {
+      this._singleSetup
+        .then(this._teardown.bind(this))
+        .catch(err => this.onError(err))
+    }
+  }
+
+  _teardown () {
+    if (this.enabled === false) {
+      requestStack.pop()
+      const disableTrack = requestStack.length === 0
+      this._singleSetup = null
+      this._video = null
+      if (this._track && disableTrack) {
+        this._track.stop()
+      }
+      this._track = null
+    }
+  }
+
+  getFrame ({
+    dimensions = this._dimensions,
+    mirror = this.mirror,
+    format = 'image-data',
+    cacheTimeout = this._frameCacheTimeout
+  }) {
+    if (!this.videoReady) {
+      return null
+    }
+    const [width, height] = dimensions
+    const workspace = this._getWorkspace({
+      dimensions,
+      mirror: Boolean(mirror)
+    })
+    const { videoWidth, videoHeight } = this._video
+    const { canvas, context, lastUpdate, cacheData } = workspace
+    const now = Date.now()
+
+    if (lastUpdate + cacheTimeout < now) {
+      if (mirror) {
+        context.scale(-1, 1)
+        context.translate(width * -1, 0)
+      }
+
+      context.drawImage(
+        this._video,
+        0,
+        0,
+        videoWidth,
+        videoHeight,
+        0,
+        0,
+        width,
+        height
+      )
+
+      context.setTransform(1, 0, 0, 1, 0, 0)
+      workspace.lastUpdate = now
+    }
+
+    if (!cacheData[format]) {
+      cacheData[format] = { lastUpdate: 0 }
+    }
+    const formatCache = cacheData[format]
+
+    if (formatCache.lastUpdate + cacheTimeout < now) {
+      if (format === 'image-data') {
+        formatCache.lastData = context.getImageData(0, 0, width, height)
+      } else if (format === 'canvas') {
+        formatCache.lastUpdate = Infinity
+        formatCache.lastData = canvas
+      } else {
+        console.error(`video io error - unimplemented format ${format}`)
+        formatCache.lastUpdate = Infinity
+        formatCache.lastData = null
+      }
+
+      formatCache.lastUpdate = Math.max(
+        workspace.lastUpdate,
+        formatCache.lastUpdate
+      )
+    }
+
+    return formatCache.lastData
+  }
+
+  onError (error) {
+    console.error('Unhandled video io device error', error)
+  }
+
+  _setupVideo () {
+    if (this._singleSetup) {
+      return this._singleSetup
+    }
+
+    if (requestStack.length === 0) {
+      this._singleSetup = navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          width: { min: width, ideal: (480 * width) / height },
+          height: { min: height, ideal: 480 }
+        }
+      })
+      requestStack.push(streamPromise)
+    } else if (requestStack.length > 0) {
+      this._singleSetup = requestStack[0]
+      requestStack.push(true)
+    }
+    this._singleSetup
+      .then(stream => {
+        this._video = document.createElement('video')
+
+        try {
+          this._video.srcObject = stream
+        } catch (_error) {
+          this._video.src = window.URL.createObjectURL(stream)
+        }
+        this._video.play()
+        this._track = stream.getTracks()[0]
+        return this
+      })
+      .catch(error => {
+        this._singleSetup = null
+        this.onError(error)
+      })
+
+    return this._singleSetup
+  }
+
+  get videoReady () {
+    if (!this.enabled || !this._video || !this._track) {
+      return false
+    }
+    const { videoWidth, videoHeight } = this._video
+    return (
+      typeof videoWidth === 'number' &&
+      typeof videoHeight === 'number' &&
+      videoWidth > 0 &&
+      videoHeight > 0
+    )
+  }
+
+  _getWorkspace ({ dimensions, mirror }) {
+    let workspace = this._workspace.find(
+      space =>
+        space.dimensions.join('-') === dimensions.join('-') &&
+        space.mirror === mirror
+    )
+    if (!workspace) {
+      workspace = {
+        dimensions,
+        mirror,
+        canvas: document.createElement('canvas'),
+        lastUpdate: 0,
+        cacheData: {}
+      }
+      workspace.canvas.width = dimensions[0]
+      workspace.canvas.height = dimensions[1]
+      workspace.context = workspace.canvas.getContext('2d')
+      this._workspace.push(workspace)
+    }
+    return workspace
+  }
+}
+
+const fullscreenBtn = document.getElementById('fullscreen-btn')
+const exitFullscreen =
+  document.exitFullscreen ||
+  document.msExitFullscreen ||
+  document.mozCancelFullScreen ||
+  document.webkitExitFullscreen
+const requestFullscreen =
+  document.body.requestFullscreen ||
+  document.body.msRequestFullscreen ||
+  document.body.mozRequestFullScreen ||
+  document.body.webkitRequestFullscreen
+function isFullscreen () {
+  return (
+    document.fullscreenElement ||
+    document.mozFullScreenElement ||
+    document.webkitFullscreenElement ||
+    document.msFullscreenElement
+  )
+}
+function toggleFullscreen () {
+  if (isFullscreen()) {
+    exitFullscreen.call(document)
+  } else {
+    requestFullscreen.call(document.body)
+  }
+}
+fullscreenBtn.addEventListener('click', () => {
+  fullscreenBtn.blur()
+  toggleFullscreen()
+})
+function handleFullscreenChange () {
+  if (isFullscreen()) {
+    document.body.classList.add('fullscreen')
+  } else {
+    document.body.classList.remove('fullscreen')
+  }
+}
+document.addEventListener('fullscreenchange', handleFullscreenChange)
+document.addEventListener('mozfullscreenchange', handleFullscreenChange)
+document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+document.addEventListener('msfullscreenchange', handleFullscreenChange)
+
+window.init = async ({ width, height, ...options }) => {
+  window.vm = new window.NotVirtualMachine(width, height)
+  vm.setCompatibilityMode(options.fps)
+  vm.setTurboMode(options.turbo)
+  vm.requireLimits(options.limits, { fencing: options.fencing })
+
+  const storage = new ScratchStorage()
+  const AssetType = storage.AssetType
+  if (options.assets.project) {
+    storage.addWebStore([AssetType.Project], () => options.assets.project)
+    storage.addWebStore(
+      [AssetType.ImageVector, AssetType.ImageBitmap, AssetType.Sound],
+      ({ assetId, dataFormat }) => options.assets[`${assetId}.${dataFormat}`]
+    )
+  }
+  const progress = document.getElementById('loading-progress')
+  if (options.loadingProgress) {
+    const _load = storage.webHelper.load
+    let total = 0,
+      complete = 0
+    storage.webHelper.load = function (...args) {
+      const result = _load.call(this, ...args)
+      total += 1
+      const percentage = (complete / total) * 100
+      progress.dataset.progress = percentage.toFixed(2) + '%'
+      progress.style.setProperty('--progress', percentage + '%')
+      result.then(() => {
+        complete += 1
+        const percentage = (complete / total) * 100
+        progress.dataset.progress = percentage.toFixed(2) + '%'
+        progress.style.setProperty('--progress', percentage + '%')
+      })
+      return result
+    }
+  }
+  vm.attachStorage(storage)
+
+  function resize () {
+    const rect = canvas.getBoundingClientRect()
+    renderer.resize(rect.width, rect.height)
+    if (options.stretchStage) {
+      monitorWrapper.style.transform = `scaleX(${rect.width /
+        width}) scaleY(${rect.height / height})`
+    } else {
+      monitorWrapper.style.transform = `scale(${rect.height / height})`
+    }
+  }
+  const monitorWrapper = document.getElementById('monitors')
+  const canvas = document.getElementById('stage')
+  const renderer = new window.ScratchRender(
+    canvas,
+    -width / 2,
+    width / 2,
+    -height / 2,
+    height / 2
+  )
+  resize()
+  vm.attachRenderer(renderer)
+
+  vm.attachAudioEngine(new window.AudioEngine())
+  vm.attachV2BitmapAdapter(
+    new ScratchSVGRenderer.BitmapAdapter(null, null, width, height)
+  )
+  vm.setVideoProvider(new VideoProvider(width, height))
+  vm.start()
+
+  if (options.extensionCount > 0) {
+    const OldWorker = window.Worker
+    window.Worker = class extends OldWorker {
+      // deno-lint-ignore constructor-super
+      constructor (...args) {
+        if (args[0].endsWith('extension-worker.js')) {
+          if (options.extensionWorker.url) {
+            super(options.extensionWorker.url, ...args.slice(1))
+          } else {
+            super(
+              URL.createObjectURL(
+                new Blob([options.extensionWorker.script], {
+                  type: 'text/javascript'
+                })
+              ),
+              ...args.slice(1)
+            )
+          }
+        } else {
+          super(...args)
+        }
+      }
+    }
+  }
+
+  /* https://github.com/LLK/scratch-gui/blob/develop/src/containers/stage.jsx#L176-L300 */
+  const getEventXY = e => {
+    if (e.touches && e.touches[0]) {
+      return { x: e.touches[0].clientX, y: e.touches[0].clientY }
+    } else if (e.changedTouches && e.changedTouches[0]) {
+      return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY }
+    }
+    return { x: e.clientX, y: e.clientY }
+  }
+  let mouseDown = false
+  let mouseDownPosition = null
+  let mouseDownTimeoutId = null
+  let isDragging = false
+  let dragId = null
+  let dragOffset = null
+  function cancelMouseDownTimeout () {
+    if (mouseDownTimeoutId !== null) {
+      clearTimeout(mouseDownTimeoutId)
+    }
+    mouseDownTimeoutId = null
+  }
+  // https://github.com/LLK/scratch-gui/blob/develop/src/containers/stage.jsx#L337-L366
+  function handleStartDrag () {
+    if (dragId || !mouseDownPosition) return
+    const drawableId = renderer.pick(mouseDownPosition.x, mouseDownPosition.y)
+    if (drawableId === null) return
+    const targetId = vm.getTargetIdForDrawableId(drawableId)
+    if (targetId === null) return
+    const target = vm.runtime.getTargetById(targetId)
+    if (!target || !target.draggable) return
+    target.goToFront()
+    const drawableData = renderer.extractDrawable(
+      drawableId,
+      mouseDownPosition.x,
+      mouseDownPosition.y
+    )
+    vm.startDrag(targetId)
+    isDragging = true
+    dragId = targetId
+    dragOffset = drawableData.scratchOffset
+  }
+  const accumulative = { x: 0, y: 0 }
+  function postIfPointerLocked (e, isDown) {
+    if (
+      document.pointerLockElement === canvas ||
+      document.mozPointerLockElement === canvas
+    ) {
+      accumulative.x += e.movementX
+      accumulative.y += e.movementY
+      vm.postIOData('mouse', {
+        isDown,
+        x: accumulative.x + width / 2,
+        y: accumulative.y + height / 2,
+        canvasWidth: width,
+        canvasHeight: height
+      })
+      return true
+    } else {
+      return false
+    }
+  }
+  function postMouse (event, isDown) {
+    const { x, y } = getEventXY(event)
+    const rect = canvas.getBoundingClientRect()
+    const mousePosition = { x: x - rect.left, y: y - rect.top }
+    vm.postIOData('mouse', {
+      isDown,
+      ...mousePosition,
+      canvasWidth: rect.width,
+      canvasHeight: rect.height
+    })
+    return { mousePosition, rect }
+  }
+  function handleMouseMove (event) {
+    if (postIfPointerLocked(event)) return
+    const { mousePosition, rect } = postMouse(event)
+    if (mouseDown && !isDragging) {
+      const distanceFromMouseDown = Math.hypot(
+        mousePosition.x - mouseDownPosition.x,
+        mousePosition.y - mouseDownPosition.y
+      )
+      if (distanceFromMouseDown > 3) {
+        cancelMouseDownTimeout()
+        handleStartDrag()
+      }
+    }
+    if (mouseDown && isDragging) {
+      const nativeSize = renderer.getNativeSize()
+      vm.postSpriteInfo({
+        x:
+          (nativeSize[0] / rect.width) * (mousePosition.x - rect.width / 2) +
+          dragOffset[0],
+        y: -(
+          (nativeSize[1] / rect.height) * (mousePosition.y - rect.height / 2) +
+          dragOffset[1]
+        ),
+        force: true
+      })
+    }
+  }
+  function handleMouseDown (event) {
+    mouseDown = true
+    vm.postIOData('keyboard', {
+      key: 'Mouse' + event.which,
+      isDown: true
+    })
+    if (postIfPointerLocked(event, true)) return
+    mouseDownPosition = postMouse(event, true).mousePosition
+    mouseDownTimeoutId = setTimeout(handleStartDrag, 400)
+    event.preventDefault()
+    if (!document.body.classList.contains('asking')) {
+      window.focus()
+    }
+  }
+  function handleMouseUp (event) {
+    cancelMouseDownTimeout()
+    mouseDown = false
+    mouseDownPosition = null
+    if (isDragging) {
+      vm.stopDrag(dragId)
+      isDragging = false
+      dragOffset = null
+      dragId = null
+    }
+    vm.postIOData('keyboard', {
+      key: 'Mouse' + event.which,
+      isDown: false
+    })
+    if (postIfPointerLocked(event, false)) return
+    postMouse(event, false)
+  }
+  document.addEventListener('mousemove', handleMouseMove)
+  document.addEventListener('mouseup', handleMouseUp)
+  document.addEventListener('touchmove', handleMouseMove)
+  document.addEventListener('touchend', handleMouseUp, { passive: false })
+  canvas.addEventListener('wheel', event => {
+    vm.postIOData('mouseWheel', event)
+    event.preventDefault()
+  })
+  window.addEventListener('resize', resize)
+  canvas.addEventListener('contextmenu', event => {
+    event.preventDefault()
+  })
+  if (options.pointerLock) {
+    canvas.requestPointerLock =
+      canvas.requestPointerLock || canvas.mozRequestPointerLock
+    canvas.addEventListener('click', () => {
+      canvas.requestPointerLock()
+    })
+  }
+
+  /**
+   * Maps e.key to e.code. For example, Shift -> ShiftRight. This is because the
+   * keyup event doesn't fire when you let go of one shift if the other shift
+   * key is still held down.
+   */
+  const keyToCode = new Map()
+  function postKey (event, isDown) {
+    const key = !event.key || event.key === 'Dead' ? event.keyCode : event.key
+    vm.postIOData('keyboard', {
+      key: key,
+      isDown
+    })
+    vm.postIOData('keyboard', {
+      key: 'code_' + event.code,
+      isDown
+    })
+  }
+  document.addEventListener('keydown', event => {
+    if (event.target !== document && event.target !== document.body) return
+    const prevCode = keyToCode.get(event.key)
+    if (prevCode) {
+      if (prevCode !== event.code) {
+        vm.postIOData('keyboard', {
+          key: 'code_' + prevCode,
+          isDown: false
+        })
+      }
+    }
+    postKey(event, true)
+    keyToCode.set(event.key, event.code)
+    if (event.keyCode === 32 || (event.keyCode >= 37 && event.keyCode <= 40)) {
+      event.preventDefault()
+    }
+    if (
+      event.key === 'f' &&
+      (event.ctrlKey || event.metaKey) &&
+      !event.shiftKey &&
+      !event.altKey
+    ) {
+      toggleFullscreen()
+      event.preventDefault()
+    }
+  })
+  document.addEventListener('keyup', e => {
+    postKey(e, false)
+    keyToCode.delete(e.key)
+    if (e.target !== document && e.target !== document.body) {
+      e.preventDefault()
+    }
+  })
+  vm.postIOData('keyboard', {
+    key: 'HTMLifier',
+    isDown: true
+  })
+
+  const question = document.getElementById('question')
+  const askBox = document.getElementById('answer')
+  vm.runtime.addListener('QUESTION', questionData => {
+    // null means the question was interrupted by stop script block
+    if (questionData === null) {
+      document.body.classList.remove('asking')
+    } else {
+      document.body.classList.add('asking')
+      question.textContent = questionData
+      askBox.value = ''
+      askBox.focus()
+    }
+  })
+  askBox.addEventListener('keydown', event => {
+    if (event.key === 'Enter') {
+      // The asking class must be removed first because the VM may start the
+      // next question immediately inside the .emit call
+      document.body.classList.remove('asking')
+      vm.runtime.emit('ANSWER', askBox.value)
+    }
+  })
+
+  const getVariable = (targetId, variableId) => {
+    const target = targetId
+      ? vm.runtime.getTargetById(targetId)
+      : vm.runtime.getTargetForStage()
+    return target.variables[variableId]
+  }
+  const monitorStates = {}
+  vm.runtime.addListener('MONITORS_UPDATE', monitors => {
+    monitors.forEach((record, id) => {
+      const {
+        value,
+        visible,
+        mode,
+        x,
+        y,
+        width,
+        height,
+        params,
+        opcode,
+        spriteName,
+        sliderMin,
+        sliderMax,
+        isDiscrete,
+        targetId
+      } = record
+
+      if (!monitorStates[id]) {
+        const label = document.createElement('span')
+        label.className = 'monitor-label'
+        const name = params.VARIABLE || params.LIST || opcode
+        label.textContent = spriteName ? `${spriteName}: ${name}` : name
+
+        const value = document.createElement('span')
+        value.className = 'monitor-value'
+
+        const monitor = document.createElement('div')
+        monitor.className = 'monitor ' + mode
+        monitor.style.left = x + 'px'
+        monitor.style.top = y + 'px'
+        monitor.append(label, value)
+
+        monitorStates[id] = { monitor, valueElem: value, wasVisible: true }
+
+        if (mode === 'slider') {
+          const slider = document.createElement('input')
+          slider.type = 'range'
+          slider.min = sliderMin
+          slider.max = sliderMax
+          slider.step = isDiscrete ? 1 : 0.01
+          // Prevent tab focus, per #54, but it deviates from Scratch
+          slider.tabIndex = -1
+          slider.addEventListener('input', () => {
+            getVariable(targetId, id).value = slider.value
+          })
+          slider.addEventListener('change', () => {
+            getVariable(targetId, id).value = slider.value
+          })
+          monitorStates[id].slider = slider
+          monitor.append(slider)
+        } else if (mode === 'list') {
+          // If the list has never been resized, the width/height will be 0.
+          // Weird!
+          monitor.style.width = (width || 100) + 'px'
+          monitor.style.height = (height || 200) + 'px'
+
+          monitorStates[id].rowElems = []
+        }
+
+        monitorWrapper.append(monitor)
+      }
+
+      const {
+        monitor,
+        valueElem,
+        wasVisible,
+        lastValue = [],
+        slider,
+        rowElems
+      } = monitorStates[id]
+      if (visible) {
+        if (!wasVisible) {
+          monitor.style.display = null
+        }
+        const differed = Array.isArray(value)
+          ? JSON.stringify(lastValue) !== JSON.stringify(value)
+          : lastValue !== value
+        if (differed) {
+          if (Array.isArray(value)) {
+            if (lastValue.length !== rowElems.length) {
+              console.error(
+                "List monitor rowElems and lastValue lengths don't match."
+              )
+            }
+
+            value.forEach((val, i) => {
+              if (i >= lastValue.length) {
+                // Could also set width to (lastValue.length + '').length + 'ch'
+                const index = document.createElement('div')
+                index.className = 'index'
+                index.textContent = i + 1
+
+                const value = document.createElement('div')
+                value.className = 'row-value'
+
+                const row = document.createElement('div')
+                row.className = 'row'
+                row.append(index, value)
+
+                valueElem.append(row)
+                rowElems[i] = value
+              }
+
+              if (lastValue[i] !== val) {
+                rowElems[i].textContent = val
+              }
+            })
+
+            if (value.length < lastValue.length) {
+              for (const toRemove of rowElems.splice(
+                value.length,
+                lastValue.length - value.length
+              )) {
+                toRemove.parentNode.remove()
+              }
+            }
+          } else {
+            // The HTMLifier used to use Number(value.toFixed(6)) but I don't
+            // think Scratch does that for monitors
+            valueElem.textContent = value
+            if (slider) {
+              slider.value = value
+            }
+          }
+        }
+      } else if (wasVisible) {
+        monitor.style.display = 'none'
+      }
+      monitorStates[id].wasVisible = visible
+      // `value` is a live array
+      monitorStates[id].lastValue = Array.isArray(value) ? [...value] : value
+    })
+  })
+
+  vm.postIOData('userData', { username: options.username })
+
+  for (let i = 0; i < options.extensionCount; i++) {
+    await vm.extensionManager.loadExtensionURL(String(i))
+  }
+
+  await vm.loadProject(
+    options.assets.file
+      ? await fetch(options.assets.file).then(r => r.arrayBuffer())
+      : typeof options.assets.project === 'string'
+      ? await storage.load(storage.AssetType.Project).then(asset => asset.data)
+      : // project.json was included as parsed JSON
+        JSON.stringify(options.assets.project)
+  )
+
+  const cloudProvider = new CloudProvider(options)
+  vm.setCloudProvider(cloudProvider)
+  if (options.cloud.specialBehaviours || !options.cloud.serverUrl) {
+    const stageVariables = vm.runtime.getTargetForStage().variables
+    for (const { name, isCloud } of Object.values(stageVariables)) {
+      if (isCloud) {
+        if (
+          options.cloud.specialBehaviours &&
+          options.cloud.serverUrl &&
+          !name.startsWith(CLOUD_PREFIX + 'local storage')
+        ) {
+          continue
+        }
+        const value = localStorage.getItem('[s3] ' + name)
+        if (value !== null) {
+          vm.postIOData('cloud', { varUpdate: { name, value } })
+        }
+      }
+    }
+  }
+  if (options.cloud.specialBehaviours) {
+    cloudProvider.handleUrlChange()
+  }
+
+  progress.remove()
+  const loadingImage = document.getElementById('loading-image')
+  if (loadingImage) {
+    loadingImage.remove()
+  }
+  document.body.classList.remove('loading')
+
+  const greenFlag = document.getElementById('start-btn')
+  const stopSign = document.getElementById('stop-btn')
+  greenFlag.addEventListener('click', () => {
+    greenFlag.blur()
+    vm.greenFlag()
+  })
+  stopSign.addEventListener('click', () => {
+    stopSign.blur()
+    vm.stopAll()
+  })
+  vm.on('PROJECT_RUN_START', () => {
+    document.body.classList.add('running')
+    stopSign.disabled = false
+  })
+  vm.on('PROJECT_RUN_STOP', () => {
+    document.body.classList.remove('running')
+    stopSign.disabled = true
+  })
+  if (options.autoStart) {
+    vm.greenFlag()
+  }
+
+  document
+    .getElementById('download-btn')
+    .addEventListener('click', async () => {
+      download(await vm.saveProjectSb3(), document.title + '.sb3')
+    })
+  const addSpriteInput = document.getElementById('add-sprite-file')
+  addSpriteInput.addEventListener('change', async () => {
+    addSpriteInput.disabled = true
+    for (const file of addSpriteInput.files) {
+      // 1. Convert the File to an arrayBuffer. I care less about browser
+      // support, so I can use async/await + .arrayBuffer
+      // https://github.com/LLK/scratch-gui/blob/develop/src/lib/file-uploader.js#L25
+      const sprite = new Uint8Array(await file.arrayBuffer())
+
+      // 2. Convert a costume to a sprite (skipping for now)
+      // https://github.com/LLK/scratch-gui/blob/develop/src/lib/file-uploader.js#L208
+
+      // 3. Add to VM
+      await vm.addSprite(sprite)
+    }
+    addSpriteInput.disabled = false
+    addSpriteInput.value = null
+  })
+
+  canvas.addEventListener('mousedown', handleMouseDown)
+  canvas.addEventListener('touchstart', handleMouseDown, { passive: false })
+}
+
+const errorsTextarea = document.getElementById('errors')
+function handleHashChange () {
+  // #show-errors-<Han sheep>
+  if (window.location.hash === '#show-errors-%E7%BE%8A') {
+    if (!window.onNewError) {
+      window.onNewError = () => {
+        errorsTextarea.value = `${
+          window.errors.length
+        } error(s)\n${window.errors.join('\n')}`
+      }
+      window.onNewError()
+    }
+    errorsTextarea.style.display = 'block'
+  } else if (window.onNewError) {
+    window.onNewError = null
+    errorsTextarea.style.display = 'none'
+  }
+}
+window.addEventListener('hashchange', handleHashChange)
+handleHashChange()
+
+// Not used by the template, but might be convenient for un-HTMLifying if I
+// remember this function exists
+window.download = (blob, name = 'download') => {
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = name
+  document.body.append(link)
+  link.click()
+  link.remove()
+  URL.revokeObjectURL(url)
+}
+
+</script> <script>
+const GENERATED = 1697436688461
+const initOptions = {
+	"width": 480,
+	"height": 360,
+	"stretchStage": false,
+	"fps": 30,
+	"turbo": false,
+	"limits": true,
+	"fencing": true,
+	"pointerLock": false,
+	"autoStart": true,
+	"username": "",
+	"loadingProgress": true,
+	"cloud": {
+		"serverUrl": null,
+		"specialBehaviours": false,
+		"projectId": "0"
+	},
+	"extensionWorker": {
+		"url": "https://sheeptester.github.io/scratch-vm/16-9/extension-worker.js"
+	},
+	"extensionCount": 0,
+	"assets": {
+		"file": "data:;base64,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"
+	}
+}
+init(initOptions)
+</script>
+  </body>
+</html>
