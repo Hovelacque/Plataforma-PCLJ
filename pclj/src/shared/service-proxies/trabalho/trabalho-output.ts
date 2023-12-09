@@ -5,6 +5,7 @@ export interface AlunoTrabalhoOutput {
     nome: string,  
     pastaDeArquivos: string,  
     url: SafeResourceUrl
+    img: SafeResourceUrl
 }
 
 export interface TrabalhoOutput {

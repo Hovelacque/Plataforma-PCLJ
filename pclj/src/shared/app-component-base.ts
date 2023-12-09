@@ -25,7 +25,7 @@ export abstract class AppComponentBase {
         return usuarioId ? `${AppConsts.remoteServiceBaseUrl}/uploads/avatares/${usuarioId}.png` : "assets/images/avatar.png";
     }
 
-    montaUrlTrabalho(pastaDeArquivos: string, alunoId: number): SafeResourceUrl {
-        return this.domSanitizer.bypassSecurityTrustResourceUrl(`${AppConsts.remoteServiceBaseUrl}/uploads/trabalhos/${pastaDeArquivos}/${alunoId}.html`);
+    montaUrlTrabalho(pastaDeArquivos: string, alunoId: number, formato: string = 'html'): SafeResourceUrl {
+        return this.domSanitizer.bypassSecurityTrustResourceUrl(`${AppConsts.remoteServiceBaseUrl}/uploads/trabalhos/${pastaDeArquivos}/${alunoId}.${formato}`);
     }
 }

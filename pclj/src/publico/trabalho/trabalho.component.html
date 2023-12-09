@@ -1,6 +1,3 @@
-<!-- <iframe class="embed-responsive-item" allowfullscreen
-    src="http://localhost/Plataforma-PCLJ/php/uploads/trabalhos/animacao/result/index.html"></iframe> -->
-
 <div class="background" *ngIf="trabalho">
     <div class="titulo">
         <div class="button-trabalho" [ngStyle]="{'background-color': trabalho.cor}">
@@ -17,9 +14,7 @@
                     <img [src]="montaUrlAvatar(item.id)" height="50px" />
                     <span>{{item.nome}}</span>
                 </a>
-                <div class="embed-responsive embed-responsive-4by3" style="width: 100%;">
-                    <iframe class="embed-responsive-item" allowfullscreen [src]="item.url"></iframe>
-                </div>
+                <load-scratch [url]="item.url" [image]="item.img" style="width: 100%;"></load-scratch>
             </div>
         </div>
     </div>

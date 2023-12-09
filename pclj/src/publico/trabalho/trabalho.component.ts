@@ -43,7 +43,8 @@ export class TrabalhoComponent extends AppComponentBase implements OnInit {
           pclj.ui.clearBusy();
           this.trabalho = result;
           this.trabalho.alunos.forEach(item => {
-            item.url = this.montaUrlTrabalho(this.trabalho.pastaDeArquivos, item.id)
+            item.url = this.montaUrlTrabalho(this.trabalho.pastaDeArquivos, item.id, 'html')
+            item.img = this.montaUrlTrabalho(this.trabalho.pastaDeArquivos, item.id, 'png')
           });
         },
         error: () => {

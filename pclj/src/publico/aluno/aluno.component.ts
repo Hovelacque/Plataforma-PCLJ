@@ -14,7 +14,7 @@ import { UsuarioServiceProxyService } from '@shared/service-proxies/usuario/usua
 })
 export class AlunoComponent extends AppComponentBase implements OnInit {
 
-  trabalhos: SafeResourceUrl[] = [];
+  trabalhos: any[] = [];
   aluno: AlunoOutput = null;
 
   constructor(
@@ -63,7 +63,10 @@ export class AlunoComponent extends AppComponentBase implements OnInit {
           pclj.ui.clearBusy();
           this.trabalhos = [];
           result.forEach(item => {
-            this.trabalhos.push(this.montaUrlTrabalho(item, id))
+            this.trabalhos.push({
+              url: this.montaUrlTrabalho(item, id, 'html'),
+              img: this.montaUrlTrabalho(item, id, 'png')
+            })
           });
         },
         error: () => {
